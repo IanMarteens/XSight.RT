@@ -1,0 +1,50 @@
+sampler
+    adaptive(10, 0.001, 7);
+
+camera
+    perspective([0.0, -0.5, -8.0], -^y, ^y, 60, 640, 480);
+
+background
+    sky(hotpink);
+
+ambient
+    0.1;
+
+lights
+    point([4, 4, -10], rgb 0.4);
+    point([0.5,-1, 1], rgb 0.6);
+
+objects
+
+    blob(
+        ball(^y, 1, 0.9) move +0.5^z
+            loop 3 by 1.15^z,
+        ball(^y, 1, 0.9) spin  60^z
+            loop 3 by 1.15^z,
+        ball(^y, 1, 0.9) spin 120^z move +0.5^z
+            loop 3 by 1.15^z,
+        ball(^y, 1, 0.9) spin 180^z
+            loop 3 by 1.15^z,
+        ball(^y, 1, 0.9) spin 240^z move +0.5^z
+            loop 3 by 1.15^z,
+        ball(^y, 1, 0.9) spin 300^z
+            loop 3 by 1.15^z,
+    threshold:
+        0.6,
+    material:
+        metalPigment(
+            gradient(darkorange, [-1,-1,-1], gold, [+1,+1,+1]),
+            0.0, 0.6, 0.9, 0.2, 90))
+    spin 30^x
+    spin 30^z
+    size 1.5;
+
+    cylinder(-3.47^y, -3.5^y, 4,
+        metal(black, 0.3, 0.8, 0.9, 0.0, 0, 0.05))
+        move 0.2^x + 3.2^z;
+    cylinder(-10^y, -3.47^y, 4,
+        metal(black, 0.0, 0.0, 1, 0.2, 10))
+        move 0.2^x + 3.2^z;
+
+end.
+

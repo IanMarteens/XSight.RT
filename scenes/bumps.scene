@@ -1,0 +1,24 @@
+scene 'Normal perturbation';
+
+sampler
+    Focal(10, 0.001, 0.05, 3);
+
+camera
+    Perspective(-10^Z, -^Y, ^Y, 60, 640, 480);
+
+background
+    FlatSky([1, 1, 0.5], 110)
+
+ambient
+    0.1;
+
+lights
+    PointLight(400, 500, -1000);
+
+objects
+
+    sphere(2^z, 3, plastic(orange, 0.1, 0.5, 80, wrinkles(0.4, [1,3,1])));
+    plane(^y, -3.2, glass(1.5, bumps(0.4, [2,2,7], 0.15)));
+
+end.
+

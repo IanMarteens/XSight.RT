@@ -1,0 +1,63 @@
+sampler
+    FocalSampler(15, 0.0001, 0.10, 5);
+
+    // Try: Motion blur, 11 samples, 0.1 width. Rotate camera.
+
+camera
+    PerspectiveCamera([5.00,5.00,-5.00], -0.2^Y, ^Y, 60, 640, 480);
+
+background
+    Sky(RoyalBlue, White);
+
+ambient
+    0.1;
+
+lights
+    PointLight(5^y - 5^z);
+
+objects
+
+    set mat = metal(rgb 0.3, 0.9);
+
+    set wall(clr) = metal(clr, 0.7);
+
+    set needle = union
+    (
+        intersection(
+            cone(-3^Y, 3^Y, 0.1, mat),
+            cylinder(^0, 3^Y, 0.2, mat),
+            mat),
+        difference(
+            cylinder(-3^Y, ^0, 0.05, mat),
+            cylinder([0, -3, -1], [0, -3, +1], 0.05, mat),
+            mat),
+        difference(
+            sphere(^0, 0.05, mat)
+                size [1, 4, 1]
+                move -3^y,
+            cylinder([0, -3, -1], [0, -3, +1], 0.05, mat),
+            mat)
+    );
+
+    shadowless(needle spin var(-15^z, -30^z) spin var(10^y, 15^y) move var(^0,-4^Y));
+
+    plane(^y, -15, wall(forestGreen));
+    plane(^y, -15, wall(lawnGreen)) spin 10^x;
+    plane(^y, -15, wall(blue)) spin -10^x;
+    plane(^y, -15, wall(slateBlue)) spin -10^z;
+    plane(^y, -15, wall(steelBlue)) spin +10^z;
+
+    plane(-^z, -15, wall(purple)) spin 0^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 30^y;
+    plane(-^z, -15, wall(darkBlue)) spin 60^y;
+    plane(-^z, -15, wall(violet)) spin 90^y;
+    plane(-^z, -15, wall(darkslateblue)) spin 120^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 150^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 180^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 210^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 240^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 270^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 300^y;
+    plane(-^z, -15, wall(midnightBlue)) spin 330^y;
+end.
+

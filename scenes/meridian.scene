@@ -1,0 +1,50 @@
+scene Meridians;
+
+sampler
+    focal(12, 0.0001, 0.05, 6);
+
+camera
+    perspective([1.2, 1.2, -10], ^0, ^Y, 65, 640, 480);
+
+background
+    white;
+
+ambient
+    0.10;
+
+lights
+    point;
+
+objects
+    set gld = metal(gold, 0.05, 0.25, 0.9, 0.6, 12);
+    set slv = metal(silver, 0.06, 0.08, 0.9, 0.6, 10);
+
+    set base(p, r0, r1, m) = union(
+        torus(p, r0, r1, m),
+        torus(p, r0, r1, m) spin 90 * ^X,
+        torus(p, r0, r1, m) spin 90 * ^Z);
+
+    set ensemble(amt, shape) = union(
+        shape move +amt * ^X,
+        shape move -amt * ^X,
+        shape move +amt * ^Y,
+        shape move -amt * ^Y,
+        shape move +amt * ^Z,
+        shape move -amt * ^Z);
+
+    set b4 = base([0,0,0], 1, 0.025, gld);
+
+    set e4 = ensemble(1, b4);
+    set b2 = union(
+        base([0,0,0], 2, 0.05, gld),
+        e4);
+
+    base([0,0,0], 4.1, 0.1, slv);
+    ensemble(2, b2);
+
+    // Parallel mirrors
+    // plane(+^Y, -4.1, metal(rgb 0.01, 0.9, 0.6, 0.0));
+    // plane(-^Y, -4.1, metal(rgb 0.01, 0.9, 0.6, 0.0));
+
+end.
+

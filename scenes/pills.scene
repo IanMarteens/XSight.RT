@@ -1,0 +1,53 @@
+sampler
+    focal(10, 0.001, 0.04, 5);
+
+camera
+    perspective([-1.9, 2.3, -3.5], [0, 0.79, -0.1], ^Y, 52, 640, 480);
+
+background
+    white;
+
+ambient
+    0.12;
+
+lights
+    spheric(
+        location: [0, 100, -100],
+        radius:   15,
+        samples:  9);
+
+objects
+    plane(^Y, 0,
+        marble(white, rgb(0.870, 0.880, 0.870), 5, 0.01, 6, 0.4, 0.1, 1.0));
+
+    set pillStuff = spotted(
+        white, rgb(0.995, 0.995, 0.970),
+        15.0, 6, 0.05, 0.0, 0.0);
+
+    set pill =
+        cylinder(0, 0, 0, 0.2, 1.0, pillStuff) -
+        box(-0.1, 0.1, -1.2, 0.1, 0.3, 1.2, pillStuff);
+
+    pill
+        move [-0.2, 0, 0],
+    pill
+        move [0, 0.2, 0.05],
+    pill
+        move [-0.15, 0.4, 0],
+    pill
+        move [-0.14, 0.6, 0.01];
+
+    pill
+        spin 45^Y
+        move [-0.15, 0.8, 0.01];
+    pill
+        spin 15^Y
+        move [-0.12, 1.0, 0.06];
+
+    pill
+        spin -90^X spin 10^Z
+        spin 15^X spin -30^Y
+        move [0.5, 1, -0.866];
+
+end.
+

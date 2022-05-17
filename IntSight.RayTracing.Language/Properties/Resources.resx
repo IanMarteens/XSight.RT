@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AmbientInvalid" xml:space="preserve">
+    <value>Invalid ambient definition.</value>
+  </data>
+  <data name="BackgroundAlreadyDefined" xml:space="preserve">
+    <value>Background already defined.</value>
+  </data>
+  <data name="BackgroundInvalid" xml:space="preserve">
+    <value>Invalid background definition.</value>
+  </data>
+  <data name="CameraAlreadyDefined" xml:space="preserve">
+    <value>Camera already defined.</value>
+  </data>
+  <data name="ParserBlobInsufficientParams" xml:space="preserve">
+    <value>Blobs need three or more arguments.</value>
+  </data>
+  <data name="ParserClassNotFound" xml:space="preserve">
+    <value>Class '{0}' not found.</value>
+  </data>
+  <data name="ParserConstructorNotFound" xml:space="preserve">
+    <value>Compatible constructor for class '{0}' not found.</value>
+  </data>
+  <data name="ParserIncompatibleBlob" xml:space="preserve">
+    <value>Blob is not compatible with '{0}'.</value>
+  </data>
+  <data name="ParserIncompatibleDifference" xml:space="preserve">
+    <value>Difference is not compatible with '{0}'.</value>
+  </data>
+  <data name="ParserIncompatibleIntersection" xml:space="preserve">
+    <value>Intersection is not compatible with '{0}'.</value>
+  </data>
+  <data name="ParserIncompatibleUnion" xml:space="preserve">
+    <value>Union is not compatible with '{0}'.</value>
+  </data>
+  <data name="ParserIncompleteInterpolationHints" xml:space="preserve">
+    <value>Points in an interpolation must either have times or not.</value>
+  </data>
+  <data name="ParserInterpolationNotAscending" xml:space="preserve">
+    <value>Time hints in interpolation not in ascending order.</value>
+  </data>
+  <data name="ParserInvalidAdd" xml:space="preserve">
+    <value>Invalid addition.</value>
+  </data>
+  <data name="ParserInvalidBlobMaterial" xml:space="preserve">
+    <value>Invalid blob material.</value>
+  </data>
+  <data name="ParserInvalidBlobThreshold" xml:space="preserve">
+    <value>Invalid blob threshold.</value>
+  </data>
+  <data name="ParserInvalidCharacter" xml:space="preserve">
+    <value>Invalid character: "{0}".</value>
+  </data>
+  <data name="ParserInvalidColorBright" xml:space="preserve">
+    <value>Color brightness must be a real number.</value>
+  </data>
+  <data name="ParserInvalidColorComp" xml:space="preserve">
+    <value>Color components must be real numbers.</value>
+  </data>
+  <data name="ParserInvalidColorName" xml:space="preserve">
+    <value>Invalid color name: {0}.</value>
+  </data>
+  <data name="ParserInvalidDiv" xml:space="preserve">
+    <value>Invalid division.</value>
+  </data>
+  <data name="ParserInvalidFunctParamCount" xml:space="preserve">
+    <value>Invalid number of parameters in function call.</value>
+  </data>
+  <data name="ParserInvalidFunctVectorParam" xml:space="preserve">
+    <value>Invalid vector parameter in function call.</value>
+  </data>
+  <data name="ParserInvalidInterpolationFirst" xml:space="preserve">
+    <value>First time hint in interpolation should always be 0.0.</value>
+  </data>
+  <data name="ParserInvalidInterpolationLast" xml:space="preserve">
+    <value>Last time hint in interpolation should always be 1.0.</value>
+  </data>
+  <data name="ParserInvalidMult" xml:space="preserve">
+    <value>Invalid multiplication.</value>
+  </data>
+  <data name="ParserInvalidPositional" xml:space="preserve">
+    <value>Positional parameter after named parameter in object {0}.</value>
+  </data>
+  <data name="ParserInvalidShear" xml:space="preserve">
+    <value>Invalid shear direction: {0}.</value>
+  </data>
+  <data name="ParserInvalidSub" xml:space="preserve">
+    <value>Invalid substraction.</value>
+  </data>
+  <data name="ParserInvalidUnary" xml:space="preserve">
+    <value>Invalid unary expression.</value>
+  </data>
+  <data name="ParserLineColPosFmt" xml:space="preserve">
+    <value>line {0}, column {1}</value>
+  </data>
+  <data name="ParserLinePosFmt" xml:space="preserve">
+    <value>line {0}</value>
+  </data>
+  <data name="ParserLineRangeFmt" xml:space="preserve">
+    <value>line {0}, columns {1}-{2}</value>
+  </data>
+  <data name="ParserMacroParamsMismatch" xml:space="preserve">
+    <value>Wrong parameter count expanding macro '{0}'.</value>
+  </data>
+  <data name="ParserMissingMaterial" xml:space="preserve">
+    <value>Material definition not included.</value>
+  </data>
+  <data name="ParserNotImplemented" xml:space="preserve">
+    <value>Class '{0}' should implement interface '{1}'.</value>
+  </data>
+  <data name="ParserParamMismatch" xml:space="preserve">
+    <value>Parameter mismatch in constructor for class '{0}'.</value>
+  </data>
+  <data name="ParserParsingAborted" xml:space="preserve">
+    <value>Parsing aborted.</value>
+  </data>
+  <data name="ParserRangeInsufficientParams" xml:space="preserve">
+    <value>Range expression needs two or more parameters.</value>
+  </data>
+  <data name="ParserRangeInvalidParamType" xml:space="preserve">
+    <value>Invalid type in range expression parameters.</value>
+  </data>
+  <data name="ParserRangeTimeNotReal" xml:space="preserve">
+    <value>Times in a range expression must evaluate to real numbers.</value>
+  </data>
+  <data name="ParserRangeUnsupportedType" xml:space="preserve">
+    <value>Type not supported in interpolation function.</value>
+  </data>
+  <data name="ParserSyntaxError" xml:space="preserve">
+    <value>Syntax error.</value>
+  </data>
+  <data name="ParserUnknownID" xml:space="preserve">
+    <value>Unknown identifier: {0}.</value>
+  </data>
+  <data name="RenderIsBusy" xml:space="preserve">
+    <value>Render already in progress.</value>
+  </data>
+  <data name="SamplerAlreadyDefined" xml:space="preserve">
+    <value>Sampler already defined.</value>
+  </data>
+  <data name="SceneNoCamera" xml:space="preserve">
+    <value>There's no camera definition!</value>
+  </data>
+  <data name="TitleAlreadyDefined" xml:space="preserve">
+    <value>Scene title already defined.</value>
+  </data>
+</root>

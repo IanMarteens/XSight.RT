@@ -1,0 +1,83 @@
+sampler
+    focal(
+        bounces: 16,
+        minWeight: 0.001,
+        aperture: 0.08,
+        samples: 7);
+
+camera
+    cylindrical(
+        location: [2, 0.4, -10],
+        target: [0, 0.7, 0],
+        up: ^Y,
+        angle: 80,
+        width: 640,
+        height: 480);
+
+background
+    flatSky(
+        scale: [1,1,0.5],
+        turbulence: 3,
+        threshold: 0.7,
+        profile: 1,
+        quadSize: 93);
+
+media
+    groundFog(
+        tint: rgb(0.85, 0.95, 1.0),
+        distance: 20,
+        fade: 1,
+        offset: -2.0);
+
+ambient
+    0.7@16;
+
+lights
+    point(
+        location: [10, 10, -10],
+        color: rgb 0.3);
+
+objects
+
+    cylinder([0,-4,0], [0,3,0], 0.7,
+        gradient(-3^Y, yellow, +3^Y, royalblue)) +
+
+    torus(0, +3, 0, 0.65, 0.20, plastic(royalblue)),
+    torus(0, -3, 0, 0.65, 0.20, plastic(yellow)),
+
+    cylinder([0,-4,4], [0,3,4], 0.7,
+        gradient(-3^Y, royalblue, +3^Y, white)) +
+
+    torus(0, +3, 4, 0.65, 0.20, plastic(white)),
+    torus(0, -3, 4, 0.65, 0.20, plastic(royalblue)),
+
+    cylinder([-4, -4, +2], [-4, +3, +2], 0.7,
+        gradient(-3^Y, springGreen, +3^Y, lightYellow)) +
+
+    torus([-4, +3, +2], 0.65, 0.20, plastic(lightYellow)),
+    torus([-4, -3, +2], 0.65, 0.20, plastic(springGreen)),
+
+    cylinder([+4, -4, +2], [+4, +3, +2], 0.7,
+        gradient(-3^Y, red, +3^Y, lightYellow)) +
+
+    torus([+4, +3, +2], 0.65, 0.20, plastic(lightYellow)),
+    torus([+4, -3, +2], 0.65, 0.20, plastic(red)),
+
+    sphere(0, -4000, 0, 3997,
+        checkers(lightsteelblue, gainsboro, 0.5)),
+
+    box([-4.0, +3.0, -4.0], [+4.0, +3.2, +4.0],
+        metal(rgb 0.2, 0.6, 1, 1, 0, 0, 0.001))
+        spin 45^Y
+        move [0.00, 0.00, 2.80]
+        size [1.00, 1.00, 0.70],
+
+    intersection(
+        sphere(^0, 3.6, plastic(red)),
+        box([-4.1, +0.0, -4.1], [+4.1, +4.1, +4.1], plastic(red)),
+        metal(rgb 0.2, 0.6))
+        size [1.00, 0.85, 0.60]
+        move [0.00, 4.30, 4.80];
+
+end.
+

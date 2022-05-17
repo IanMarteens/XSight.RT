@@ -1,0 +1,32 @@
+scene 'Occlusion demo';
+
+sampler
+    adaptive(5, 0.001, 2, 6);
+
+camera
+    perspective([0, 0.8, -5], ^y, ^y, 45, 640, 480);
+
+background
+    white;
+
+ambient
+    0.2@16;
+
+lights
+    point();
+
+objects
+
+    union(
+        cylinder(-^x, +^x, 0.866, plastic(springGreen)) -
+            box(-2, -0.5, -0.5, +2, +0.5, +0.5, plastic(black)),
+        cylinder(-^z, +^z, 0.866, plastic(springGreen)) -
+            box(-0.5, -0.5, -2, +0.5, +0.5, +2, plastic(black)),
+        cylinder(-^y, +^y, 0.866, plastic(springGreen)) -
+            box(-0.5, -2, -0.5, +0.5, +2, +0.5, plastic(black)))
+        spin 45^z
+        spin -45^x
+        move ^y;
+
+end.
+

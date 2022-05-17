@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <TieredCompilation>true</TieredCompilation>
+    <PublishReadyToRun>true</PublishReadyToRun>
+	<PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
+	<!--<TieredCompilation>true</TieredCompilation>
+	<TieredCompilationQuickJit>true</TieredCompilationQuickJit>
+	<TieredCompilationQuickJitForLoops>true</TieredCompilationQuickJitForLoops>-->
+	<Version>2.6.0</Version>
+    <Authors>Ian Marteens</Authors>
+    <Company>Intuitive Sight</Company>
+    <Product>XSight Ray Tracer</Product>
+    <ApplicationIcon>RayEd.ico</ApplicationIcon>
+    <LangVersion>preview</LangVersion>
+    <Configurations>Debug;Release;ReleaseSSE</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSSE|AnyCPU'">
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;USE_SSE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Grab.cur" />
+    <None Remove="RayEd.ico" />
+    <None Remove="xsight.chm" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="RayEd.ico" />
+    <Content Include="xsight.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Grab.cur" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IntSight.Controls.CodeEditor\IntSight.Controls.CodeEditor.csproj" />
+    <ProjectReference Include="..\IntSight.Parser\IntSight.Parser.csproj" />
+    <ProjectReference Include="..\IntSight.RayTracing.Engine\IntSight.RayTracing.Engine.csproj" />
+    <ProjectReference Include="..\IntSight.RayTracing.Language\IntSight.RayTracing.Language.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\FindSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FindSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\FindSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>FindSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,48 @@
+scene 'A Study in Orange';
+
+sampler
+    adaptive(12, 0.001, 4, 7);
+
+camera
+    perspective(5^Y, ^0, ^Z, 40, 640, 480);
+
+background
+    flat(rgb(0.20, 0.20, 0.82), white, ^Y);
+
+ambient
+    0.10;
+
+lights
+    point([10, 10, -20], white);
+    point([10, 20,  10], white);
+    spot(10^Y, ^0, 10, 16, white);
+
+objects
+
+    set mat = metal(darkOrange, 0.1, 0.5);
+
+    set wedge =
+        intersection(
+            sphere(^0, 1, mat),
+            box([-1, -1, -1], [+1, +1, +1], mat)
+                spin 45^Y
+                size [0.8, 2.0, 1.0]
+                move -1.45^Z,
+            mat)
+        move -0.3^Z;
+
+    union(
+        wedge,
+        wedge spin  60^Y);
+    union(
+        wedge spin 120^Y,
+        wedge spin 180^Y);
+    union(
+        wedge spin 240^Y,
+        wedge spin 300^Y);
+
+    sphere(^0, 0.25,
+        metal(red, 0.3, 0.6, 0.9, 0.9, 10));
+
+end.
+

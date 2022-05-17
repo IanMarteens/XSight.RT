@@ -1,0 +1,47 @@
+sampler
+    adaptive(10, 0.001, 2, 4);
+
+camera
+    perspective([4, 5, -6], ^0, ^Y, 75, 640, 480);
+
+background
+    sky;
+
+ambient
+    constantAmbient(0.10);
+    localAmbient(^0, rgb 0.8, 0.7 - 0.4 * sin(4 * pi * clock));
+
+lights
+    point([0, 200, -100]);
+
+objects
+
+    set r = 2;
+    set d = 3;
+
+    set b0(clr) = blob(
+        ball([+d, 0, 0], r),
+        ball([-d, 0, 0], r),
+        ball([+0.5 * d, +0.866 * d, 0], r),
+        ball([-0.5 * d, +0.866 * d, 0], r),
+        ball([+0.5 * d, -0.866 * d, 0], r),
+        ball([-0.5 * d, -0.866 * d, 0], r),
+        0.25,
+        clr
+    );
+
+    set b2 = b0(plastic(royalBlue));
+    set b1 = b0(plastic(white));
+
+    union(
+        b1,
+        b1 spin 90^x,
+        b2 spin 30^z size [0.4, 0.4, 0.2],
+        b2 spin 30^z size [0.4, 0.4, 0.2] spin 90^x,
+        b2 spin 30^z size [0.4, 0.4, 0.2] spin 90^x spin 90^z
+    )
+    spin var(0,360)*^y;
+    sphere(^0, 0.25, metal(gold, 0.2));
+
+end.
+

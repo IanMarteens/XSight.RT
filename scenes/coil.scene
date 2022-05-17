@@ -1,0 +1,120 @@
+sampler
+    focal(10, 0.0005, 0.1, 7, 0.00001);
+
+camera
+    perspective([0, 15, -15], [0, 5, 0], ^Y, 85, 640, 480);
+
+background
+    sky;
+
+ambient
+    0.10;
+
+lights
+    point([1, +5, -10], white);
+
+objects
+
+    set marb = marble(white, gray, 7);
+
+    set coil = torus([+50, 0, 25], 45, 0.25,
+        metal(gold, 0.2, 0.5))
+        spin 90^X around [+50, 0, 25]
+        size [1,2,1];
+
+    set hbar = cylinder([0, 1.5, -5.7], [0, 1.5, +5.7], 0.3,
+        metal(goldenrod, 0.2, 0.2))
+        spin 15^Y;
+
+    set vtor = torus(^0, 3.0, 0.8,
+        metalPigment(spots(darkGray, silver), 0.2, 0.5))
+        spin 90^Z;
+
+    set blbs = blob(
+        ball([+1.6, 0, 0], 2),
+        ball([-1.6, 0, 0], 2),
+        pipe([-1.6, 0, 0], [+1.6, 0, 0], 1),
+        0.5, marb);
+
+    union(
+        torus([0, 0, 25], 25, 0.15,
+            metal(darkgoldenrod, 0.2, 0.5)),
+
+        coil,
+        coil spin  30^Y around [0, 0, 25],
+        coil spin  60^Y around [0, 0, 25],
+        coil spin  90^Y around [0, 0, 25],
+        coil spin 120^Y around [0, 0, 25],
+        coil spin 150^Y around [0, 0, 25],
+        coil spin 180^Y around [0, 0, 25],
+        coil spin 210^Y around [0, 0, 25],
+        coil spin 240^Y around [0, 0, 25],
+        coil spin 270^Y around [0, 0, 25],
+        coil spin 300^Y around [0, 0, 25],
+        coil spin 330^Y around [0, 0, 25],
+
+        cylinder([0, -2, 25], [0, -1, 25], 5.80, metal(gold, 0.2, 0.4)) -
+            cylinder([0, -2, 25], [0, -1, 25], 5.65, metal(gold, 0.2, 0.4)),
+        cylinder([0, +1, 25], [0, +2, 25], 5.80, metal(gold, 0.2, 0.4)) -
+            cylinder([0, +1, 25], [0, +2, 25], 5.65, metal(gold, 0.2, 0.4)),
+
+        hbar spin   0^Y move 25^Z,
+        hbar spin  90^Y move 25^Z,
+        hbar spin  45^Y move 25^Z move -3^Y,
+        hbar spin 135^Y move 25^Z move -3^Y,
+
+        vtor,
+        vtor spin  15^Y around [0, 0, 25],
+        vtor spin  30^Y around [0, 0, 25],
+        vtor spin  45^Y around [0, 0, 25],
+        vtor spin  60^Y around [0, 0, 25],
+        vtor spin  75^Y around [0, 0, 25],
+        vtor spin  90^Y around [0, 0, 25],
+        vtor spin 105^Y around [0, 0, 25],
+        vtor spin 120^Y around [0, 0, 25],
+        vtor spin 135^Y around [0, 0, 25],
+        vtor spin 150^Y around [0, 0, 25],
+        vtor spin 165^Y around [0, 0, 25],
+        vtor spin 180^Y around [0, 0, 25],
+        vtor spin 195^Y around [0, 0, 25],
+        vtor spin 210^Y around [0, 0, 25],
+        vtor spin 225^Y around [0, 0, 25],
+        vtor spin 240^Y around [0, 0, 25],
+        vtor spin 255^Y around [0, 0, 25],
+        vtor spin 270^Y around [0, 0, 25],
+        vtor spin 285^Y around [0, 0, 25],
+        vtor spin 300^Y around [0, 0, 25],
+        vtor spin 315^Y around [0, 0, 25],
+        vtor spin 330^Y around [0, 0, 25],
+        vtor spin 345^Y around [0, 0, 25],
+
+        blbs,
+        blbs spin  15^Y around [0, 0, 25],
+        blbs spin  30^Y around [0, 0, 25],
+        blbs spin  45^Y around [0, 0, 25],
+        blbs spin  60^Y around [0, 0, 25],
+        blbs spin  75^Y around [0, 0, 25],
+        blbs spin  90^Y around [0, 0, 25],
+        blbs spin 105^Y around [0, 0, 25],
+        blbs spin 120^Y around [0, 0, 25],
+        blbs spin 135^Y around [0, 0, 25],
+        blbs spin 150^Y around [0, 0, 25],
+        blbs spin 165^Y around [0, 0, 25],
+        blbs spin 180^Y around [0, 0, 25],
+        blbs spin 195^Y around [0, 0, 25],
+        blbs spin 210^Y around [0, 0, 25],
+        blbs spin 225^Y around [0, 0, 25],
+        blbs spin 240^Y around [0, 0, 25],
+        blbs spin 255^Y around [0, 0, 25],
+        blbs spin 270^Y around [0, 0, 25],
+        blbs spin 285^Y around [0, 0, 25],
+        blbs spin 300^Y around [0, 0, 25],
+        blbs spin 315^Y around [0, 0, 25],
+        blbs spin 330^Y around [0, 0, 25],
+        blbs spin 345^Y around [0, 0, 25]
+    );
+
+    cylinder([0, -100, 25], [0, +100, 25], 3,
+        metal(gold, 0.2, 0.6, 0.9, 0.1, 15, 0.01))
+
+end.

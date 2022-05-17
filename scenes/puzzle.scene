@@ -1,0 +1,73 @@
+sampler
+    focal(10, 0.001, 0.1, 6);
+
+camera
+    perspective([3, 3.5, -4], [-0.7, 0.5, 1], ^Y, 65, 640, 480);
+
+background
+    sky(gainsboro, white);
+
+ambient
+    0.10;
+
+media
+    groundFog(distance: 50, fade: 1, offset: 1);
+
+lights
+    spheric([40, 100, -40], radius: 2, color: white, samples: 9);
+
+objects
+
+    // Definición: metal plateado.
+    set argentum = metal(silver, 0.5, 1.0, 0.9, 0.2, 10);
+    // Definición: metal dorado.
+    set aurum    = metal(rgb(0.80, 0.64, 0.00), 0.5, 0.9, 0.8, 0.2, 10);
+
+    // Cubos con aristas biseladas.
+    set cube(mat) = intersection(
+        box(-1, -1, -1, +1, +1, +1, mat),
+        box(-1, -1, -1, +1, +1, +1, mat) size 1.32 spin 45^Z,
+        box(-1, -1, -1, +1, +1, +1, mat) size 1.32 spin 45^X,
+        box(-1, -1, -1, +1, +1, +1, mat) size 1.32 spin 45^Y,
+        mat)
+        size 0.5 move [0.5, 0.5, 0.5];
+
+    // Esfera de metal azul con reflexión especular difusa.
+    sphere([0.0, 2.25, 1.0], 0.25,
+        metal(midnightBlue, 0.4, 0.9, 1.0, 0.4, 8, roughness: 0.01));
+
+    // Esfera "oculta" de cristal.
+    sphere([0.5, 0.25, 1.5], 0.25, glass(1.667));
+
+    cube(argentum) spin 15^Y move -0.5^X - 2^Z;
+    cube(aurum   ) spin 25^Y move -2.5^X - 4^Z;
+
+    cube(argentum) move [ 0,  0,  0];
+    cube(argentum) move [ 0, +1,  0];
+    cube(argentum) move [-1,  0,  0];
+    cube(argentum) move [-1, +1,  0];
+    cube(argentum) move [-2,  0,  0];
+    cube(argentum) move [-2, +1,  0];
+
+    cube(aurum   ) move [ 0, +1, +1];
+    cube(argentum) move [-1,  0, +1];
+    cube(argentum) move [-1, +1, +1];
+    cube(argentum) move [-2,  0, +1];
+    cube(argentum) move [-2, +1, +1];
+    cube(aurum   ) move [-2, +2, +1];
+    cube(argentum) move [ 0,  0, +2];
+    cube(argentum) move [ 0, +1, +2];
+    cube(argentum) move [-1,  0, +2];
+    cube(argentum) move [-1, +1, +2];
+    cube(argentum) move [-2,  0, +2];
+    cube(argentum) move [-2, +1, +2];
+    cube(argentum) move [-2, +2, +2];
+
+    cylinder([-2, 0.25, 0], [+1, 0.25, 0], 0.25, aurum)
+        spin 40^Y move [-2.3, 0, -1.2];
+
+    // Suelo: plástico blanco con reflexión difusa.
+    plane(^Y, 0, plastic(gray, 0.4, 0.1, 4, roughness: 0.01));
+
+end.
+

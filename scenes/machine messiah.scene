@@ -1,0 +1,54 @@
+sampler
+    focal(16, 0.001, 0.1, 7);
+
+camera
+    perspective(-4^Z, ^0, ^Y, 60, 800, 600);
+
+background
+    black;
+
+media
+    fog(tint: gray,
+        distance: 2, fade: 0.1, offset: 0,
+        filter: 0.0, threshold: 0.7);
+
+ambient
+    0.10;
+
+lights
+    pointLight;
+    pointLight(^0);
+
+objects
+
+    set alloy = metalpigment(
+        spots(hotpink, maroon, 1.5, 3, 2),
+        minReflection: 0.2, maxReflection: 0.5, diffuse: 1.0,
+        phongAmount: 0.7, phongSize: 6);
+
+    set wooden = plastic(
+        burlywood,
+        reflection: 0.1,
+        phongAmount: 0.0, phongSize: 0,
+        roughness: 0.01);
+
+    sphere(1.38^Y, 0.5, alloy)
+        size [0.9, 1.0, 0.9]
+        spin -60^X + 50^Y;
+
+    intersection(
+        cylinder(-3^Y, +3^Y, 1.0, alloy) - cylinder(-3^X, +3^X, 0.4, alloy),
+        cylinder(-3^X, +3^X, 1.0, alloy) - cylinder(-3^Y, +3^Y, 0.4, alloy),
+        alloy)
+        spin -30^X + 50^Y;
+
+    shadowless(
+        cylinder(-30^X, +30^X, 0.1, wooden))
+        spin -30^X + 50^Y;
+
+    shadowless(
+        cylinder(-30^Y, +30^Y, 0.1, wooden))
+        spin -30^X + 50^Y;
+
+end.
+

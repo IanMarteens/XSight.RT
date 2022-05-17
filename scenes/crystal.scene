@@ -1,0 +1,24 @@
+sampler
+    Focal(25, 0.000005, 0.025, 7, 0.001);
+
+camera
+    Cylindrical(2^Y - 10^Z, 2.5^Y, ^Y, 70, 640, 480);
+
+background
+    Sky(RoyalBlue, rgb(0.76, 0.91, 1.00), 3);
+
+ambient
+    0.30;
+
+lights
+    Point(200^Y + 200^X, White);
+
+objects
+
+    Sphere(3^Y, 3, Glass(1.5)) move -3^X;
+    Sphere(3^Y, 3, Glass(1.5)) move +3^X;
+
+    Plane(^Y, 0, Checkers(DarkSlateGray, White, 0.7071^1, 0.03));
+
+end.
+

@@ -1,0 +1,30 @@
+sampler
+    adaptive(10, 0.001, 7);
+
+camera
+    perspective([0, 2.2, -15], [0.5, 2.5, 0], ^Y, 65, 640, 480);
+
+background
+    white;
+
+ambient
+    0.10;
+
+lights
+    point;
+
+objects
+
+    set half = difference(
+        sphere(^0, 3, plastic(red)),
+        cylinder([-1.2, 0, -10],[-1.5, 0, 10], 2.5, plastic(red)),
+        plastic(red))
+        size [2, 1, 1];
+
+    union(
+        half,
+        half size 0.95 move 4.75^Y spin 180^Y)
+    spin -15^Z;
+
+end.
+

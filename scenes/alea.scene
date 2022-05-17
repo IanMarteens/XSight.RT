@@ -1,0 +1,47 @@
+scene 'Alea jacta est';
+
+sampler
+    FocalSampler(10, 0.001, 0.1, 5);
+
+camera
+    PerspectiveCamera([5, 5, -5], -0.2^Y, ^Y, 48, 640, 480);
+
+background
+    Gainsboro;
+
+ambient
+    0.10;
+
+lights
+    SpotLight([1, 8, -5], ^0, 55, 75, White);
+
+objects
+
+    set mat = marble(palegoldenrod, white, 0.2, 0.3, 3);
+
+    set die = difference(
+        quart(^0, 2, mat),
+        sphere([ 0.0,  2.00,  0.00], 0.2, plastic(black)),
+        sphere([ 0.7,  2.00, -0.70], 0.2, plastic(black)),
+        sphere([-0.7,  2.00,  0.70], 0.2, plastic(black)),
+        sphere([ 0.0,  0.00, -2.00], 0.2,plastic(black)),
+        sphere([ 2.0, -0.64, -0.64], 0.2, plastic(black)),
+        sphere([ 2.0, +0.64, +0.64], 0.2, plastic(black)));
+
+    set hole(x, y, z) = difference(
+        sphere(x, y, z, 0.2, plastic(black, 0.2, 0.2, 200)),
+        sphere(x, y + 0.2, z, 0.2828, plastic(black, 0.2)));
+
+    die;
+
+    hole( 0.0, 2,  0.0);
+    hole( 0.7, 2, -0.7);
+    hole(-0.7, 2,  0.7);
+    hole(0, 0, 0) spin -90^x move -2^z;
+    hole(0, 0, 0) spin -90^z move [2, -0.64, -0.64];
+    hole(0, 0, 0) spin -90^z move [2, +0.64, +0.64];
+
+    plane(^y, -2, spots(lawnGreen, forestGreen, 10));
+
+end.
+

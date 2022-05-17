@@ -1,0 +1,24 @@
+sampler
+    focal(90, 0.0001, 0.10, 4);
+
+camera
+    cylindrical(-8^z, ^0, ^y, 60, 640, 480);
+
+background
+    sky(royalblue, white);
+
+ambient
+    0.1;
+
+lights
+    point;
+
+objects
+
+    shadowless(cylinder(-2^y, +2^y, 2, glass(1.667)) - cylinder(^y, 3^y, 1.9, glass(1.667)));
+    shadowless(cylinder(-1.75^y, 1^y, 1.9, glass(1.3333)));
+
+    cylinder(-1.70^y - ^x, 2.45^y + 1.95^x, 0.1, plastic(white));
+
+end.
+

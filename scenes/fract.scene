@@ -1,0 +1,32 @@
+sampler
+    antialias(60, 0.0001, 5);
+
+camera
+    PerspectiveCamera([0,0,-4], ^0, ^Y, 35, 640, 480);
+
+background
+    FlatBackground(white);
+
+ambient
+    0.10;
+
+lights
+    PointLight(^0);
+
+objects
+
+    set mat = metal(black, 0.89);
+
+    set ball(c) = sphere(c, 1, mat);
+
+    union
+    (
+        ball([-1, 0, 0]),
+        ball([+1, 0, 0]),
+        ball([ 0, sqrt(3), 0]),
+        ball([ 0, sqrt(3) / 3, sqrt(3)])
+    )
+    move -sqrt(3)/3 * ^y;
+
+end.
+

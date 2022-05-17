@@ -1,0 +1,76 @@
+scene 'XSight RT has been written in...';
+
+sampler
+    focal(128, 0.00001, 0.03, 5);
+
+camera
+    cylindrical([0,0,-10], 0.8^y, ^y, 60, 640, 320);
+
+background
+    sky;
+
+ambient
+    0.10;
+
+lights
+    point(1000^y - 200^z);
+
+objects
+
+    set see = difference
+    (
+        cylinder([0, 1, -0.4], [0, 1, +0.4], 2, glass),
+        cylinder([0, 1, -0.5], [0, 1, +0.5], 1.3, glass),
+        cylinder([2.4, 1.2, -3], [2.4, 1.2, 3], 2, glass),
+        glass(1.667)
+    );
+
+    see spin 30^y;
+
+    merge(
+        merge(
+            box([-0.2, -1, -0.4], [0.2, 2.0, +0.4], glass) spin -10^Z size [1, 0.5, 1] spin +5^z,
+            box([ 0.0, 0.0, -0.4], [1.5, 0.6, +0.4], glass) spin -10^Z size [1, 0.5, 1] spin +5^z move -0.3^x + 0.4^y,
+            glass),
+        merge(
+            box([-0.2, -1, -0.4], [0.2, 2.0, +0.4], glass) spin -10^Z size [1, 0.5, 1] spin +5^z move 0.6^x,
+            box([ 0.0, 0.0, -0.4], [1.5, 0.6, +0.4], glass) spin -10^Z size [1, 0.5, 1] spin +5^z move -0.5^x - 0.2^y,
+            glass),
+        glass(1.667))
+        size [0.7, 1, 0.7]
+        move [1.5, 1.7, 0]
+        spin 30^y;
+
+    set met(c) = metal(c, 0.05, 0.3, 0.7, 0.3, 25);
+
+    sphere([2, 1, 5], 2, met(red));
+
+    sphere([-2.5, 0.55, 5], 1.55, met(hotpink))
+        spin 30^y around [2, 1, 5];
+    sphere([+6.5, 0.55, 5], 1.55, met(hotpink))
+        spin 30^y around [2, 1, 5];
+
+    sphere([-6.5, 0.18, 5], 1.18, met(rgb(0.706,0.412,1)))
+        spin 30^y around [2, 1, 5];
+    sphere([+10.5, 0.18, 5], 1.18, met(rgb(0.706,0.412,1)))
+        spin 30^y around [2, 1, 5];
+
+    sphere([-10.0, -0.1, 5], 0.9, met(royalBlue))
+        spin 30^y around [2, 1, 5];
+    sphere([+14.0, -0.1, 5], 0.9, met(royalBlue))
+        spin 30^y around [2, 1, 5];
+
+    sphere([-13.0, -0.3, 5], 0.7, met(rgb(0.412, 1, 0.706)))
+        spin 30^y around [2, 1, 5];
+    sphere([+17.0, -0.3, 5], 0.7, met(rgb(0.412, 1, 0.706)))
+        spin 30^y around [2, 1, 5];
+
+    sphere([-15.5, -0.4, 5], 0.6, met(rgb(0.706, 1, 0.206)))
+        spin 30^y around [2, 1, 5];
+    sphere([+19.5, -0.4, 5], 0.6, met(rgb(0.706, 1, 0.206)))
+        spin 30^y around [2, 1, 5];
+
+    plane(^Y, -1, checkers(slateBlue, white));
+
+end.
+

@@ -1,0 +1,44 @@
+sampler
+    focal(25, 0.0001, 0.015, 7);
+
+camera
+    perspective([100, 120, 20], [110, 120, 100], ^Y, 85, 1024, 768);
+
+background
+    flat(black, rgb(0, 0, 0.2), [0, 1, 0.5]);
+
+ambient
+    0.10@16;
+
+lights
+    spheric([0, 200, -100], 4, rgb 0.08, 9);
+    spheric([110, -50, 80], 4, rgb 0.42, 9);
+
+objects
+
+    set heavy(clr) = metal(clr, 0.75, 0.95, 0.9, 0.1, 40, 0.01);
+
+    set ball(rad, mat) = sphere(^0, rad, mat);
+
+    set piece(rad, radp, sat, mat) = union(
+        ball(rad, mat),
+        sat spin +90^Z move -radp * ^X,
+        sat spin -90^Z move +radp * ^X,
+        sat spin    ^0 move +radp * ^Y,
+        sat spin 180^Z move -radp * ^Y,
+        sat spin -90^X move -radp * ^Z,
+        sat spin +90^X move +radp * ^Z);
+
+    set level6 =  ball( 0.15,                heavy(lavender));
+    set level5 = piece( 0.40,  0.55, level6, heavy(seashell));
+    set level4 = piece( 1.27,  1.74, level5, heavy(slategray));
+    set level3 = piece( 3.43,  4.70, level4, heavy(goldenrod));
+    set level2 = piece( 9.26, 12.69, level3, heavy(royalblue));
+    set level1 = piece(25.00, 34.22, level2, heavy(midnightblue));
+
+    level1
+        spin var(0, 360) * ^y
+        spin [ 10,  20, -10]
+        move [110, 125, 100]
+
+end.

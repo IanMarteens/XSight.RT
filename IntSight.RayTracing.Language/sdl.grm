@@ -1,0 +1,176 @@
+"Name"     = 'IntSight.RayTracing.Language'
+"Author"   = 'Ian Marteens, Intuitive Sight'
+"Version"  = '1.0'
+"About"    = 'Scene Description Language'
+
+"Case sensitive" = 'false'
+"Start Symbol"   = <Scene>
+
+! ------------------------------------------------- Sets
+
+{ID Head}     = {Letter}
+{ID Tail}     = {Alphanumeric} + [_]
+{sqt}         = ['']
+{sqc}         = {printable} + {printable extended} - {sqt}
+{dqt}         = ["]
+{dqc}         = {printable} + {printable extended} - {dqt}
+
+! ------------------------------------------------- Terminals
+
+identifier    = {ID Head}{ID Tail}*
+literal       = '@CAMERA'
+number        = ({digit}* '.' {digit}+ | {digit}+)
+string        = {sqt} ({sqc} | {sqt}{sqt})* {sqt} | {dqt} ({dqc} | {dqt}{dqt})* {dqt}
+
+! ------------------------------------------------- Rules
+
+<Scene>
+    ::= <SceneSections> END <OptDot>
+
+<SceneSections>
+    ::= <SceneSections> <Camera>
+     |  <SceneSections> <Background>
+     |  <SceneSections> <Ambient>
+     |  <SceneSections> <Media>
+     |  <SceneSections> <Lights>
+     |  <SceneSections> <Shapes>
+     |  <SceneSections> <Sampler>
+     |  <SceneSections> <Title>
+     |
+
+<OptDot>
+    ::= '.'
+     |
+
+<OptSCol>
+    ::= ';'
+     |
+
+<Title>
+    ::= SCENE identifier <OptSCol>
+     |  SCENE string <OptSCol>
+
+<Sampler>
+    ::= SAMPLER <ObjectCall> <OptSCol>
+
+<Camera>
+    ::= CAMERA <ObjectCall> <OptSCol>
+    
+<Media>
+    ::= MEDIA <ObjectCall> <OptSCol>
+
+<Background>
+    ::= BACKGROUND <Expression> <OptSCol>
+
+<Ambient>
+    ::= AMBIENT number <OptSCol>
+     |  AMBIENT number '@' number <OptScol>
+     |  AMBIENT <Color> <OptScol>
+     |  AMBIENT <ObjectList>
+    
+<Lights>
+    ::= LIGHTS <ObjectList>
+
+<ObjectList>
+    ::= <ObjectList> <ObjectCall> <OptSCol>
+     |
+
+<Shapes>
+    ::= OBJECTS <Objects>
+
+<Objects>
+    ::= <Objects> ';' <Statement>
+     |  <Statement>
+
+<Statement>
+    ::= <ExpressionList>
+     |  SET identifier <FormalParameters> '=' <Expression>
+     |
+
+<ExpressionList>
+    ::= <ExpressionList> ',' <Expression>
+     |  <Expression>
+
+<FormalParameters>
+    ::= '(' <IdentifierList> ')'
+     |
+
+<IdentifierList>
+    ::= <IdentifierList> ',' identifier
+     |  identifier
+
+<ObjectCall>
+    ::= identifier '(' <Parameters> ')'
+     |  identifier
+
+<Parameters>
+    ::= <ParamList>
+     |
+
+<ParamList>
+    ::= <ParamList> ',' <Parameter>
+     |  <Parameter>
+
+<Parameter>
+    ::= identifier ':' <Expression>
+     |  <Expression>
+
+<Color>
+    ::= RGB '(' <Expression> ',' <Expression> ',' <Expression> ')'
+     |  RGB number
+
+<Vector>
+    ::= '[' <Expression> ',' <Expression> ',' <Expression> ']'
+     |  number <VectorConstant>
+     |  <VectorConstant>
+
+<VectorConstant>
+    ::= '^0'
+     |  '^X'
+     |  '^Y'
+     |  '^Z'
+     |  '^1'
+
+<Expression>
+    ::= <Additive>
+     |  <Expression> MOVE <Additive>
+     |  <Expression> SPIN <Additive>
+     |  <Expression> SPIN <Additive> AROUND <Additive>
+     |  <Expression> SIZE <Additive>
+     |  <Expression> LOOP <Additive> BY <Additive>
+     |  <Expression> LOOP <Additive> ',' <Additive> BY <Additive>
+     |  <Expression> SHEAR identifier BY <Additive>
+
+<Additive>
+    ::= <Term>
+     |  '+' <Term>
+     |  '-' <Term>
+     |  <Additive> '+' <Term>
+     |  <Additive> '-' <Term>
+     
+<Term>
+    ::= <Factor>
+     |  <Term> '*' <Factor>
+     |  <Term> '/' <Factor>
+     
+<Factor>
+    ::= number
+     |  string
+     |  <Color>
+     |  <Vector>
+     |  '(' <Expression> ')'
+     |  <ObjectCall>
+     |  VAR '(' <Points> ')'
+     |  identifier '.' identifier
+     |  literal '.' identifier
+
+<Points>
+    ::= <Points> ',' <Point>
+     |  <Point>
+
+<Point>
+    ::= <Expression>
+     |  <Expression> ':' <Expression>
+
+! ------------------------------------------------- End of file
+

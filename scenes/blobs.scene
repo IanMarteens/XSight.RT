@@ -1,0 +1,34 @@
+sampler
+    adaptive(6, 0.001, 2, 6);
+
+camera
+    perspective(-5^Z, ^0, ^Y, 40, 640, 480);
+
+background
+    rgb(0.0, 0.0, 0.2);
+
+ambient
+    ConstantAmbient(0.1);
+    LocalAmbient(^0, rgb 0.7, 0.4);
+
+lights
+    PointLight(-15, 30, -25);
+    PointLight(+15, 30, -25);
+
+objects
+
+    blob
+    (
+        ball([0.75, 0, 0], 1),
+        ball([-0.375, +0.64952, 0], 1),
+        ball([-0.375, -0.64952, 0], 1),
+    threshold:
+        0.6,
+    material:
+        metal(gold, 0, 0.1, 0.1, 1, 12)
+    )
+    spin var(15, -15) * ^x
+    spin var(45, 405) * ^y;
+
+end.
+

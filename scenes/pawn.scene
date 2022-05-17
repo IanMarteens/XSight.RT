@@ -1,0 +1,134 @@
+sampler
+    focal(12, 0.001, 0.15, 5, 0.0004);
+
+camera
+    perspective(5^Y - 20^Z, 0.1^X + 5^Y, ^Y, 65, 640, 480);
+
+background
+    flat(darkgreen, black);
+
+ambient
+    0.05;
+
+lights
+    point([-20, 60, -40], rgb 0.55);
+    point([+120, 120, 10], rgb 0.15);
+    // Try spheric lights, instead of point lights, for soft shadows:
+    // spheric([-20, 60, -40], 3, rgb 0.55, 12);
+    // spheric([+120, 120, 10], 6, rgb 0.19, 12);
+
+objects
+
+    set mg = metal(gold, 0.3, 0.9, 0.5, 0.7, 300, .01);
+    set ms = metal(rgb(0.45, 0.45, 0.8), 0.4, 0.9, 0.7, 0.7, 20, .01);
+    set felt = plastic(forestGreen);
+
+    set pawn(m) = union(
+        sphere(7^y, 1.5, m),
+        sphere(^0, 1, m)
+            size [1.2, 0.3, 1.2] move 5.5^y,
+        hyper(5^y, [0.5, 1, 0.5], 2.5, +5.5, m),
+        sphere(^0, 1, m)
+            size [2, 0.5, 2] move 2.3^y,
+        intersection(
+            sphere(^0, 2.5, m),
+            plane(-^Y, 0, m)),
+        cylinder(^0, 0.35^Y, 2.5, felt));
+
+    set queen(m) = union(
+        sphere(12.3^y, 0.4, m),
+        sphere(10.5^y, 1.5, m),
+        difference(
+            intersection(
+                cone(11.5^y, 5^y, 2.1667, m),
+                plane(-^y, -8, m)),
+            sphere([1.75, 12, 0], 0.9, m) spin 150^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 120^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 90^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 60^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 30^y,
+            sphere([1.75, 12, 0], 0.9, m),
+            sphere([1.75, 12, 0], 0.9, m) spin -30^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -60^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -90^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -120^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -150^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -180^y),
+        sphere(^0, 1, m)
+            size [1.8, 0.4, 1.8] move 8^y,
+        hyper(7^y, [0.7, 1.6, 0.7], 3, 8, m),
+        sphere(^0, 1, mg)
+            size [2.5, 0.5, 2.5] move 2.8^y,
+
+        intersection(
+            sphere(^0, 3, m),
+            plane(-^Y, 0, m)),
+        cylinder(^0, 0.35^Y, 3, felt));
+
+    set king(m) = union(
+        box([-0.75, 12.5, -0.25], [0.75, 13.0, 0.25], m),
+        box([-0.25, 11.5, -0.25], [0.25, 13.5, 0.25], m),
+
+        sphere(10.5^y, 1.5, m),
+        difference(
+            intersection(
+                cone(11.5^y, 5^y, 2.1667, m),
+                plane(-^y, -8, m)),
+            sphere([1.75, 12, 0], 0.9, m) spin 150^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 120^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 90^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 60^y,
+            sphere([1.75, 12, 0], 0.9, m) spin 30^y,
+            sphere([1.75, 12, 0], 0.9, m),
+            sphere([1.75, 12, 0], 0.9, m) spin -30^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -60^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -90^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -120^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -150^y,
+            sphere([1.75, 12, 0], 0.9, m) spin -180^y),
+        sphere(^0, 1, m)
+            size [1.8, 0.4, 1.8] move 8^y,
+        hyper(7^y, [0.7, 1.6, 0.7], 3, 8, m),
+        sphere(^0, 1, mg)
+            size [2.5, 0.5, 2.5] move 2.8^y,
+
+        intersection(
+            sphere(^0, 3, m),
+            plane(-^Y, 0, m)),
+        cylinder(^0, 0.35^Y, 3, felt));
+
+    set bishop(m) = union(
+        sphere(10.8^y, 0.4, m),
+        difference(
+            sphere(^0, 1, m)
+                size [1.4, 2.1, 1.4] move 8.4^y,
+            plane(^y, 7, m), m),
+        sphere(^0, 1, m)
+            size [1.5, 0.4, 1.5] move 7^y,
+        hyper(7^y, [0.6, 1.4, 0.6], 3, 8, m),
+        sphere(^0, 1, mg)
+            size [2.5, 0.5, 2.5] move 2.8^y,
+        intersection(
+            sphere(^0, 3, m),
+            plane(-^Y, 0, m)),
+        cylinder(^0, 0.35^Y, 3, felt));
+
+    pawn(ms) move [-8, 0, 0];
+
+    pawn(mg) move [28, 0, 36];
+
+    queen(mg) move [+7, 0, 5];
+
+    king(mg) spin 39^y move -^x + 15^z;
+
+    bishop(mg)
+        spin -99^z
+        spin 20^y
+        move -21^x + 2.9^y + 28^z;
+
+    plane(^y, 0, pigment(
+        wood(burlywood, rgb(0.56, 0.31, 0.28), 0.2),
+        0.2, 0.1, 10, .01));
+
+end.
+

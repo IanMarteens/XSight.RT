@@ -1,0 +1,29 @@
+sampler
+    focal(16, 0.0005, 0.1, 7, 0.001);
+
+camera
+    perspective([0, 1.5, -5], 0.5^Y, ^Y, 60, 640, 480);
+
+background
+    black;
+
+ambient
+    0.30;
+
+lights
+    point(0, 1, -10);
+    point([0, 3.5, 0], rgb(0.3, 0.1, 0.1));
+
+objects
+
+    sphere(0, 1, 0, 1, metal(blue, 0.6));
+    sphere(-1, 0.5, 1, 0.5, metal(magenta, 0.6));
+    sphere(+1, 0.5, 1, 0.5, metal(magenta, 0.6));
+    sphere(-1.5, 0.25, 0.5, 0.25, metal(seagreen, 0.6));
+    sphere(+1.5, 0.25, 0.5, 0.25, metal(seagreen, 0.6));
+
+    plane(0, 1, 0, 0, plastic(orange, 0.8));
+    plane(-1, 0, -1, -1.5, metal(rgb 0.01, 0.8));
+    plane(+1, 0, -1, -1.5, metal(rgb 0.01, 0.8));
+
+end.

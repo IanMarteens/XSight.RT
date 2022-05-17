@@ -1,0 +1,30 @@
+sampler
+    antialias(12, 0.001, 5);
+
+camera
+    perspective(-6^Z, ^0, ^Y, 75, 640, 480);
+
+background
+    flat(royalBlue, springGreen, [0, 1, -sqrt(3) / 2]);
+
+ambient
+    0.20;
+
+lights
+    point(-4^Z, yellow);
+
+objects
+
+    sphere(-4.1^X, 2,
+        metal(gold, 0.4, 0.7, 0.95, 0.6, 5, 0.02))
+        size [0.5, 1, 1]
+        loop 3 by 2.05^X;
+
+    set vert(x) = translate(x, 0, 0,
+        rotate(0, 0, 90,
+            torus([0,0,0], 2, 0.07,
+                metal(rgb(0.31, 0.31, 1.00), 0.1, 0.6, 1, 0.1, 5))));
+
+    repeat(3, 2.05, 0, 0, vert(-2.05));
+
+end.
