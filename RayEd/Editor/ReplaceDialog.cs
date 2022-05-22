@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Specialized;
-using System.Windows.Forms;
 using IntSight.Controls;
+using System.Collections.Specialized;
 
 namespace RayEd
 {

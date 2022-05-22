@@ -1,140 +1,106 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 using System.Windows.Forms.VisualStyles;
 
-namespace RayEd
+namespace RayEd;
+
+public sealed class Slider : Control
 {
-    public sealed class Slider : Control
+    private int _value, maxValue;
+    private readonly VisualStyleRenderer track;
+    private readonly VisualStyleRenderer thumbNormal;
+    private readonly VisualStyleRenderer thumbPressed;
+    private readonly VisualStyleRenderer thumbHot;
+    private int trackHeight, thumbWidth, thumbHeight;
+    bool pressed, hot;
+
+    public Slider()
     {
-        private int _value, maxValue;
-        private readonly VisualStyleRenderer track;
-        private readonly VisualStyleRenderer thumbNormal;
-        private readonly VisualStyleRenderer thumbPressed;
-        private readonly VisualStyleRenderer thumbHot;
-        private int trackHeight, thumbWidth, thumbHeight;
-        bool pressed, hot;
+        SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+        SetStyle(ControlStyles.ResizeRedraw, true);
+        DoubleBuffered = true;
+        track = new VisualStyleRenderer(VisualStyleElement.TrackBar.Track.Normal);
+        thumbNormal = new VisualStyleRenderer(VisualStyleElement.TrackBar.Thumb.Normal);
+        thumbPressed = new VisualStyleRenderer(VisualStyleElement.TrackBar.Thumb.Pressed);
+        thumbHot = new VisualStyleRenderer(VisualStyleElement.TrackBar.Thumb.Hot);
+        maxValue = 100;
+    }
 
-        public Slider()
+    public event EventHandler ValueChanged;
+
+    protected override void SetBoundsCore(int x, int y, int width, int height,
+        BoundsSpecified specified)
+    {
+        base.SetBoundsCore(x, y, width, height, specified);
+        using Graphics g = CreateGraphics();
+        trackHeight = track.GetPartSize(g, ClientRectangle, ThemeSizeType.True).Height;
+        Size s = thumbNormal.GetPartSize(g, ClientRectangle, ThemeSizeType.True);
+        thumbWidth = s.Width;
+        thumbHeight = s.Height;
+    }
+
+    [DefaultValue(0)]
+    [Category("Behavior")]
+    [Description("The position of the slider.")]
+    public int Value
+    {
+        get => _value;
+        set
         {
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            SetStyle(ControlStyles.ResizeRedraw, true);
-            DoubleBuffered = true;
-            track = new VisualStyleRenderer(VisualStyleElement.TrackBar.Track.Normal);
-            thumbNormal = new VisualStyleRenderer(VisualStyleElement.TrackBar.Thumb.Normal);
-            thumbPressed = new VisualStyleRenderer(VisualStyleElement.TrackBar.Thumb.Pressed);
-            thumbHot = new VisualStyleRenderer(VisualStyleElement.TrackBar.Thumb.Hot);
-            maxValue = 100;
-        }
-
-        public event EventHandler ValueChanged;
-
-        protected override void SetBoundsCore(int x, int y, int width, int height,
-            BoundsSpecified specified)
-        {
-            base.SetBoundsCore(x, y, width, height, specified);
-            using Graphics g = CreateGraphics();
-            trackHeight = track.GetPartSize(g, ClientRectangle, ThemeSizeType.True).Height;
-            Size s = thumbNormal.GetPartSize(g, ClientRectangle, ThemeSizeType.True);
-            thumbWidth = s.Width;
-            thumbHeight = s.Height;
-        }
-
-        [DefaultValue(0)]
-        [Category("Behavior")]
-        [Description("The position of the slider.")]
-        public int Value
-        {
-            get => _value;
-            set
+            if (value < 0)
+                value = 0;
+            else if (value > maxValue)
+                value = maxValue;
+            if (_value != value)
             {
-                if (value < 0)
-                    value = 0;
-                else if (value > maxValue)
-                    value = maxValue;
-                if (_value != value)
-                {
-                    _value = value;
-                    Invalidate();
-                    ValueChanged?.Invoke(this, EventArgs.Empty);
-                }
+                _value = value;
+                Invalidate();
+                ValueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+    }
 
-        [DefaultValue(100)]
-        [Category("Behavior")]
-        [Description("Maximum allowed for the position of the slider.")]
-        public int Maximum
+    [DefaultValue(100)]
+    [Category("Behavior")]
+    [Description("Maximum allowed for the position of the slider.")]
+    public int Maximum
+    {
+        get { return maxValue; }
+        set
         {
-            get { return maxValue; }
-            set
+            if (value < 1)
+                value = 1;
+            if (maxValue != value)
             {
-                if (value < 1)
-                    value = 1;
-                if (maxValue != value)
-                {
-                    maxValue = value;
-                    EventHandler eh = ValueChanged;
-                    if (_value > maxValue)
-                        _value = maxValue;
-                    else
-                        eh = null;
-                    Invalidate();
-                    eh?.Invoke(this, EventArgs.Empty);
-                }
-            }
-        }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public override string Text
-        {
-            get { return base.Text; }
-            set { base.Text = value; }
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            if (!pressed)
-            {
-                if (ThumbArea.Contains(e.X, e.Y))
-                {
-                    pressed = true;
-                    Invalidate();
-                }
+                maxValue = value;
+                EventHandler eh = ValueChanged;
+                if (_value > maxValue)
+                    _value = maxValue;
                 else
-                {
-                    int pos = e.X;
-                    int half = thumbWidth / 2;
-                    if (pos <= half)
-                        Value = 0;
-                    else
-                    {
-                        int width = ClientSize.Width;
-                        if (pos >= width - half)
-                            Value = maxValue;
-                        else
-                            Value = maxValue * (pos - half) / (width - thumbWidth);
-                    }
-                }
+                    eh = null;
+                Invalidate();
+                eh?.Invoke(this, EventArgs.Empty);
             }
-            base.OnMouseDown(e);
         }
+    }
 
-        protected override void OnMouseUp(MouseEventArgs e)
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public override string Text
+    {
+        get { return base.Text; }
+        set { base.Text = value; }
+    }
+
+    protected override void OnMouseDown(MouseEventArgs e)
+    {
+        if (!pressed)
         {
-            if (pressed)
+            if (ThumbArea.Contains(e.X, e.Y))
             {
-                pressed = false;
+                pressed = true;
                 Invalidate();
             }
-            base.OnMouseUp(e);
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if (pressed)
+            else
             {
                 int pos = e.X;
                 int half = thumbWidth / 2;
@@ -149,42 +115,72 @@ namespace RayEd
                         Value = maxValue * (pos - half) / (width - thumbWidth);
                 }
             }
-            base.OnMouseMove(e);
         }
+        base.OnMouseDown(e);
+    }
 
-        protected override void OnMouseEnter(EventArgs e)
+    protected override void OnMouseUp(MouseEventArgs e)
+    {
+        if (pressed)
         {
-            if (!hot)
+            pressed = false;
+            Invalidate();
+        }
+        base.OnMouseUp(e);
+    }
+
+    protected override void OnMouseMove(MouseEventArgs e)
+    {
+        if (pressed)
+        {
+            int pos = e.X;
+            int half = thumbWidth / 2;
+            if (pos <= half)
+                Value = 0;
+            else
             {
-                hot = true;
-                Invalidate();
+                int width = ClientSize.Width;
+                if (pos >= width - half)
+                    Value = maxValue;
+                else
+                    Value = maxValue * (pos - half) / (width - thumbWidth);
             }
-            base.OnMouseEnter(e);
         }
+        base.OnMouseMove(e);
+    }
 
-        protected override void OnMouseLeave(EventArgs e)
+    protected override void OnMouseEnter(EventArgs e)
+    {
+        if (!hot)
         {
-            if (hot)
-            {
-                hot = false;
-                Invalidate();
-            }
-            base.OnMouseLeave(e);
+            hot = true;
+            Invalidate();
         }
+        base.OnMouseEnter(e);
+    }
 
-        private Rectangle ThumbArea =>
-            new Rectangle(
-                    _value * (ClientSize.Width - thumbWidth) / maxValue,
-                    (ClientSize.Height - thumbHeight) / 2,
-                    thumbWidth, thumbHeight);
-
-        protected override void OnPaint(PaintEventArgs pe)
+    protected override void OnMouseLeave(EventArgs e)
+    {
+        if (hot)
         {
-            OnPaintBackground(pe);
-            track.DrawBackground(pe.Graphics, new Rectangle(
-                0, (ClientSize.Height - trackHeight) / 2, ClientSize.Width, trackHeight));
-            VisualStyleRenderer r = pressed ? thumbPressed : hot ? thumbHot : thumbNormal;
-            r.DrawBackground(pe.Graphics, ThumbArea);
+            hot = false;
+            Invalidate();
         }
+        base.OnMouseLeave(e);
+    }
+
+    private Rectangle ThumbArea =>
+        new Rectangle(
+                _value * (ClientSize.Width - thumbWidth) / maxValue,
+                (ClientSize.Height - thumbHeight) / 2,
+                thumbWidth, thumbHeight);
+
+    protected override void OnPaint(PaintEventArgs pe)
+    {
+        OnPaintBackground(pe);
+        track.DrawBackground(pe.Graphics, new Rectangle(
+            0, (ClientSize.Height - trackHeight) / 2, ClientSize.Width, trackHeight));
+        VisualStyleRenderer r = pressed ? thumbPressed : hot ? thumbHot : thumbNormal;
+        r.DrawBackground(pe.Graphics, ThumbArea);
     }
 }
