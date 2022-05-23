@@ -30,14 +30,14 @@ public partial class PrintPreview : Form
         }
         else
             wParam = IntPtr.Zero;
-        HandleRef href = new HandleRef(printPreviewControl, printPreviewControl.Handle);
+        HandleRef href = new(printPreviewControl, printPreviewControl.Handle);
         for (int i = 0; i++ < scrollLines; )
             SendMessage(href, 0x0115, wParam, IntPtr.Zero);
     }
 
     public static void Execute(PrintDocument document, IWin32Window mainWindow)
     {
-        using PrintPreview form = new PrintPreview
+        using PrintPreview form = new()
         {
             Location = new Point(0, 0),
             Size = Screen.FromHandle(mainWindow.Handle).WorkingArea.Size
