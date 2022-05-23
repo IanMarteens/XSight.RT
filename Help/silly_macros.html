@@ -1,0 +1,127 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Macros</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Macros</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify><img src="macros.gif" border="0" align="right">Macros are the key for designing complex scenes. Macros are object calls that can be inserted any number of times in the final scene, and can also be used for creating other macros. In this version, however, macros cannot be recursive.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>The simplest form of macro definition equates a symbolic name to an object instance:</p>
+
+<ul type="square"><li><b>set</b> <i>macroName</i> = className(values...);</li></ul>
+
+<p align=justify>The <i>class name</i> can make reference either to a <a href="silly_textures.html">material</a> or any kind of <a href="silly_shapes.html">shape</a>. For instance, we can define a macro for golden metals:</p>
+
+<pre><b>set</b> goldenMetal = metal(gold, 0.5, 0.2);</pre>
+
+<p>SILLY also supports parameterized macros. This macro defines a sphere with unit radius and an arbitrary material:</p>
+
+<pre><b>set</b> ball(<u>center</u>, <u>stuff</u>) = sphere(<u>center</u>, 1.0, <u>stuff</u>);</pre>
+
+<p align=justify>We can use these macros in the scene. This is a unit sphere centered at the origin of coordinates, made of a golden metal:</p>
+
+<pre>ball([0, 0, 0], goldenMetal);</pre>
+
+<p align=justify>Macros cannot be recursive, neither directly or indirectly. They also need to be defined before use.</p>
+
+<h2>Predefined macros</h2>
+
+<p align=justify>There are two predefined macros in SILLY:</p>
+
+<ul type="disc"><li><i>pi</i><br>The <i>pi</i> macro evaluates to the mathematical constant with this name.</li></ul>
+
+
+<ul type="disc"><li><i>clock</i><br>The <i>clock</i> macro evaluates to <i>var(0, 1)</i>. This is a <a href="sillyvar.html">range expression</a>, and its value depends on the externally determined clock value.</li></ul>
+
+
+<h2>Example</h2>
+
+<p align=justify>This script defines a wireframe model resembling a sphere:</p>
+
+<pre><b>objects</b>
+    <b>set</b> gld = metal(gold, 0.12, 0.02, 0.9, 0.4, 10);
+    <b>set</b> slv = metal(silver, 0.06, 0.00, 0.9, 0.6, 10);
+
+    <b>set</b> base(p, r0, r1, m) = union(
+        torus(p, r0, r1, m),
+        rotate(90, 0, 0, torus(p, r0, r1, m)),
+        rotate(0, 0, 90, torus(p, r0, r1, m)));
+
+    base([0,0,0], 4, 0.1, slv);
+    translate(-2, 0, 0, base([0,0,0], 2, 0.05, gld));
+    translate(+2, 0, 0, base([0,0,0], 2, 0.05, gld));
+    translate(0, -2, 0, base([0,0,0], 2, 0.05, gld));
+    translate(0, +2, 0, base([0,0,0], 2, 0.05, gld));
+    translate(0, 0, -2, base([0,0,0], 2, 0.05, gld));
+    translate(0, 0, +2, base([0,0,0], 2, 0.05, gld));
+<b>end</b>.</pre>
+
+<dir><img src="def_macro.png" border="0" /></dir>
+
+<p align=justify>This script can be simplified substituting <i>Translate</i> by <b>move</b>, and <i>Rotate</i> by <b>spin</b>:</p>
+
+<pre><b>objects</b>
+    <b>set</b> gld = metal(gold, 0.12, 0.02, 0.9, 0.4, 10);
+    <b>set</b> slv = metal(silver, 0.06, 0.00, 0.9, 0.6, 10);
+
+    <b>set</b> base(p, r0, r1, m) = union(
+        torus(p, r0, r1, m),
+        torus(p, r0, r1, m) <b>spin</b> 90^x,
+        torus(p, r0, r1, m) <b>spin</b> 90^z);
+
+    base(^0, 4, 0.1, slv);
+    base(^0, 2, 0.05, gld) <b>move</b> -2^x;
+    base(^0, 2, 0.05, gld) <b>move</b> +2^x;
+    base(^0, 2, 0.05, gld) <b>move</b> -2^y;
+    base(^0, 2, 0.05, gld) <b>move</b> +2^y;
+    base(^0, 2, 0.05, gld) <b>move</b> -2^z;
+    base(^0, 2, 0.05, gld) <b>move</b> +2^z;
+<b>end</b>.</pre>
+
+<p align=justify>We can keep simplifying the script. This time, we can write a macro to make a double copy of a shape:</p>
+
+<pre>    <b>set</b> DUP(object, distance) = union(
+        object <b>move</b> -distance,
+        object <b>move</b> +distance);</pre>
+
+<p align=justify>Now, the scene can be described this way:</p>
+
+<pre>    base(^0, 4, 0.1, slv);
+    DUP(base(^0, 2, 0.05, gld), 2^x);
+    DUP(base(^0, 2, 0.05, gld), 2^y);
+    DUP(base(^0, 2, 0.05, gld), 2^z);</pre>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="sillysyntax.html">Basic syntax</a> |
+  <a href="sillytype.html">Data types</a> |
+  <a href="sillyexpr.html">Expressions</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Shapes</a> |
+  <a href="silly_textures.html">Materials</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

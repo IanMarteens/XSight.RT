@@ -1,0 +1,76 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Why?</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Why XSight Ray Tracer?</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>XSight RT was written as a <i>proof of concept</i>: a demonstration of the capabilities of the .NET Framework and a working proof that, even CPU hungry applications, could be developed for this software platform. That's why we chose to write yet another ray tracer.</p>
+
+<h2>What makes XSight RT so fast?</h2>
+
+<ul><li>XSight RT features a powerful scene optimizer.</li></ul>
+
+<p align=justify style="margin-left: 32px;">Before rendering a scene, the shape tree is carefully analyzed in order to optimize the tracing algorithm.</p>
+
+<ul><li>We have a bag full of tricks for tracing some primitives.</li></ul>
+
+<p align=justify style="margin-left: 32px;">The best example for this category of tricks is, perhaps, the tracing of shapes based in fourth degree equations, such as <a href="shapes_torus.html">tori</a>, <a href="shapes_blob.html">blobs</a> and <a href="shapes_quart.html">quarts</a>.</p>
+
+<ul><li>XSight's raytracing is only <i>half-recursive</i>.</li></ul>
+
+<p align=justify style="margin-left: 32px;">Ray tracing, of course, is a recursive algorithm. Each time a ray hits a surface, it is splitted in two rays, which must be traced recursively: one for the reflections and the other for refraction... if any of these takes place.</p>
+
+<p align=justify style="margin-left: 32px;">XSight RT, however, implements the tracing of reflected rays using <i>tail recursion</i>, which is an iterative technique. This way, recursion is avoided as long as the ray does not hit on a transparent surface.</p>
+
+<h2>Lessons from design</h2>
+
+<ul>
+  <li>
+    The biggest offender is, most of the times, unneeded memory allocation. Try to cache the most that you can.
+  </li>
+</ul>
+
+<p align=justify style="margin-left: 32px;">Please note that memory allocation in .NET is a lot faster than in any other native framework... because .NET's garbage collection strategy.</p>
+
+<ul>
+  <li>Modularity and performance often walk separate ways.</li>
+</ul>
+
+<ul>
+  <li>
+    Functional design is not for our current hardware.
+  </li>
+</ul>
+
+<p align=justify style="margin-left: 32px;">When a project must deal with mathematics and geometry, the designer is tempted to use and abuse of the functional features of the programming language: functions that return complex types, user defined operators, lambda expressions where available... All these sweet features have a cost in execution time, and it's easy to see why.</p>
+<p align=justify style="margin-left: 32px;">For instance, XSight RT defines vectors as a structure with three double precision fields. Our first implementation provided user defined operators for all common vector operations. There was an operator which received two vectors and returned their inner product... I mean, this routine received two vector parameters <i>passed by copy</i>: forty eight bytes had to be copied for each call. So, we transformed the inner product into a "regular" method of the <i>Vector</i> structure. It still needs the second parameter to be passed by copy, but the first parameter is now passed by address.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsightovr.html">An overview of ray tracing</a> |
+  <a href="rtdefined.html">How does a ray tracer work?</a> |
+  <a href="rtlimits.html"> The limits of ray tracing</a> |
+  <a href="sillyref.html">Small Instantiation Language Reference</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

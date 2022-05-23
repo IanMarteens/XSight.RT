@@ -1,0 +1,108 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Animation support</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Animation support</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>SILLY supports <a href="animform.html">animation</a> and <a href="blurform.html">motion blur</a> via <i>range expressions</i>.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="bouncing.gif" border="0"></td>
+    <td><img src="blurscene00.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<h2><a name="var"></a>Interpolation</h2>
+
+<p align=justify>Range expressions in SILLY are created with the special <b>var</b> keyword. You must use this keyword as you would use an arithmetic function. It requires at least two parameters, and all of its parameters must belong to the same type.</p>
+
+<pre><b>camera</b>
+    perspective(
+	location: <b>var</b>(-10^Z, -5^Z),
+	target:   ^0,
+	up:       <b>var</b>(^Y, ^Y, ^Y + 0.1^X),   <i>// Three parameters in <b>var</b>!</i>
+	angle:    <b>var</b>(60, 45),
+	width:    800,
+	height:   600);</pre>
+
+<p align=justify>We have specified three ranges for our camera. First, the camera travels from its initial position -10^Z to -5^Z. At the same time, the <a href="silly_cameras.html#angle">lens angle</a> is reduced from 60 degrees to 45, which is another zooming technique.</p>
+
+<p align="justify">While the camera is traveling, we change the <i>up</i> vector, rotating the camera a small angle towards the right side. In this case, the <b>var</b> function has three parameters, for dividing the range in two equal length parts. In the first interval, the <i>up</i> vector is not touched, and all the rotation is performed in the second half of the camera path. You can use as many parameters in a <b>var</b> range as you need.</p>
+
+<p align="justify">You can even control how time intervals are divided by using a time specifier inside the <b>var</b> parameter list:</p>
+
+<pre><b>var</b>(^Y, ^Y, <font color="blue"><i>0.4:</i></font> ^Y + 0.1^X)</pre>
+
+<p align=justify>In this case, the up vector changes at 0.4. A time specifier is not needed for the first and the last parameter, since they are fixed at 0.0 and 0.1, respectively.</p>
+
+<p align=justify><a name="clock"></a>This technique is easier than the common alternative: a explicit <b>clock</b> variable. However, if you don't feel easy with ranges, you can still use the <b>clock</b> <a href="silly_macros.html">predefined macro</a>, which has been defined like this:</p>
+
+<pre><b>set</b> clock = <b>var</b>(0.0, 0.1);</pre>
+
+
+<h2>Setting a clock value</h2>
+
+<p align=justify>There are several techniques for changing the internal clock value. You can control the clock's value from the parameters panel, always docked at the left edge of the main window:</p>
+
+<dir><img src="clockform.png" border="0"></dir>
+
+<p align=justify>Also, clock and range expressions are frequently used with the <a href="animform.html">Animation form</a>:</p>
+
+<dir><img src="animform.png" border="0"></dir>
+
+<p align=justify>Finally, if something changes in a scene, you can render it using the <a href="blurform.html">Motion Blur form</a>:</p>
+
+<dir><img src="blurform.png" border="0"></dir>
+
+<p align=justify>This form generates and combine several shots from the same scene, but with slightly different clock values.</p>
+
+<h2><a name="camrot"></a>Camera rotation</h2>
+
+<p align=justify>Frequently, when designing a scene, you need to watch its objects from several points. You could solve this problem using ranges in the camera's location. The needed expression, however, is fairly complex.</p>
+
+<p align=justify>That's the reason we have included the <i>Rotate camera</i> checkbox in the parameters panel. When this option is checked, the location of the camera is rotated clockwise around the camera's target, according to the clock's value when the scene was compiled. The clock's value is interpreted as a rotation angle between 0 and 360. The <i>Rotate camera</i> checkbox displays the current value as a hint, when the mouse is moved over the checkbox:</p>
+
+<dir><img src="rotcam.gif" border="0"></dir>
+
+<p align=justify>These two images were generated from the same scene, rotating the camera's location in a small amount:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="rotcameral.png" border="0"></td>
+    <td><img src="rotcamerar.png" border="0"></td>
+  </tr>
+</table></dir>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="sillysyntax.html">Basic syntax</a> |
+  <a href="sillytype.html">Data types</a> |
+  <a href="sillyexpr.html">Expressions</a> |
+  <a href="silly_macros.html">Macros</a> |
+  <a href="render.html">Rendering</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

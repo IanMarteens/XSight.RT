@@ -1,0 +1,59 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Box</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: box</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Second to <a href="shapes_sphere.html">spheres</a>, boxes are the second faster primitive shape in a typical ray tracer. The intersection routine for a ray and a sphere involves taking a square root. Intersection with boxes do not require any non algebraic operations, but they have a lot of jumps, and jumps in code are expensive.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>When specifying a box shape, you must provide a pair of points of one diagonal:</p>
+
+<ul type=square><li class=code>Box(From, To, Material)</li></ul>
+
+<dir><img src="def_box01.png" border="0"></dir>
+
+<p align=justify>In this variant, there's no need to group coordinates between brackets:</p>
+
+<ul type=square><li class=code>Box(X0, Y0, Z0, X1, Y1, Z1, Material)</li></ul>
+
+<p align=justify>Primitive boxes are always aligned to the axes. If you need another orientation, you must use the <a href="shapes_rotate.html">Rotate</a> primitive with the box. You can also apply a <a href="shapes_scale.html">Scale</a> operation to the rotated box. Note, however, it doesn't make sense to scale a non-rotated box, since the same effect could be achieved with the <b>box</b> primitive.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="shapes_solids.html">Solid shapes</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_torus.html">Torus</a> |
+  <a href="shapes_blob.html">Blob</a> |
+  <a href="shapes_poly.html">Polyhedra</a> |
+  <a href="shapes_quart.html">Quarts</a> |
+  <a href="shapes_trans.html">Transforms</a> |
+  <a href="shapes_csg.html">CSG operations</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

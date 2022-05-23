@@ -1,0 +1,65 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Merge</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>CSG: merge</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>A <b>merge</b> ties several entities together, as a <a href="shapes_union.html">union</a> would do, but removing all internal surfaces.</p>
+
+<h2>Internal surfaces</h2>
+
+<p align=justify>The following images show the problem solved by the <b>merge</b> operation:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="def_merge.png" border="0"></td>
+    <td><img src="def_merge1.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>The rightmost image shows a <a href="shapes_union.html">union</a> assembled from simple <a href="shapes_box.html">boxes</a>. The boxes are made of glass, so you can see the internal surfaces. We have a cosmetic problem, but there are more headaches on the way. The assembled shape doesn't correspond to any physical situation: in the real life, two solids cannot share their space.</p>
+
+<p align=justify>The leftmost image was generated with <b>merge</b>. The inner surfaces has disappeared.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>Unlike unions, <b>merges</b> are material shapes: they must always have an associated <a href="silly_textures.html">material</a> definition. This is how <b>merge</b> is used:</p>
+
+<ul type=square><li class=code>Merge(shape1, shape2, material)</li></ul>
+
+<p align=justify>The algorithm for rendering a <b>merge</b> is slower than the algorithm used with unions. Use <b>merge</b> only when dealing with transparent materials.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_union.html">Union</a> |
+  <a href="shapes_diff.html">Difference</a> |
+  <a href="shapes_inter.html">Intersection</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_torus.html">Torus</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

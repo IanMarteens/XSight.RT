@@ -1,0 +1,74 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: How does a ray tracer work?</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>How does a ray tracer work?</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align="justify"><i>Ray tracing</i> is the generic name for a family of algorithms designed for generating photorealistic renderings of geometric scenes. Realism is primed above raw velocity, if necessary. This goal is achieved with a careful emulation of the behavior of light and with a rich palette of geometrical objects for describing scenes.</p>
+
+<p align=justify>It's useful to compare ray tracing with hardware accelerated techniques used in games:</p>
+
+<ul type=disc>
+  <li>Ray tracing doesn't benefit from special video card hardware. All processing is performed by the CPU. Despite of the evident disadvantages, this feature makes ray tracing a easily extensible algorithm: you won't depend of any special hardware for adding whatever special feature you need.</li>
+  <li>If you need a ball in a scene, ray tracing allows you to use a real sphere. Most other techniques emulates the ball using a huge number of polygons.</li>
+</ul>
+
+<h2>Visual rays, light rays, who cares?</h2>
+
+<p align=justify>The basic idea in ray tracing is very simple: it would be perfect to simulate the behavior of light tracing photons emitted from light sources, but this is almost impossible. Most light rays never reach the eyes, or the camera, and it doesn't make any sense to care about them. Thus, ray tracing tracks <i>visual rays</i>, inverting what really happens in the physical world.</p>
+
+<p align=justify>The image below shows the simplest interaction in ray tracing:</p>
+
+<dir><img src="visualrays.gif" border="0"></dir>
+
+<p align=justify>First, a visual ray is emited, in order to probe the scene. If this ray doesn't hit any object, the returned color is taken from the scene background. When the visual ray hits on a surface, more rays are sent, this time, from the hit point to each light in the scene. We want to know whether any object is obstructing the ray between the hit point and the light source. If the answer is affirmative, the hit point is in a shadow zone. The color returned by the algorithm is computed with a formula depending of the total illumination at the hit point, the color of the object at the hit point, an ambient light factor, etc.</p>
+
+<h2>Reflection and refraction</h2>
+
+<p align=justify>Reality is not so simple. We must consider reflections, transparency and refraction. In our first step, we considered all surfaces to behave as <i>perfect Lambertian surfaces</i>: a surface that scatters all the light it receives in all directions, with uniform probability. Now we must add support for reflective surfaces:</p>
+
+<dir><img src="visualrays01.gif" border="0"></dir>
+
+<p align=justify>When a visual ray hits on the surface of a reflective material, the ray is modified: its new origin will be the hit point, and its direction will be computed so the incidence angle relative to the normal is the same as the angle between the normal and the new direction. This new ray is traced in a recursive fashion, and it returns a color value. The value from reflection is multiplied by an attenuation factor and added to the original radiance value for the hit point. In the above image, the pixel corresponding to the visual ray will carry color information about the hit blue point in the sphere plus some slightly degraded information about the green rod above the sphere.</p>
+
+<p align=justify>Finally, we have transparent materials, as the prism in the following image:</p>
+
+<dir><img src="visualrays02.gif" border="0"></dir>
+
+<p align=justify>In this case, the visual ray branches in two directions, and the contributions from both subbranches must be added in order to obtain the final radiance. Note that, in this general case, we need a recursive implementation... or an equivalent implementation using a explicit stack.</p>
+
+<h2>Attitudes regarding ray tracing</h2>
+
+<p align=justify>There are at least two equally valid attitudes regarding ray tracing. On one hand, there's the never ending quest for the ultimate photorealism. On the other hand, you could simply regard ray tracers as another useful tool for creating stunning graphics and animations.</p>
+
+<p align=justify>This may sound too obvious, but it's very important to realize this fact when evaluating how useful could prove the addition of a given technique to the ray tracing toolbox. Even when realism is lacking, you could use the feature to create interesting visual effects.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsightovr.html">An overview of XSight Ray Tracer</a> |
+  <a href="rtlimits.html">The limits of ray tracing</a> |
+  <a href="rtwhyxs.html">Why XSight RT?</a> |
+  <a href="sillyref.html">Small Instantiation Language Reference</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Dress</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Transforms: Dress</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>If you need to change the material a simple or composite shape is made of, then you need the <b>dress</b> operation.</p>
+
+<dir><img src="def_dress01.png" border="0"></dir>
+
+<h2>Syntax</h2>
+
+<p align=justify>You only need to specify the original shape and the new material definition:</p>
+
+<ul type=disc>
+  <li class=code>Dress(original, material)</li>
+  <li class=code>Dress(material, original)</li>
+</ul>
+
+<p align=justify>Most of the times, the scene optimizer can coalesce the new material into the original object definition.</p>
+
+<h2>Example</h2>
+
+<p align=justify>In this scene, we define a <a href="silly_macros.html">macro</a> for grouping three basic shapes with different colors. The macro is the used to create two instances, and a third instance is created and wrapped with a new material:</p>
+
+<pre><b>objects</b>
+    <b>set</b> met(c) = metal(c, 0.03, 0.00, 0.7, 0.3, 5);
+
+    <b>set</b> little_guy(x, z) = <b>union</b>(
+        cylinder(x, -1.5, z, 1.5, 1, met(royalblue)),
+        cone(x, 1.3, z, 1.5, 1, met(red)),
+        sphere(x, 0.8, z,0.8, met(seashell)));
+
+    dress(
+        little_guy(0, 0),
+        marble(white, silver, 8));
+    little_guy(-3, 5.0);
+    little_guy(+3, 2.2);
+<b>end</b>.</pre>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Predefined shapes</a> |
+  <a href="shapes_trans.html">Transforms</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_solids.html">Solid shapes</a> |
+  <a href="shapes_surfaces.html">Surfaces</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

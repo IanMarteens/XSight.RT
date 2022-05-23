@@ -1,0 +1,81 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Small Instantiation Language</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p>The Small Instantiation Language, also known as SILLY is the scene description language supported by XSight Ray Tracer. SILLY is extremely... ehem... simple. SILLY clauses are translated and executed as C# classes constructor calls. Consider this clause:</p>
+
+<pre>Sphere(0, 0, 0, 1, plastic(red))</pre>
+
+<p>The previous clause, when executed, creates an instance of the <i>Sphere</i> class, as if this C# statement was executed:</p>
+
+<pre>IShape shape =
+    <b>new</b> Sphere(0, 0, 0, 1,
+        <b>new</b> Plastic(<b>new</b> Pixel(1, 0, 0)));</pre>
+
+<p>Classes recognized by SILLY are registered by the XSight RT Engine. However, you can extend SILLY by registering classes from your own assemblies, adding new shape, material and light source classes when needed.</p>
+
+<p align="justify">You will find detailed information on SILLY in these topics:</p>
+
+  <ul type="square">
+    <li><a href="sillysyntax.html">Basic syntax</a>
+      <ul type="disc">
+        <li><a href="sillytype.html">Data types</a></li>
+        <li><a href="sillyexpr.html">Expressions</a></li>
+        <li><a href="sillyvar.html">Animation support</a></li>
+        <li><a href="silly_macros.html">Macros</a></li>
+      </ul>
+    </li>
+    <li><a href="silly_scenes.html">Scenes</a>
+      <ul type="disc">
+        <li><a href="silly_samplers.html">Samplers</a></li>
+        <li><a href="silly_cameras.html">Cameras</a></li>
+        <li><a href="silly_lights.html">Lights</a></li>
+        <li><a href="silly_amb.html">Ambient light</a></li>
+        <li><a href="silly_backs.html">Backgrounds</a></li>
+      </ul>
+    </li>
+    <li><a href="silly_shapes.html">Shapes</a>
+      <ul type="disc">
+        <li><a href="shapes_surfaces.html">Surfaces</a></li>
+        <li><a href="shapes_solids.html">Basic solids</a></li>
+        <li><a href="shapes_csg.html">CSG operations</a></li>
+        <li><a href="shapes_trans.html">Transforms</a></li>
+      </ul>
+    </li>
+    <li><a href="silly_textures.html">Materials</a></li>
+  </ul>
+
+<a name="see"></a><h2>See also</h2>
+
+  <p>
+    <a href="index.html">Home</a> |
+    <a href="xsightovr.html">XSight Ray Tracer overview</a> |
+    <a href="sillysyntax.html">Basic syntax</a> |
+    <a href="silly_macros.html">Macros</a> |
+    <a href="silly_scenes.html">Scenes</a> |
+    <a href="silly_shapes.html">Predefined shapes</a> |
+    <a href="silly_textures.html">Materials</a> |
+    <a href="xsusing.html">Using XSight's Ray Editor</a>
+  </p>
+
+</div>
+
+</BODY>
+</HTML>

@@ -1,0 +1,89 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Noise Generator</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>The Noise Generator Window</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>You can test the solid noise function using the <b>Noise Generator</b> window:</p>
+
+  <dir><img src="noisedlg.png" border="0"></dir>
+
+<p align=justify>You can generate a random image controlling several parameters from the solid noise generator. The
+generated image is shown at the <a href="bmpform.html">Image Window</a>. You could save the random bitmap as you would save any other rendered scene.</p>
+
+  <h2>Bitmap and sample sizes</h2>
+
+<p align=justify>Since the domain of the solid noise function is the 3D space, the generator cuts a bidimensional slice.</p>
+
+<dir><img src="noisefunc.png" border="0"></dir>
+
+  <h2>Methods, color maps and turbulence</h2>
+
+<p align=justify>The are three available noise algorithms for the noise generator: the clasical Perlin noise, and two variants of a related noise interpolation algorithm, known as <i>crackles</i> and <i>bubbles</i>.</p>
+
+<p align=justify>Solid noise functions only returns a real value for each position. That value must be mapped to a color somehow. XSight RT has three mapping methods for this purpose:</p>
+
+<dir><img src="noisemap.png" border="0"></dir>
+
+<p align=justify>The simplest mapping is <i>Shades of gray</i>:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="noise02.png" border="0"></td>
+    <td><img src="noise02c.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>The <i>Full color</i> options interpolates over the HSL color space, keeping maximum saturation and luminosity:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="noise01.png" border="0"></td>
+    <td><img src="noise01c.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>The third and last option is <i>Interpolation</i>:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="noise00.png" border="0"></td>
+    <td><img src="noise00c.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>This time, you are allowed to specify the extreme colors. Interpolation is performed over the HSL color space.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsusing.html">Using XSight's Ray Editor</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="render.html">Rendering</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="optsform.html">XSight RT Options</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

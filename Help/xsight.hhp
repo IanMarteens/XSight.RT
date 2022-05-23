@@ -1,0 +1,94 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=xsight.chm
+Contents file=xsight.hhc
+Default topic=index.html
+Display compile notes=No
+Display compile progress=No
+Index file=Index.hhk
+Language=0x409 Inglés (Estados Unidos)
+Title=XSight Ray Tracer
+
+
+[FILES]
+xsusing.html
+bmpform.html
+index.html
+mainform.html
+scwizform.html
+shapes_box.html
+shapes_cone.html
+shapes_csg.html
+shapes_cyl.html
+shapes_diff.html
+shapes_inter.html
+shapes_solids.html
+shapes_sphere.html
+shapes_torus.html
+shapes_trans.html
+shapes_union.html
+silly_macros.html
+silly_scenes.html
+silly_shapes.html
+sillyref.html
+xsightovr.html
+keyboard.html
+shapes_translate.html
+shapes_rotate.html
+shapes_scale.html
+txt_plastic.html
+txt_metal.html
+txt_marble.html
+txt_spotted.html
+silly_samplers.html
+silly_lights.html
+silly_cameras.html
+gotodlg.html
+silly_backs.html
+noiseform.html
+finddlg.html
+shapes_surfaces.html
+rtlimits.html
+rtdefined.html
+silly_amb.html
+silly_textures.html
+xsquality.html
+shapes_rep.html
+shapes_dress.html
+txt_pigment.html
+shapes_plane.html
+shapes_triangle.html
+txt_metalpig.html
+shapes_shadowless.html
+sillyvar.html
+sillyexpr.html
+sillytype.html
+repldlg.html
+shapes_blob.html
+scenetree.html
+rtwhyxs.html
+sillysyntax.html
+animform.html
+blurform.html
+optsform.html
+render.html
+codehelps.html
+shapes_poly.html
+txt_glass.html
+txt_normals.html
+shapes_quart.html
+shapes_qcyl.html
+xsdual.html
+txt_diffuse.html
+txt_phong.html
+txt_reflection.html
+shapes_merge.html
+bmpoptions.html
+bmpsource.html
+bmpfeed.html
+bmpsave.html
+shapes_hyper.html
+
+[INFOTYPES]
+

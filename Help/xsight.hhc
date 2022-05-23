@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Window Styles" value="0x25">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Welcome to XSight Ray Tracer">
+		<param name="Local" value="index.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="An overview of XSight RT">
+			<param name="Local" value="xsightovr.html">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="How does a ray tracer work?">
+				<param name="Local" value="rtdefined.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Ray tracing limits">
+				<param name="Local" value="rtlimits.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Why XSight RT?">
+				<param name="Local" value="rtwhyxs.html">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Small Instantiation Language">
+			<param name="Local" value="sillyref.html">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Basic syntax">
+				<param name="Local" value="sillysyntax.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Data types">
+					<param name="Local" value="sillytype.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Expressions">
+					<param name="Local" value="sillyexpr.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Animation support">
+					<param name="Local" value="sillyvar.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Macros">
+					<param name="Local" value="silly_macros.html">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Scenes">
+				<param name="Local" value="silly_scenes.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Samplers">
+					<param name="Local" value="silly_samplers.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Cameras">
+					<param name="Local" value="silly_cameras.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Lights">
+					<param name="Local" value="silly_lights.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Ambient light">
+					<param name="Local" value="silly_amb.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Backgrounds">
+					<param name="Local" value="silly_backs.html">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Shapes">
+				<param name="Local" value="silly_shapes.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Surfaces">
+					<param name="Local" value="shapes_surfaces.html">
+					</OBJECT>
+				<UL>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Plane">
+						<param name="Local" value="shapes_plane.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Triangle">
+						<param name="Local" value="shapes_triangle.html">
+						</OBJECT>
+				</UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Basic solids">
+					<param name="Local" value="shapes_solids.html">
+					</OBJECT>
+				<UL>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Sphere">
+						<param name="Local" value="shapes_sphere.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Box">
+						<param name="Local" value="shapes_box.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Cylinder">
+						<param name="Local" value="shapes_cyl.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Cone">
+						<param name="Local" value="shapes_cone.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Polyhedra">
+						<param name="Local" value="shapes_poly.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Torus">
+						<param name="Local" value="shapes_torus.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Blob">
+						<param name="Local" value="shapes_blob.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Quarts">
+						<param name="Local" value="shapes_quart.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Quartic cylinder">
+						<param name="Local" value="shapes_qcyl.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Hyperboloid">
+						<param name="Local" value="shapes_hyper.html">
+						</OBJECT>
+				</UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="CSG operations">
+					<param name="Local" value="shapes_csg.html">
+					</OBJECT>
+				<UL>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Union">
+						<param name="Local" value="shapes_union.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Merge">
+						<param name="Local" value="shapes_merge.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Intersection">
+						<param name="Local" value="shapes_inter.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Difference">
+						<param name="Local" value="shapes_diff.html">
+						</OBJECT>
+				</UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Transforms">
+					<param name="Local" value="shapes_trans.html">
+					</OBJECT>
+				<UL>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Translate">
+						<param name="Local" value="shapes_translate.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Rotate">
+						<param name="Local" value="shapes_rotate.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Scale">
+						<param name="Local" value="shapes_scale.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Dress">
+						<param name="Local" value="shapes_dress.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Repeater">
+						<param name="Local" value="shapes_rep.html">
+						</OBJECT>
+					<LI> <OBJECT type="text/sitemap">
+						<param name="Name" value="Shadowless">
+						<param name="Local" value="shapes_shadowless.html">
+						</OBJECT>
+				</UL>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Materials">
+				<param name="Local" value="silly_textures.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Plastic">
+					<param name="Local" value="txt_plastic.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Metal">
+					<param name="Local" value="txt_metal.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Marble">
+					<param name="Local" value="txt_marble.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Spotted">
+					<param name="Local" value="txt_spotted.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Pigments">
+					<param name="Local" value="txt_pigment.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Metal pigment">
+					<param name="Local" value="txt_metalpig.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Glass">
+					<param name="Local" value="txt_glass.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Perfect specular reflection">
+					<param name="Local" value="txt_reflection.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Diffuse specular reflection">
+					<param name="Local" value="txt_diffuse.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Phong specular highlights">
+					<param name="Local" value="txt_phong.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Normals perturbation">
+					<param name="Local" value="txt_normals.html">
+					</OBJECT>
+			</UL>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Using XSight's Ray Editor">
+			<param name="Local" value="xsusing.html">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Editor Window">
+				<param name="Local" value="mainform.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Scripting tools">
+					<param name="Local" value="codehelps.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Keyboard Shortcuts">
+					<param name="Local" value="keyboard.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Find dialog">
+					<param name="Local" value="finddlg.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Replace dialog">
+					<param name="Local" value="repldlg.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Go to line dialog">
+					<param name="Local" value="gotodlg.html">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Rendering with XSight RT">
+				<param name="Local" value="render.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Render quality">
+					<param name="Local" value="xsquality.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Multithreading">
+					<param name="Local" value="xsdual.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Motion Blur">
+					<param name="Local" value="blurform.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="The Scene Tree">
+					<param name="Local" value="scenetree.html">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Image Window">
+				<param name="Local" value="bmpform.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Clipboard and persistency">
+					<param name="Local" value="bmpsave.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Scene feedback">
+					<param name="Local" value="bmpfeed.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Image source">
+					<param name="Local" value="bmpsource.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Display options">
+					<param name="Local" value="bmpoptions.html">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Animation Form">
+				<param name="Local" value="animform.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Scene Wizard">
+				<param name="Local" value="scwizform.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Noise Generator">
+				<param name="Local" value="noiseform.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Options Dialog">
+				<param name="Local" value="optsform.html">
+				</OBJECT>
+		</UL>
+	</UL>
+</UL>
+</BODY></HTML>

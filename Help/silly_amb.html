@@ -1,0 +1,210 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Ambient Light</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Ambient Light</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align="justify">Total darkness is hard to find. Our atmosphere scatters sunlight, so you still can see objects under a shadow. Every wall acts as a diffusing mirror. All these effects are grouped under the <i>global illumination</i> label. But global illumination is an expensive trick, so most ray tracers, including XSight, provides <b>ambient lights</b>: a cheap, but effective hack to simulate the most visible of these efects.</p>
+
+<p align=justify>These are the provided ambient light classes:</p>
+
+<ul type="square">
+  <li><a href="#const">Constant ambient</a></li>
+  <li><a href="#local">Local ambient</a></li>
+  <li><a href="#lightsource">Light sources</a></li>
+  <li><a href="#occluder">Ambient occlusion</a></li>
+  <li><a href="#combo">Combined ambients</a></li>
+</ul>
+
+<h2>Why do we need ambient lighting</h2>
+
+<p align=justify>Can you tell what's happening here?</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="noambient.png" border="0"></td>
+    <td><img src="faintambient.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>In both images, we have the same scene. Omitting details about sampler and camera, it's something like this:</p>
+
+<pre><b>lights</b>
+    PointLight(0, 3.17, 0);
+<b>objects</b>
+    Sphere(0, 2, 0, 1, metal(silver, 0));
+    Plane(0, 1, 0, 0, marble(darkgreen, <b>color</b>(0.00, 0.29, 0.00)));
+<b>end</b>.</pre>
+
+<p align=justify>A <a href="shapes_sphere.html">ball</a> floats over a <a href="shapes_plane.html">plane</a>, and there's a <a href="silly_lights.html#point">point light source</a> just above the ball. Most light from the source is blocked by the sphere: in the first image, the ball and part of the floor can't be seen. In the second image, however, we have added an ambient light:</p>
+
+<pre><b>ambient</b>
+    ConstantAmbient(0.30);</pre>
+
+<p align=justify>Of course, the scene does not feel <i>real</i>: the separation between areas of light and shadow are too neat to be credible, and there is no trace of atmospheric scattering. But that's another story...</p>
+
+<a name="const"></a><h2>Constant ambient</h2>
+
+<p align=justify>The most simple form of ambient light is the <b>constant ambient</b>: it's a light that has the same intensity and color no matter the location or the direction. You only have to provide the color or the brightness for the ambient light:</p>
+
+<ul type=square>
+  <li class=code>ConstantAmbient(color)</li>
+  <li class=code>ConstantAmbient(brightness)</li>
+</ul>
+
+<p align=justify>You can use any color for the ambient light. However, in most scenes, the most appropiated ambient light color is some shade of gray. For this reason, you can specify one real value, between 0 and 1, and this value is interpreted as a gray intensity.</p>
+
+<dir><img src="constamb00.png" border="0"></dir>
+
+<p align=justify>By the way, in the previous scene, a good trick would be adding another <a href="silly_lights.html#point">point light</a>, not too bright, for illuminating the upper side. This is the result:</p>
+
+<dir><img src="constamb01.png" border="0"></dir>
+
+<p align=justify>Now, all visible faces show a different shade of blue.</p>
+
+<p align=justify>A common trick with ambient light is using a bright ambient to achieve a flat appearance:</p>
+
+<dir><img src="ambient_trick.gif" border="0" /></dir>
+
+<p align=justify>These spheres were generated using the same scene. The leftmost was rendered using a white <a href="silly_lights.html#point">point light</a> and a weak constant ambient. The rightmost was rendered changing the color of the point light source to black, and rising the ambient up to 0.8.</p>
+
+<p align=justify>This image was generated with a typical low ambient light:</p>
+
+<dir><img src="amb_trick01.png" border="0" /></dir>
+
+<p align=justify>With a higher ambient light setting, you can obtain a flat look for the scene:</p>
+
+<dir><img src="amb_trick02.png" border="0" /></dir>
+
+<a name="local"></a><h2>Local ambient</h2>
+
+<p align=justify>The local ambient illumination doesn't correspond to any "natural" illumination model, but it's an interesting tool for the graphic artist. A local ambient has a maximum peak at some point defined in the scene. Then, the light value decays with distance.</p>
+
+<p align=justify>In this scene, we have defined a local ambient centered in the area surrounded by the boxes. You should note the glow near the center of the scene:</p>
+
+<dir><img src="locamb.png" border="0"></dir>
+
+<p align=justify>A local ambient must be specified in one of these ways:</p>
+
+<ul type=square>
+  <li class=code>LocalAmbient(location, color, fade)</li>
+  <li class=code>LocalAmbient(x, y, z, color, fade)</li>
+</ul>
+
+<p align=justify>We use this formula to calculate the intensity at any point:</p>
+
+<dir><img src="locform.gif" border="0"></dir>
+
+<p align=justify>where <i>d</i> is the distance to the local ambient source, and <i>f</i> is the <i>fade</i> parameter.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="locamb01.png" border="0"></td>
+    <td><img src="locamb02.png" border="0"></td>
+  </tr>
+</table></dir>
+
+
+<p align=justify>In the leftmost image, the source of local ambient has been located at the south pole. It looks as if the sphere could shine by itself. In the rightmost image, the effect looks artificial: we have added a strong local ambient, centered inside the sphere. Please note that all points in the sphere looks equally bright. It's not a photorealistic shot, indeed, but it can be useful. By the way, we have blurred the frontier between light and shadow by substituting the point light source by a <a href="silly_lights.html#spheric">spheric light</a> source.</p>
+
+<a name="lightsource"></a><h2>LightSource</h2>
+
+<p align=justify>If you take local ambient to its limit, you'll get the <b>lightsource</b> ambient:</p>
+
+<ul type=square>
+  <li class=code>LightSource(location, color1, color2, radius)</li>
+  <li class=code>LightSource(x, y, z, color1, color2, radius)</li>
+</ul>
+
+<p align=justify>Instead of a gradual fading, a <i>lightSource</i> ambient features a uniform constant ambient except for a configurable size sphere. You can have a totally different color inside this sphere.</p>
+
+<p align=justify>This ambient class can be used to make visible an otherwise invisible light source. The image at the left shows a typical scene with a spheric light source:</p>
+
+<dir>
+  <table cellspacing="8" border="0" bgcolor="royalblue">
+    <tr>
+      <td><img src="def_ls00.png" border="0"></td>
+      <td><img src="def_ls01.png" border="0"></td>
+    </tr>
+  </table>
+</dir>
+
+<p align=justify>Of course, you cannot see the light source, so we changed the ambient light to <i>lightSource</i>, and then, a sphere was added at the location of the real light source. However, the new sphere blocks the light, as you can see in the image at the right. To solve this, we applied the <a href="shapes_shadowless.html">shadowless</a> transformation to the sphere:</p>
+
+<dir>
+  <table cellspacing="8" border="0" bgcolor="royalblue">
+    <tr>
+      <td><img src="def_ls02.png" border="0"></td>
+    </tr>
+  </table>
+</dir>
+
+<a name="occluder"></a><h2>Ambient occlusion</h2>
+
+<p align=justify>In some scenes, <i>AmbientOccluder</i> can be used to enhance the global ambient illumination:</p>
+
+<ul type=square>
+  <li class=code>AmbientOccluder(minColor, maxColor, samples)</li>
+  <li class=code>AmbientOccluder(maxColor, samples)</li>
+</ul>
+
+<p align=justify>Instead of using a constant ambient value for all surfaces, ambient occlusion samples random rays from the hit point on the surface, in order to find occluders. If no occluders are found, the intersection point gets the maximum ambient luminosity, as specified in the ambient occluder definition.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="def_occ0.png" border="0"></td>
+    <td><img src="def_occ1.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>The leftmost image has been rendered with ambient occlusion. The most visible difference is the color inside the holes in the cube. The image rendered with a constant ambient shows a dark blue surface, while the image with ambient occlusion uses a darker shade of blue, almost black. As a result, the leftmost hole has a better definition in the image with ambient occlusion.</p>
+
+<a name="combo"></a><h2>Combining ambient lights</h2>
+
+<p align=justify>You can use more than one ambient light source in a scene:</p>
+
+<pre><b>ambient</b>
+    ConstantAmbient(0.30);
+    LocalAmbient(5^Z, <b>rgb</b> 0.40, 0.5);</pre>
+
+<p align=justify>When using a <i>ConstantAmbient</i> in a combined ambient, you cannot abbreviate the constant ambient expression as a single number:</p>
+
+<pre>    ConstantAmbient(0.30);  <i>// Ok.</i>
+    0.30;                   <i>// An error when used in a combined ambient source.</i></pre>
+
+<p align=justify>Of course, it does not makes any sense to mix two constant ambients: the same effect is achieved by a single constant ambient with the sum of their intensitites.</p>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_samplers.html">Samplers</a> |
+  <a href="silly_cameras.html">Cameras</a> |
+  <a href="silly_lights.html">Lights</a> |
+  <a href="silly_backs.html">Background</a> |
+  <a href="silly_shapes.html">Predefined shapes</a> |
+  <a href="silly_textures.html">Materials</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

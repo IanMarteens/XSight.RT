@@ -1,0 +1,66 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Clipboard and persistency</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Clipboard and persistency</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>You can save a image in the <a href="bmpform.html">Image Window</a> into a file, with the option of making the background transparent. You can also copy the whole rendered image, or the current view of the image, to the Clipboard, to share it with other applications.</p>
+
+<a name="save"></a><h2>Save image</h2>
+
+<p align=justify>You have two commands, both in the toolbar and in the context menu of the Image Window, for saving the current image to a file:</p>
+
+<dir><img src="bmpsave.png" border="0" /></dir>
+
+<p align=justify><b>Save image as</b> always asks for the file name. <b>Save image</b>, on the contrary, only asks the first time the current image is saved. In both cases, the suggested file name is built from the name of the <a href="silly_scenes.html">scene</a> file, if any.</p>
+
+<h2>Copy to Clipboard</h2>
+
+<p align=justify>The Image Window supports three different commands for copying information into the Clipboard:</p>
+
+<table class="FEATURES" width="90%">
+<tr><th width="150">Command</th><th width="90">Shortcut</th><th>Action</th></tr>
+<tr><td>Copy image</td><td class="KBD">Ctrl+C</td><td>Copies the whole rendered image to the Clipboard, ignoring <a href="bmpfeed.html#zoom">zooming</a> and any <a href="bmpoptions.html">display options</a>.</td></tr>
+<tr><td>Copy view</td><td class="KBD">Ctrl+W</td><td>Copies the current content of the Image Window, including <a href="bmpfeed.html#zoom">zooming</a> and any applied <a href="bmpoptions.html">display options</a>.</td></tr>
+<tr><td>Copy position as text</td><td class="KBD">Ctrl+Shift+C</td><td>Copies the coordinates of <a href="bmpfeed.html#status">the point below the cursor</a> as text, in <a href="sillytype.html#vectors">vector</a> notation.</td></tr>
+</table>
+
+
+<dir><img src="bmpcopy.png" border="0"></dir>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="bmpfeed.html">Scene feedback</a> |
+  <a href="bmpsource.html">Image source</a> |
+  <a href="bmpoptions.html">Display options</a> |
+  <a href="xsusing.html">Using the Ray Editor</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="noiseform.html">Noise Generator</a> |
+  <a href="optsform.html">XSight RT Options</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

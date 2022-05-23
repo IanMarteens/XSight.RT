@@ -1,0 +1,127 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Lights</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Lights</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p>Though you can illuminate objects in a scene only using an <a href="silly_amb.html">ambient light</a>, most XSight RT scenes requires one or more light sources. These are the types of light sources supported by XSight RT:</p>
+
+<ul type="square">
+  <li><a href="#point">Point lights</a></li>
+  <li><a href="#parallel">Parallel lights</a></li>
+  <li><a href="#spot">Spot lights</a></li>
+  <li><a href="#spheric">Spheric lights</a></li>
+</ul>
+
+<h2>Lights and camera location</h2>
+
+<p align=justify>When a point light or a spot light are defined at the same location as the camera, a very simple but effective optimization is possible. Let's say a visual ray emitted by the camera hits a shape. According to the basic ray tracing algorithm, the next step is check whether the hit point is illuminated or not. This check is done by tracing another ray from the hit point towards each luminary in the scene. But, in the case the point light is located exactly at the same position as the camera, there's no need for such a test: we are dealing with this point just because it is visible from the camera's location!</p>
+
+<a name="point"></a><h2>Point lights</h2>
+
+<p align="justify">A <b>point light</b> is an idealized light source, and it is the simplest light model. All rays are casted from the same location, and always with the same intensity. Shadows produced by point lights exhibit very neat borders. The image below shows the effect of two point lights with different colors floating over a sphere:</p>
+
+<dir><img src="def_ptlight.png" border="0"></dir>
+
+<p align=justify>The point light at the right of the sphere emits golden light, and the one at the left, emits blue light. Since these are complementary colors, they sum their intensities and yield a white shade. In the areas on the floor ocluded by the sphere, you see what would happen after turning off each of the point lights.</p>
+
+<ul type=square>
+  <li class=code>PointLight</li>
+  <li class=code>PointLight(brightness)</li>
+  <li class=code>PointLight(color)</li>
+  <li class=code>PointLight(location)</li>
+  <li class=code>PointLight(location, color)</li>
+  <li class=code>PointLight(x, y, z)</li>
+  <li class=code>PointLight(x, y, z, brightness)</li>
+</ul>
+
+<a name="parallel"></a><h2>Parallel lights</h2>
+
+<p align=justify><b>Parallel lights</b> emulates a point light so distant from the scene that all of its emitted rays are parallel.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="parlight00.png" border="0"></td>
+    <td><img src="parlight01.png" border="0"></td>
+  </tr>
+  <tr>
+    <td><img src="parlight02.png" border="0"></td>
+    <td><img src="parlight03.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<ul type=square>
+  <li class=code>ParallelLight(location, target, color)</li>
+  <li class=code>ParallelLight(color, location, target)</li>
+  <li class=code>ParallelLight(location, target)</li>
+  <li class=code>ParallelLight(location)</li>
+</ul>
+
+<p align=justify><i>Parallel</i> is accepted as a synonym of <i>ParallelLight</i>.</p>
+
+<a name="spot"></a><h2>Spot lights</h2>
+
+<p align=justify>While a point light emit rays in all directions, a <b>spot light</b> only emit rays inside a cone with center at the light's location. Instead of showing a clear-cut transition between the shadow area and the illuminated area, the spot light can be defined with a transition area, where the light intensity steadily decreases until it drops to zero in the outer area.</p>
+
+<dir><img src="spotlight01.png" border="0"></dir>
+
+<ul type="square">
+  <li class=code>SpotLight(location, target, angle, penumbra, color)</li>
+  <li class=code>SpotLight(location, target, angle, color)</li>
+  <li class=code>SpotLight(target, angle, color)</li>
+  <li class=code>SpotLight(angle, color)</li>
+</ul>
+
+<a name="spheric"></a><h2>Spheric lights</h2>
+
+<p align=justify>In the real world, no light source is a perfect point. Since real light sources have an area, real shadows have no neat borders: every shadow is surrounded by a penumbra area. From any given point, the light source may be totally visible, totally hidden or partially ocluded.</p>
+
+<p align=justify>XSight RT emulates this behaviour sampling different points in the light area, using Monte Carlo integration:</p>
+
+<ul type=square>
+  <li class=code>SphericLight(location, radius, color, samples)</li>
+  <li class=code>SphericLight(location, radius, samples)</li>
+  <li class=code>SphericLight(radius, color, samples)</li>
+  <li class=code>SphericLight(radius, samples)</li>
+</ul>
+
+<dir><img src="softshadows.png" border="0"></dir>
+
+<p align=justify>Note that the border of the right sphere is as neat as the border of the left sphere.</p>
+
+<dir><img src="softshadows01.png" border="0"></dir>
+
+<p align=justify>There's a lesson in the above image: if you just want to blur a distant shadow, you should try first with the focal sampler before resorting to a more CPU expensive spheric light.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_samplers.html">Samplers</a> |
+  <a href="silly_cameras.html">Cameras</a> |
+  <a href="silly_amb.html">Ambient light</a> |
+  <a href="silly_backs.html">Background</a> |
+  <a href="silly_shapes.html">Predefined shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

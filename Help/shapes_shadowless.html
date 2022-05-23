@@ -1,0 +1,52 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Shadowless</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Transforms: Shadowless</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The <b>shadowless</b> operation masks the transformed shape so it can't cast any shadow. You can still see the original shape and its reflections:</p>
+
+<dir><img src="def_shadowless.png" border="0"></dir>
+
+<h2>Syntax</h2>
+
+<p align=justify>This transformation only requires the specification of the original shape:</p>
+
+<ul type=disc>
+  <li class=code>Shadowless(original)</li>
+</ul>
+
+<p align=justify>You can use <b>shadowless</b> for special effects, and to accelerate rendering by excluding a subtree from the scene from the shadow generation algorithm. Combined with a <a href="silly_amb.html#lightsource">lightSource</a> ambient light, it can be used to make visible an otherwise invisible light source.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Predefined shapes</a> |
+  <a href="shapes_trans.html">Transforms</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_solids.html">Solid shapes</a> |
+  <a href="shapes_surfaces.html">Surfaces</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

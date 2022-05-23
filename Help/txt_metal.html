@@ -1,0 +1,60 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Metalic Materials</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: Metal</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p>Metalic materials features a reflection coefficient that depends on the incidence angle and the wavelength.</p>
+
+<dir><img src="def_metalphong.png" border="0"></dir>
+
+<p align=justify>Another feature of metals is that they tints the reflected light with their own color. Compare the above metalic sphere with a <a href="txt_plastic.html">plastic</a> one:</p>
+
+<dir><img src="def_plasticphong.png" border="0" /></dir>
+
+<p align=justify>The intensity of this effect depends on the incidence angle.</p>
+
+<h2>Syntax</h2>
+
+  <ul type="square">
+    <li class=code>Metal(color, minReflection)</li>
+    <li class=code>Metal(color, minReflection, maxReflection)</li>
+    <li class=code>Metal(color, minReflection, maxReflection, diffuse)</li>
+    <li class=code>Metal(color, minReflection, maxReflection, diffuse, phongAmount, phongSize)</li>
+    <li class=code>Metal(color, minReflection, maxReflection, diffuse, phongAmount, phongSize, roughness)</li>
+  </ul>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="silly_textures.html">Textures</a> |
+  <a href="txt_plastic.html">Plastic</a> |
+  <a href="txt_marble.html">Marble</a> |
+  <a href="txt_spotted.html">Spotted</a> |
+  <a href="txt_pigment.html">Pigment</a> |
+  <a href="txt_metalpig.html">MetalPigment</a> |
+  <a href="txt_glass.html">Glass</a> |
+  <a href="silly_shapes.html">Shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

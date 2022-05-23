@@ -1,0 +1,92 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Rendering scenes</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Rendering</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The scene script loaded in the <a href="mainform.html">Editor Window</a> can be easily render from this window. You can use three different techniques for rendering a script:</p>
+
+<ul>
+  <li>Rendering the script as a single frame.</li>
+  <li>Rendering a script with changing elements using <a href="blurform.html">motion blur</a>.</li>
+  <li>Rendering several frames for creating an animation.</li>
+</ul>
+
+<h2>Rendering a single frame</h2>
+
+<p align=justify>Most of the times, you'll want to render the loaded script as a single frame. You can execute the <i>Render</i> command from the <i>Project</i> submenu in the main menu bar:</p>
+
+<dir><img src="rendermenu.gif" border="0"></dir>
+
+<p align=justify>As an alternative, you can press <span class="KBD">F5</span> or click on the corresponding button in the toolbar:</p>
+
+<dir><img src="tb_render.png" border="0"></dir>
+
+<p align=justify>There are three global settings that affect how the scene is rendered:</p>
+
+<ol start="1">
+  <li>The current state of the <i>Use motion blur</i> option.</li>
+</ol>
+
+<dir><dir><img src="blurform.png" border="0"></dir></dir>
+
+<dir><p align=justify>It's easy: if this checkbox is checked, the scene will be rendered with <a href="blurform.html">motion blur</a>.</p></dir>
+
+<ol start="2">
+  <li>The current clock value in the clock panel.</li>
+</ol>
+
+<dir><dir><img src="clockform.png" border="0"></dir></dir>
+
+<dir><p align=justify>The current clock value affects those scenes which contains <a href="sillyvar.html#var">range expressions</a> or uses the <a href="sillyvar.html#clock">clock</a> macro.</p></dir>
+
+<ol start="3">
+  <li>The selected <a href="xsquality.html">render quality</a>.</li>
+</ol>
+
+<dir><dir><img src="qualdrop.png" border="0"></dir></dir>
+
+<ol start="4">
+  <li>The state of the <a href="xsdual.html">multithreading</a> option.</li>
+</ol>
+
+<dir><dir><img src="dualmode.png" border="0"></dir></dir>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsusing.html">Using XSight's Ray Editor</a> |
+  <a href="xsquality.html">Render Quality</a> |
+  <a href="xsdual.html">Multithreading</a> |
+  <a href="keyboard.html">Keyboard shortcuts</a> |
+  <a href="scenetree.html">Scene tree</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="noiseform.html">Noise Generator</a> |
+  <a href="optsform.html">XSight RT Options</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

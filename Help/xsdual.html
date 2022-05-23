@@ -1,0 +1,51 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Multithreading</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Multithreading</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The <b>Multithreading</b> check box in the left panel instructs XSight RT to use several concurrent threads for rendering scenes. It can reduce the required rendering time:</p>
+
+<dir><img src="dualmode.png" border="0"></dir>
+
+<p align=justify>You must use this feature when rendering on a machine with two or more CPU cores. It can also save some time in old computers with only one hyperthreaded core. With traditional single core CPUs, dual mode will neither improve nor hurt performance.</p>
+
+<p align=justify>When rendering with multithreading, the scene is divided in bands, as shown in this image:</p>
+
+<dir><img src="dualrender.png" border="0"></dir>
+
+
+<a name="see"></a><h2>See also</h2>
+
+  <p>
+    <a href="index.html">Home</a> |
+    <a href="xsusing.html">Using XSight's Ray Editor</a> |
+    <a href="render.html">Rendering</a> |
+    <a href="xsquality.html">Render quality</a> |
+    <a href="mainform.html">Editor Window</a> |
+    <a href="bmpform.html">Image Window</a> |
+    <a href="scwizform.html">Scene Wizard</a> |
+    <a href="noiseform.html">Noise Generator</a> |
+    <a href="silly_samplers.html">Samplers</a> |
+    <a href="sillyref.html">Small Instantiation Language</a>
+  </p>
+
+</div>
+
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Motion Blur</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Motion Blur</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The <b>Motion Blur</b> option allows the generation of scenes with moving objects:</p>
+
+<dir><img src="blurform.png" border="0"></dir>
+
+<p align=justify>This menu command checks the syntax of the scene in the editor before showing the dialog box.</p>
+
+<h2>What is motion blur?</h2>
+
+<p align=justify>Motion blur is achieved rendering the same scene with slightly different clock values, and combining the resulting bitmaps. A trapezoidal filter is applied, in order to assign more importance to clock values near the middle of the interval.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+
+  <tr><td><img src="blurscene01.png" border="0" /></td><td><img src="blurscene00.png" border="0" /></td></tr>
+</table></dir>
+
+<h2>Motion blur and camera rotation</h2>
+
+<p align=justify>Even if you have not used any <a href="sillyvar.html#var">range expression</a> in your scene description, you still can generate interesting blur effects by activating both the <a href="sillyvar.html#camrot">camera rotation</a> feature and the motion blur option:</p>
+
+<dir><img src="blurrot.png" border="0" /></dir>
+
+<p align=justify>The following image has been generated using eleven samples, camera rotation and a sampling width of 0.020 seconds:</p>
+
+<dir><img src="blurscene02.png" border="0" /></dir>
+
+<p align=justify>Note that even a small width such as 0.020 seconds represents a rotation of 7º12'.</p>
+
+<h2>Ghost scenes</h2>
+
+<p align=justify>You can also combine extreme motion blur with the <a href="xsquality.html#sonar">sonar mode</a> to generate interesting visual effects:</p>
+
+<dir><table cellspacing="3" bgcolor="white" border="0" cellpadding="0">
+  <tr><td><img src="ghost01.png" border="0" /></td><td><img src="ghost02.png" border="0" /></td></tr>
+</table></dir>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyvar.html">Animation support</a> |
+  <a href="xsusing.html">Using XSight's Ray Editor</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="render.html">Rendering</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="noiseform.html">Noise Generator</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="optsform.html">Options Dialog</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

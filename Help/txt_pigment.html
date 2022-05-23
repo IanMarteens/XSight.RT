@@ -1,0 +1,202 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Pigment Materials</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: Pigment</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align="justify">The <b>pigment</b> material groups several materials only differenced by the color pattern. For more precission, pigment materials behave like plastic, but you can change the color pattern by specifying one of the supported <i>pigments</i>. The best news about <i>pigments</i> is that they are easily extensible using C# or any other .NET language.</p>
+
+<p align=justify>In this image, we show two spheres with different <i>gradient</i> pigments, and the ground has been modeled with a <i>checker</i> pigment:</p>
+
+<dir><img src="def_pigments.png" border="0" /></dir>
+
+<p align=justify>There's a corresponding <a href="txt_metalpig.html">metalPigment</a> material that behaves as <a href="txt_metal.html">metals</a>, but allows plugging a pigment definition.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>The syntax for the <b>pigment</b> material is identical to the syntax of <a href="txt_plastic.html">plastic</a>, except that, instead of a color, you must supply a <i>pigment</i> object:</p>
+
+  <ul type="square">
+    <li class="code">Pigment(pigment)</li>
+    <li class="code">Pigment(pigment, reflection)</li>
+    <li class="code">Pigment(pigment, reflection, phongAmount, phongSize)</li>
+  </ul>
+
+<p align=justify>The <i>pigment</i> parameter that plays the role of a color in the <b>pigment</b> material is just an instance of one of these eight classes:</p>
+
+  <ul type="disc">
+    <li><a href="#p01">Gradient</a></li>
+    <li><a href="#p02">Checkers</a></li>
+    <li><a href="#p03">Stripes</a></li>
+    <li><a href="#p04">Spots</a></li>
+    <li><a href="#p05">Crackle</a></li>
+    <li><a href="#p06">Bubbles</a></li>
+    <li><a href="#p07">Wood</a></li>
+    <li><a href="#p08">Bitmap</a></li>
+  </ul>
+
+<a name="p01"></a><h2>Pigments: Gradient</h2>
+
+<p align=justify>The <i>gradient</i> pigment starts with two different points in the 3D space. For finding the color associated with an arbitrary point, the point is projected onto the line that joins the two inicial points. If the projected point is outside the segment defined by the extreme points, the point is assigned with the corresponding extreme color. Otherwise, the color is interpolated from the extremes according to its relative position in the segment:</p>
+
+  <ul type="square">
+    <li class="code">Gradient(p<sub>1</sub>, color<sub>1</sub>, p<sub>2</sub>, color<sub>2</sub>)</li>
+  </ul>
+
+<dir><img src="def_gradient.png" border="0" /></dir>
+
+<a name="p02"></a><h2>Pigments: Checkers</h2>
+
+<p align=justify>The <i>checkers</i> pigment divides the 3D space into equally sized cubes, and assigns them alternative colors. You can specify a scale for changing the size of the cubes:</p>
+
+  <ul type="square">
+    <li class="code">Checkers(color<sub>1</sub>, color<sub>2</sub>, scale)</li>
+    <li class="code">Checkers(color<sub>1</sub>, color<sub>2</sub>)</li>
+  </ul>
+
+<dir><img src="def_checker.png" border="0" /></dir>
+
+<p align=justify>You may also specify a line width, for a different effect:</p>
+
+  <ul type="square">
+    <li class="code">Checkers(color<sub>1</sub>, color<sub>2</sub>, scale, width)</li>
+  </ul>
+
+<p align=justify>In this case, all tiles are painted with the second color, and the first color is used to draw lines separating the tiles. Please note that, in this case, these are no real lines but planes, and if you use this pigment variant with a non-flat surface, it could intersect the dividing planes. By default, planes are translated by a half unit from the origin.</p>
+
+<dir><img src="def_checkers01.png" border="0" /></dir>
+
+<a name="p03"></a><h2>Pigments: Stripes</h2>
+
+<p align=justify><i>Stripes</i> are implemented by defining a preferent direction. An arbitrary point is projected into the corresponding line, and the distance to the origin of coordinates is filtered through the cosine function to get the interpolation parameter between the extreme colors:</p>
+
+  <ul type="square">
+    <li class="code">Stripes(color<sub>1</sub>, color<sub>2</sub>, direction, power)</li>
+    <li class="code">Stripes(color<sub>1</sub>, color<sub>2</sub>, direction)</li>
+    <li class="code">Stripes(color<sub>1</sub>, color<sub>2</sub>, d<sub>X</sub>, d<sub>Y</sub>, d<sub>Z</sub>)</li>
+  </ul>
+
+<dir><img src="def_stripes00.png" border="0" /></dir>
+
+<p align=justify>The power parameter can be used to emphasize the transition between stripes. This image has been generated with several stripe patterns, using a high power. As you can see, bands from one of the colors are reduced to lines:</p>
+
+<dir><img src="def_stripes.png" border="0" /></dir>
+
+<a name="p04"></a><h2>Pigments: Spots</h2>
+
+<p align=justify>The <b>spots</b> pigment is based on the raw Perlin noise function, just like the <a href="txt_spotted.html">Spotted</a> material.</p>
+
+<dir><img src="def_spots00.png" border="0" /></dir>
+
+  <ul type="square">
+    <li class="code">Spots(color<sub>1</sub>, color<sub>2</sub>, scale, turbulence, power)</li>
+    <li class="code">Spots(color<sub>1</sub>, color<sub>2</sub>, scale, turbulence)</li>
+    <li class="code">Spots(color<sub>1</sub>, color<sub>2</sub>, scale)</li>
+    <li class="code">Spots(color<sub>1</sub>, color<sub>2</sub>)</li>
+  </ul>
+
+<dir><img src="def_spots01.png" border="0" /></dir>
+
+<pre>spots(lightSteelBlue, royalBlue, [0.5, 8, 2], 3, 2)</pre>
+
+<a name="p05"></a><h2>Pigments: Crackle</h2>
+
+<p align=justify>The <b>crackle</b> pigment also uses a noise generator, but this time it's different from the Perlin noise. This generator starts by dividing the space in cubelets and selecting a random point inside each of them. The noise value is computed from the distance between the sampled point and its nearest and next to nearest neighbors in the random web.</p>
+
+<p align=justify></p>
+
+  <ul type="square">
+    <li class="code">Crackle(color<sub>1</sub>, color<sub>2</sub>, scale, form)</li>
+    <li class="code">Crackle(color<sub>1</sub>, color<sub>2</sub>, scale)</li>
+    <li class="code">Crackle(color<sub>1</sub>, color<sub>2</sub>)</li>
+  </ul>
+
+<dir><img src="def_crack1.png" border="0" /></dir>
+
+<p align=justify>An alternative effect can be shown by including the <i>low</i> and <i>high</i> parameters:</p>
+
+  <ul type="square">
+    <li class="code">Crackle(color<sub>1</sub>, color<sub>2</sub>, low, high, scale, form)</li>
+    <li class="code">Crackle(color<sub>1</sub>, color<sub>2</sub>, low, high, scale)</li>
+    <li class="code">Crackle(color<sub>1</sub>, color<sub>2</sub>)</li>
+  </ul>
+
+<p align=justify>In this case, instead of a smooth transition between colors, we have a sharp one:</p>
+
+<dir><img src="def_crack2.png" border="0" /></dir>
+
+<p align=justify>The transition takes place at the interval specified with <i>low</i> and <i>high</i>, using a cubic spline (the "ess" curve).</p>
+
+<a name="p06"></a><h2>Pigments: Bubbles</h2>
+
+<p align=justify>The <b>bubbles</b> pigment is implemented almost identically as the <a href="#p05">crackle</a> pigment, but the noise generator uses just the nearest neighbor, instead of the nearest and the next to nearest.</p>
+
+  <ul type="square">
+    <li class="code">Bubbles(color<sub>1</sub>, color<sub>2</sub>, scale, turbulence)</li>
+    <li class="code">Bubbles(color<sub>1</sub>, color<sub>2</sub>, scale)</li>
+    <li class="code">Bubbles(color<sub>1</sub>, color<sub>2</sub>)</li>
+  </ul>
+
+<dir><img src="def_bubbles.png" border="0" /></dir>
+
+<p align=justify>The following image has been rendered with <i>turbulence</i> set to 2:</p>
+
+<dir><img src="def_turbobubbles.png" border="0" /></dir>
+
+<a name="p07"></a><h2>Pigments: Wood</h2>
+
+<p align=justify>The <b>wood</b> pigment is a variation of Perlin noise intended to simulate the typical rings in wood.</p>
+
+  <ul type="square">
+    <li class="code">Wood(color<sub>1</sub>, color<sub>2</sub>, scale, turbulence)</li>
+    <li class="code">Wood(color<sub>1</sub>, color<sub>2</sub>, scale)</li>
+  </ul>
+
+<dir><img src="def_wood.png" border="0" /></dir>
+
+<a name="p08"></a><h2>Pigments: Bitmap</h2>
+
+<p align=justify>The <b>bitmap</b> projects an arbitrary bitmap on a sphere at the origin of coordinates.</p>
+
+  <ul type="square">
+    <li class="code">Bitmap(fileName)</li>
+  </ul>
+
+<dir><img src="lilith.png" border="0" /></dir>
+
+<p align="justify">Rules for locating the bitmap file are explained <a href="silly_backs.html#filesvc">here</a>.
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="silly_textures.html">Materials</a> |
+  <a href="txt_plastic.html">Plastic</a> |
+  <a href="txt_metal.html">Metal</a> |
+  <a href="txt_marble.html">Marble</a> |
+  <a href="txt_spotted.html">Spotted</a> |
+  <a href="txt_metalpig.html">MetalPigment</a> |
+  <a href="txt_glass.html">Glass</a> |
+  <a href="silly_shapes.html">Shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

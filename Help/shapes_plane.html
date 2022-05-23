@@ -1,0 +1,115 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Planes</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: planes</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>XSight RT offers only one infinite surface: the plane. Future versions might include other analytical surfaces.</p>
+
+<h2>Syntax</h2>
+
+<ul type=square>
+  <li class=code>Plane(normal, offset, material)</li>
+  <li class=code>Plane(normal<sub>X</sub>, normal<sub>Y</sub>, normal<sub>Z</sub>, offset, material)</li>
+</ul>
+
+<p align=justify>An infinite plane is configured by first specifying the <i>normal vector</i> for the surface. Then, an <i>offset</i> is used to move the plane away from the origin of coordinates.</p>
+
+<dir><dir><img src="def_plane01.png" border="0"></dir></dir>
+
+<h2>Example</h2>
+
+<p align=justify>This example creates three mutually perpendicular planes to simulate a room's corner:</p>
+
+<pre><b>set</b> plast(c) = plastic(c, 0, 0.8, 8);
+    
+plane([0,1,0], 0, plast(<b>color</b>(0.75, 1.00, 0.75)));
+plane([1,0,0], 0, plast(<b>color</b>(1.00, 0.75, 0.75)));
+plane([0,0,1], 0, plast(<b>color</b>(0.75, 0.75, 1.00)));
+
+sphere([0,0,0], 2, metal(royalblue, 0, 0.5));</pre>
+
+<dir><dir><img src="def_plane.png" border="0"></dir></dir>
+
+<h2><a name="csg"></a>Planes and CSG</h2>
+
+<p align=justify>You can use planes in <a href="shapes_inter.html">intersections</a> and <a href="shapes_diff.html">differences</a>. In that case, a plane represents the half of the space "behind" the normal vector. This is the most important rule to remember:</p>
+
+<ul type="disc"><li>Normals should always point outwards.</li></ul>
+
+<pre><b>set</b> side = [1, 0, 0];
+
+<b>set</b> p(mat) = intersection(
+    plane(+^y, 0.5, mat),
+    plane(-^y, 0.5, mat),
+    plane(side, 2.0, mat),
+    plane(side, 2.0, mat) <b>spin</b>  72^Y,
+    plane(side, 2.0, mat) <b>spin</b> 144^Y,
+    plane(side, 2.0, mat) <b>spin</b> 216^Y,
+    plane(side, 2.0, mat) <b>spin</b> 288^Y);</pre>
+
+<dir><dir><img src="def_prism5.png" border="0"></dir></dir>
+
+<pre><b>set</b> side = [1, 1, 0];</pre>
+
+<dir><dir><img src="def_frust5.png" border="0"></dir></dir>
+
+<pre>intersection(
+    plane (-^z, 1, mat) <b>spin</b> [+52.6625,    0, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+52.6625,  -72, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+52.6625, -144, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+52.6625, -216, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+52.6625, -288, 0],
+   
+    plane (-^z, 1, mat) <b>spin</b> [+10.8125,    0, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+10.8125,  -72, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+10.8125, -144, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+10.8125, -216, 0],
+    plane (-^z, 1, mat) <b>spin</b> [+10.8125, -288, 0],
+   
+    plane (-^z, 1, mat) <b>spin</b> [-52.6625,  -36, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-52.6625, -108, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-52.6625, -180, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-52.6625, -252, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-52.6625, -324, 0],
+   
+    plane (-^z, 1, mat) <b>spin</b> [-10.8125,  -36, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-10.8125, -108, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-10.8125, -180, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-10.8125, -252, 0],
+    plane (-^z, 1, mat) <b>spin</b> [-10.8125, -324, 0],
+    mat);</pre>
+
+<dir><dir><img src="def_icos.gif" border="0"></dir></dir>
+
+<a name="see"></a><h2>See also</h2>
+
+  <p>
+    <a href="index.html">Home</a> |
+    <a href="sillyref.html">Small Instantiation Language overview</a> |
+    <a href="silly_shapes.html">Predefined shapes</a> |
+    <a href="shapes_surfaces.html">Surfaces</a> |
+    <a href="shapes_triangle.html">Triangles</a> |
+    <a href="shapes_poly.html">Polyhedra</a> |
+    <a href="shapes_csg.html">CSG operations</a>
+  </p>
+
+</div>
+
+</BODY>
+</HTML>

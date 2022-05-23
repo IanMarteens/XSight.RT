@@ -1,0 +1,77 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Image source</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Image source</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Most of the time, you will use the <b>Image Window</b> to display a <a href="render.html">rendered image</a>. You can also display, however, images derived from rendered images, such as edge maps and differential maps.</p>
+
+<a name="edgemap"></a><h2>Edges map</h2>
+
+<p align="justify">The <b>Edges map</b> command applies a high pass filter to the image in order to detect sharp color transitions in the image. Some of the detected transitions will correspond to borders of the rendered shapes, but other will be related to hard shadows or features from the textures in the scene:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="original.png" border="0"></td>
+  </tr>
+  <tr>
+    <td><img src="edges.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align="justify">This is a useful feature when you're using the <a href="silly_samplers.html#adaptive">adaptive sampler</a>, since this sampler concentrates its efforts in those areas marked as edges in a first draft pass. Please note, however, that the adaptive sampler amplifies the detected edges to start antialiasing from a sensible distance to the edges, in order to avoid some rendering artifacts.</p>
+
+<a name="diff"></a><h2>Reference and difference</h2>
+
+<p align=justify>You can save a rendered image in the Image Window that can be used later as a reference:</p>
+
+<dir><img src="saveref.png" border="0" /></dir>
+
+<p align=justify>After saving a reference, you can show it later, at any time, by using the <b>Show reference image</b> menu command, or the corresponding button in the toolbar. The only requirement is that the current image and the reference must have the same dimensions.</p>
+
+<p align=justify>The simplest use of this feature is to perform a visual comparison between two related images. They may be, for instance, images rendered from the same scene, but with different parameters. A more accurate comparison can be done by using the <b>Show difference</b> command. This operation creates a new image by subtracting color intensities of the reference image from the original one. The following image sequence represents images rendered with <a href="silly_amb.html#const">constant ambient</a>, with <a href="silly_amb.html#occluder">ambient occlusion</a> and, finally, the difference between the former two:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="occlusion00.png" border="0"></td>
+    <td><img src="occlusion01.png" border="0"></td>
+    <td><img src="occlusion02.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>The contrast for the rightmost image has been enhanced using the <a href="bmpoptions.html#gamma">gamma correction</a> display option.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="bmpoptions.html">Display options</a> |
+  <a href="xsusing.html">Using the Ray Editor</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="noiseform.html">Noise Generator</a> |
+  <a href="optsform.html">XSight RT Options</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

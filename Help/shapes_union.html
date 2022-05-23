@@ -1,0 +1,77 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Union</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>CSG: union</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>A <b>union</b> ties several entities together, in order to handle them as a single entity. Then, you can <a href="shapes_translate.html">translate</a>, <a href="shapes_rotate.html">rotate</a>, <a href="shapes_scale.html">scale</a> or even change the material for the whole union with just one operation.</p>
+
+<p align=justify>Unions have another important responsability: the ray tracing algorithm can take advantage of grouping to optimize intersections. For instance, shapes with infinite bounds, such as planes, are moved to the last position in a union. There are several special union classes which the scene optimizer can use as substitutes for unions.</p>
+
+<dir><img src="def_union01.png" border="0"></dir>
+
+<h2>Syntax</h2>
+
+<ul type=square><li class=code>Union(shape1, shape2...)</li></ul>
+
+<p align=justify>Unions don't have an associated material definition: according to the intersection point, each part of the union use the material from the corresponding primitive shape. If you need to assign the same material to all shapes in a union, you should use the <a href="shapes_dress.html">dress</a> operation.</p>
+
+<p>Unions don't eliminate internal surfaces. If you're using transparent materials, those internal surfaces will show in the rendered image. You need the <a href="shapes_merge.html">merge</a> operation for removing internal surfaces in a union.</p>
+
+<h2><a name="op"></a>Operator syntax</h2>
+
+<p align=justify>As an alternative, the plus operator can be used to specify binary unions:</p>
+
+<pre>    cone(x, 1.3, z, 1.5, 1, m1) + sphere(x, 0.8, z, 0.8, m2)</pre>
+
+<h2>Example</h2>
+
+<p align=justify>In the following scene, a macro is declared as a union, and then is instantiated thrice:</p>
+
+<pre>    <b>set</b> met(c) = metal(c, 0.03, 0.00, 0.7, 0.3, 5);
+
+    <b>set</b> little_guy(x, z) = union(
+        cylinder(x, -1.5, z, 1.5, 1, met(royalblue)),
+        cone(x, 1.3, z, 1.5, 1, met(red)),
+        sphere(x, 0.8, z,0.8, met(seashell)));
+
+    little_guy( 0, 0.0);
+    little_guy(-3, 5.0);
+    little_guy(+3, 2.2);</pre>
+
+<p align=justify>The scene is parsed as a big union containing three unions, each of them with a cylinder, a cone and a sphere. Please note that grouping these three solids in a single union offers clear performance gains.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_merge.html">Merge</a> |
+  <a href="shapes_diff.html">Difference</a> |
+  <a href="shapes_inter.html">Intersection</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_torus.html">Torus</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

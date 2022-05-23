@@ -1,0 +1,74 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Translate</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Transforms: Translate</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>A <b>translation</b> moves a simple or composite shape by a given distance. Of course, you could have defined the object at its final position. These two lines are equivalent:</p>
+
+<pre>translate(1, 2, 3, sphere(0, 0, 0, 1, plastic(red)));
+sphere(1, 2, 3, 1, plastic(red));</pre>
+
+<dir><img src="def_translate.png" border="0" /></dir>
+
+<p align=justify>However, translations are useful when the translated object has been defined with a <a href="silly_macros.html">macro</a>. If you need to place several instances of the same object at regular intervals, you should use <a href="shapes_rep.html">Repeater</a> instead.</p>
+
+<h2>Syntax</h2>
+
+<ul type="disc">
+  <li class=code>Translate(translate-vector, original)</li>
+  <li class=code>Translate(x, y, z, original)</li>
+  <li class=code>Translate(original, x, y, z)</li>
+</ul>
+
+<p align=justify>Translations can be written using either the three translation components, or a vector for grouping these three values. In most cases, the scene optimizer is able to remove translations by applying then directly in the translated object.</p>
+
+<h2><a name="move"></a>The <span style="font-variant: small-caps;">move</span> operator</h2>
+
+<p align=justify>As an alternative, you can use the <b>move</b> <a href="sillyexpr.html#trans">operator</a> to simplify translations:</p>
+
+<pre>sphere(0, 0, 0, 1, plastic(red)))
+    <b>move</b> [1, 2, 3];</pre>
+
+<p align=justify>The <b>move</b>, <a href="shapes_rotate.html#spin">spin</a>, <a href="shapes_scale.html#size">size</a> and <a href="shapes_rep.html#loop">loop</a> are considered as operators with a precedence lower than additive operators. We have chosen four letter abbreviations for this operators both for consistency and to avoid excesive typing.</p>
+
+<p align=justify>These special operators are the preferred way for transforming shapes for several reasons:</p>
+
+<ol>
+  <li>They are applied after the simple or complex shape they transform, so the whole transformation is easier to read.</li>
+  <li>They avoid innecesary parenthesis and nesting when several transformations are applied to the same original shape.</li>
+  <li>Both <b>move</b>, <b>spin</b>, <b>size</b> and <b>loop</b> are considered <i>keywords</i>, and they are highlighted by the code editor.
+</ol>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_shapes.html">SILLY predefined shapes</a> |
+  <a href="shapes_trans.html">Transforms</a> |
+  <a href="shapes_rotate.html">Rotate</a> |
+  <a href="shapes_scale.html">Scale</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_plane.html">Infinite surfaces</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

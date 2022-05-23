@@ -1,0 +1,86 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: XSight Options</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>The Options Dialog Box</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The <b>Options dialog box</b> can be executed from the <i>Project|Options</i> menu command:</p>
+
+<dir><img src="optsmenu.gif" border="0" /></dir>
+
+<h2>Ray tracer</h2>
+
+  <p align=justify>The <b>Ray tracer</b> page contains options for fine tuning the scene optimizer:</p>
+
+  <dir><img src="sonardlg.png" border="0"></dir>
+
+
+<table class="features" width="90%">
+<tr><th width="140">Option</th><th>Meaning</th></tr>
+<tr>
+  <td>Loop expansion</td>
+  <td>Maximum size allowed for inlined <a href="shapes_rep.html">repeaters</a>.</td>
+</tr>
+<tr>
+  <td>Union threshold</td>
+  <td>Minimum item count in <a href="shapes_union.html">unions</a> for activating bounds checking.</td>
+</tr>
+<tr>
+  <td>Diffusion levels</td>
+  <td>Number of levels where sampler will cast an additional ray for <a href="txt_diffuse.html">diffuse reflectors</a>.</td>
+</tr>
+<tr>
+  <td>Bounding spheres</td>
+  <td>Controls the expected performance of bounding spheres.</td>
+</tr>
+</table>
+
+
+<h2><a name="sonar"></a>Sonar mode</h2>
+
+  <p align=justify>The colors used by the <a href="xsquality.html#sonar">Sonar sampler</a> can be configured in this dialog box. Default options are based in shades of green:</p>
+
+  <dir><img src="lgm01.png" border="0"></dir>
+
+  <p align=justify>The human eye is more sensitive to green.</p>
+
+<h2>Scene editor</h2>
+
+  <dir><img src="editordlg.png" border="0"></dir>
+
+  <dir><img src="vstyles.png" border="0"></dir>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsusing.html">Using XSight's Ray Editor</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="render.html">Rendering</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="noiseform.html">Noise Generator</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

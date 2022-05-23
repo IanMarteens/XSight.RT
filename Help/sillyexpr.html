@@ -1,0 +1,260 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Expressions</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Expressions</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>SILLY supports numeric, vector and shape expressions, and they are always evaluated at compile time, when the scene tree is constructed.</p>
+
+<h2>Operators</h2>
+
+<p align=justify>The typical set of symbolic operators acting on numeric, vector and shape operands, is supported.</p>
+
+<h3>Operator +</h3>
+
+<p align=justify style="margin-bottom: 10px;">Operator <b>+</b> implements the sum of numbers and vectors, and can be used as an alternative syntax for shape <a href="shapes_union.html">union</a>.</p>
+
+  <table class="FEATURES" width="90%">
+    <tr>
+      <th width="120"><b>Operation</b></th>
+      <th width="80"><b>Yields</b></th>
+      <th><b>Meaning</b></th>
+    </tr>
+    <tr>
+      <td><i>number + number</i>&nbsp;&nbsp;</td>
+      <td><i>number</i>&nbsp;&nbsp;</td>
+      <td>Numeric addition.&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td><i>vector + vector</i></td>
+      <td><i>vector</i></td>
+      <td>Vector sum.</td>
+    </tr>
+    <tr>
+      <td><i>shape + shape</i></td>
+      <td><i>shape</i></td>
+      <td>Shape <a href="shapes_union.html" class="FEATURES">union</a>.</td>
+    </tr>
+  <table>
+
+<br>
+
+<p align=justify>This operator can also be used as a unary operator when the operand is a number or vector.</p>
+
+<h3>Operator -</h3>
+
+<p align=justify style="margin-bottom: 10px;">Operator <b>-</b> implements the substraction of numbers and vectors, and can be used as an alternative syntax for shape <a href="shapes_diff.html">difference</a>.</p>
+
+  <table class="FEATURES" width="90%">
+    <tr>
+      <th width="120"><b>Operation</b></th>
+      <th width="80"><b>Yields</b></th>
+      <th><b>Meaning</b></th>
+    </tr>
+    <tr>
+      <td><i>number - number</i>&nbsp;&nbsp;</td>
+      <td><i>number</i>&nbsp;&nbsp;</td>
+      <td>Numeric substraction.&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td><i>vector - vector</i></td>
+      <td><i>vector</i></td>
+      <td>Vector substraction.</td>
+    </tr>
+    <tr>
+      <td><i>shape - shape</i></td>
+      <td><i>shape</i></td>
+      <td>Shape <a href="shapes_diff.html#op" class="FEATURES">difference</a>.</td>
+    </tr>
+  <table>
+
+<br>
+
+<p align=justify>This operator can also be used as a unary operator when the operand is a number or vector.</p>
+
+<h3>Operator *</h3>
+
+<p align=justify style="margin-bottom: 10px;">Operator <b>*</b> implements the product of numbers and vectors, and can be used as an alternative syntax for shape <a href="shapes_inter.html">intersection</a>.</p>
+
+  <table class="FEATURES" width="90%">
+    <tr>
+      <th width="120"><b>Operation</b></th>
+      <th width="80"><b>Yields</b></th>
+      <th><b>Meaning</b></th>
+    </tr>
+    <tr>
+      <td><i>number * number</i></td>
+      <td><i>number</i></td>
+      <td>Numeric multiplication.</td>
+    </tr>
+    <tr>
+      <td><i>vector * vector</i></td>
+      <td><i>number</i></td>
+      <td>Vector inner product.</td>
+    </tr>
+    <tr>
+      <td><i>number * vector</i></td>
+      <td><i>vector</i></td>
+      <td>Vector scalar product.</td>
+    </tr>
+    <tr>
+      <td><i>vector * number</i></td>
+      <td><i>vector</i></td>
+      <td>Vector scalar product.</td>
+    </tr>
+    <tr>
+      <td><i>shape * shape</i></td>
+      <td><i>shape</i></td>
+      <td>Shape <a href="shapes_inter.html#op" class="FEATURES">intersection</a>.</td>
+    </tr>
+  <table>
+
+<br>
+
+<h3>Operator /</h3>
+
+<p align=justify style="margin-bottom: 10px;">Operator <b>/</b> implements numerical division and vector division by numbers.</p>
+
+  <table class="FEATURES" width="90%">
+    <tr>
+      <th width="120"><b>Operation</b></th>
+      <th width="80"><b>Yields</b></th>
+      <th><b>Meaning</b></th>
+    </tr>
+    <tr>
+      <td><i>number / number</i></td>
+      <td><i>number</i></td>
+      <td>Numeric division.</td>
+    </tr>
+    <tr>
+      <td><i>vector / number</i></td>
+      <td><i>vector</i></td>
+      <td>Vector scalar division.</td>
+    </tr>
+  <table>
+
+<br>
+
+<h2>Function calls</h2>
+
+<p align=justify>SILLY supports several predefined scalar functions that always act on numeric operands.<br><br></p>
+
+  <table class="FEATURES" width="90%">
+    <tr>
+      <th width="150">&nbsp;<b>Function</b></th>
+      <th>&nbsp;<b>Meaning</b></th>
+    </tr>
+    <tr>
+      <td>&nbsp;Abs</td>
+      <td>&nbsp;Absolute value</td>
+    </tr>
+    <tr>
+      <td>&nbsp;Cos</td>
+      <td>&nbsp;Cosine</td>
+    </tr>
+    <tr>
+      <td>&nbsp;Sin</td>
+      <td>&nbsp;Sine</td>
+    </tr>
+    <tr>
+      <td>&nbsp;Tan</td>
+      <td>&nbsp;Tangent</td>
+    </tr>
+    <tr>
+      <td>&nbsp;Sqrt</td>
+      <td>&nbsp;Squared root</td>
+    </tr>
+  </table>
+<br>
+
+<h2><a name="trans"></a>Transformation operators</h2>
+
+<p align=justify>A very important feature of ray tracers is the ability to apply Euclidean transformations to basic and complex shapes. This transformations are implemented by the XSight RT Engine as special shape classes. For instance, if you want to rotate a red box around the Y axis, you could use one of the constructors from the <i>Rotate</i> class:</p>
+
+<pre>rotate(0, 45, 0,
+    box([1-,-1,-1], [+1,+1,+1], plastic(red)))</pre>
+
+<p align=justify>As you can see, the shape to be rotated is passed as a parameter. However, this notation is not the most convenient one. Nesting constructor calls add more parenthesis and complexity to a scene. For this reason, we have designed three special operators corresponding to the three basic Euclidian transformations:<br><br></p>
+
+  <table class="FEATURES" width="90%">
+    <tr>
+      <th width="150">&nbsp;<b>Operator</b></th>
+      <th>&nbsp;<b>Equivalent class</b></th>
+    </tr>
+    <tr>
+      <td>&nbsp;<a href="shapes_translate.html"><b>move</b></a></td>
+      <td>&nbsp;Translate</td>
+    </tr>
+    <tr>
+      <td>&nbsp;<a href="shapes_rotate.html#spin"><b>spin</b></a></td>
+      <td>&nbsp;Rotate</td>
+    </tr>
+    <tr>
+      <td>&nbsp;<a href="shapes_scale.html"><b>size</b></a></td>
+      <td>&nbsp;Scale</td>
+    </tr>
+  </table>
+
+<br>
+<p align=justify>These are binary operators, that accepts a shape as their first operand and a vector in their second operand. The <b>size</b> operator also allows a numeric value in its second operand, for an isotropic scale change. The rotated red box example can now be written this way:</p>
+
+<pre>box([1-,-1,-1], [+1,+1,+1], plastic(red))
+    <b>spin</b> 45^Y</pre>
+
+<p align=justify>Another advantage of the transformation operators has to do with cascading transformations:</p>
+
+<pre>translate(10, 0, 0,
+    rotate(0, 45, 0,
+        box([1-,-1,-1], [+1,+1,+1], plastic(red)))</pre>
+
+<p align=justify>The above expression must be read as <font face="arial"><i>"translate ten units a rotated by 45 degrees box"</i></font>, which is unnatural. Compare now with the alternative:</p>
+
+<pre>box([1-,-1,-1], [+1,+1,+1], plastic(red))
+    <b>spin</b> 45^Y
+    <b>move</b> 10^X</pre>
+
+<p align=justify>Now you can read: <font face="arial"><i>"take a red box, rotate 45 degrees around the Y axis, and then move it 10 units to the right"</i></font>.</p>
+
+<h2>Spin around</h2>
+
+<p align=justify>The <b>spin</b> operator normally rotates the shape around the origin of coordinates. There's a variant of this operator that allows rotating around any other point:</p>
+
+<pre>box([1-,-1,-1], [+1,+1,+1], plastic(red))
+    <a href="shapes_rotate.html#around"><b>spin</b> 45^Y <b>around</b> ^X</a>
+    <b>move</b> 10^X</pre>
+
+<p align=justify>This operator is internally implemented by combining translations and rotations.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsightovr.html">XSight Ray Tracer overview</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="xsusing.html">Using XSight's Ray Editor</a> |
+  <a href="sillysyntax.html">Basic syntax</a> |
+  <a href="sillytype.html">Data types</a> |
+  <a href="sillyvar.html">Animation support</a> |
+  <a href="silly_macros.html">Macros</a> |
+  <a href="silly_scenes.html">Scenes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

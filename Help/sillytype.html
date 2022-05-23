@@ -1,0 +1,134 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Data types</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Data types</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify><img src="globular.png" border="0" align="right" style="margin: 1px 2px 2px 32px;" />SILLY is not a general purpose language. The goal of a SILLY script is to create objects in order to compose a scene. These objects belong to classes declared in the XSight RT Engine and registered for their use with SILLY. SILLY doesn't allow you to declare new classes.</p>
+
+<h2>Classes and instances</h2>
+
+<p align=justify>Let's suppose you want to create a metal sphere in SILLY:</p>
+
+<pre><i>// SILLY script</i>
+sphere([0, 0, 0], 1, metal(red, 0.1, 1.0))</pre>
+
+<p align=justify>In this context, <a href="shapes_sphere.html">sphere</a> makes reference to the C# class <i>Sphere</i>, declared by the XSight RT Engine. The expression above is interpreted as a constructor call, which could be translated to this C# expression:</p>
+
+<pre><i>// C# equivalent.</i>
+<b>new</b> Sphere(<b>new</b> Vector(0,0,0), 1.0,
+    <b>new</b> Metal(Colors.Red, 0.1, 1.0))</pre>
+
+<p align=justify>You can use a SILLY expression as the one shown before in any context where SILLY would expect a <i>Sphere</i> or, more probably, a <i>IShape</i>, where <i>IShape</i> is an interface type also declared by the XSight RT Engine:</p>
+
+<pre><i>// SILLY script</i>
+difference(
+    box([-1,-1,-1], [1,1,1], metal(red, 0.1, 1.0)),
+    sphere([0, 0, 0], 1, metal(red, 0.1, 1.0)))</pre>
+
+<p align=justify><a href="shapes_diff.html">Difference</a>, again, is another XSight RT Engine class, and we are executing one of its constructors:</p>
+
+<pre><i>// C#</i>
+<b>public class</b> Difference: ...
+{
+    <b>public</b> Difference(IShape shape1, IShape shape2);
+    <i>// ...</i>
+}</pre>
+
+<p align=justify>In fewer words, SILLY scripts creates objects from predefined classes, by executing constructors from these classes. Most constructors requires several parameters. Values passed as parameters can be other objects, or values from a short list of basic types.</p>
+
+<h2>Basic types</h2>
+
+<p align=justify>SILLY works with the following basic types:</p>
+
+<ul><li>Integers</li><li>Reals</li><li>Colors</li><li>Vectors</li><li>Character strings</li></ul>
+
+<h3>Strings</h3>
+
+<p align=justify>Character strings are seldom used. Currently, there's only one class that needs a string parameter: <a href="silly_backs.html#bmp">BitmapBackground</a>, which sets a bitmap file as the scene background:</p>
+
+<pre><b>background</b>
+    BitmapBackground('c:\night_sky.png');</pre>
+
+<p align="justify">However, you could develop and register extension classes and use string parameters in their constructors.</p>
+
+<a name="vectors"></a><h3>Vectors</h3>
+
+<p align=justify>Vectors are used in SILLY to represent both points and directions. You can declare a vector value using brackets:</p>
+
+<pre>[3, 4 * 2, 5.1]</pre>
+
+<p align=justify>There are several predefined vector constants:</p>
+
+<ol type="disc">
+  <li>^0 = [0, 0, 0]: The origin of coordinates.</li>
+  <li>^X = [1, 0, 0]: The X axis.</li>
+  <li>^Y = [0, 1, 0]: The Y axis.</li>
+  <li>^Z = [0, 0, 1]: The Z axis.</li>
+  <li>^1 = [1, 1, 1]: The diagonal vector.</li>
+</ol>
+
+<p align=justify>There's a special syntax for declaring multiples of an axis:</p>
+
+<pre>5^X    <i>// [5, 0, 0]</i>
+18 ^Z  <i>// [0, 0, 18]</i></pre>
+
+<p align=justify>In these two cases, a numeric constant precedes an axis constant. You may include whitespace between the numeric constant and the axis, as shown in the second expression. Please note that this syntax is different from explicitly multiplying a vector with a scalar value:</p>
+
+<pre>5^X      <i>// Special syntax</i>
+5 * ^X   <i>// "Regular" explicit syntax, but same result as above</i></pre>
+
+<p align=justify>The special syntax only allows numerical constants as prefixes, while the regular syntax allows any other numeric expression, including a macro identifier:</p>
+
+<pre><b>set</b> r = 10;
+r^X      <i>// WRONG!!!</i>
+r * ^X   <i>// It's ok!</i>
+[r,0,0]  <i>// Also allowed</i></pre>
+
+
+<h3><a name="colors"></a>Colors</h3>
+
+<p align="justify">Colors are specified this way:</p>
+
+<pre><b>rgb</b>(1, 0.5, 0.0)  <i>// Orange, as a RGB triplet.</i>
+<b>rgb</b> 0.8           <i>// A shade of gray, as a brightness value.</i>
+SeaGreen          <i>// A shortcut for a named color.</i></pre>
+
+<p align=justify><i>SeaGreen</i> is handled as a predefined <a href="silly_macros.html">macro</a>, which evaluates as a color value. All predefined named colors from .NET are also considered as color macros by SILLY.</p>
+
+<p align=justify>If you move the mouse pointer over a predefined color macro, or an <b>rgb</b> expression, a patch of the corresponding color is shown in the status bar, at the left of the line number panel:</p>
+
+<dir><img src="colorpatch.gif" border="0" /></dir>
+
+<p align=justify>Besides this, moving the mouse pointer over a predefined color macro activates a <a href="codehelps.html#ch">tip</a> showing the <b>rgb</b> components of the predefined color.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="sillysyntax.html">Basic syntax</a> |
+  <a href="sillyexpr.html">Expressions</a> |
+  <a href="sillyvar.html">Animation support</a> |
+  <a href="silly_macros.html">Macros</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

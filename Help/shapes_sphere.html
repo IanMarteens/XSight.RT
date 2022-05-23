@@ -1,0 +1,69 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Sphere</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: sphere</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The sphere is the most popular shape in ray tracing: they are easy to configure, they have the highest possible simmetry, and even better, they are the fastest shapes when rendering, even faster than <a href="shapes_box.html">boxes</a>.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>A sphere is specified by its origin, or center, and its radius:</p>
+
+<dir><img src="def_sphere01.png" border="0"></dir>
+
+<ul type=square>
+  <li class=code>Sphere(center, radius, material)</li>
+  <li class=code>Sphere(x, y, z, radius, material)</li>
+</ul>
+
+<a name="ellipsoid"></a><p align=justify>Instead of a single radius, you can specify a vector for creating an axis-aligned ellipsoid:</p>
+
+<ul type=square>
+  <li class=code>Sphere(center, axes, material)</li>
+</ul>
+
+<p align=justify>For instance:</p>
+
+<pre>sphere([0, 0, 0], [3, 2, 2], metal(royalBlue, 0.1));</pre>
+
+<dir><img src="def_ellip.png" border="0"></dir>
+
+<p align=justify>Of course, you can also create an ellipsoid by <a href="shapes_scale.html">scaling</a> a sphere.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Shapes</a> |
+  <a href="shapes_box.html">Box</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_torus.html">Torus</a> |
+  <a href="shapes_blob.html">Blob</a> |
+  <a href="shapes_poly.html">Polyhedra</a> |
+  <a href="shapes_quart.html">Quarts</a> |
+  <a href="silly_scenes.html">Scenes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

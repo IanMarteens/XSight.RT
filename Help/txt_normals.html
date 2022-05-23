@@ -1,0 +1,96 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Normals perturbation</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: Normals perturbation</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p>Few real surfaces are perfectly flat: most of them show small irregularities, such as grains, bumps, wrinkles or dents. The precise modeling of these features would be extremely complex, if we incorporate them in the shape definition. Fortunately, there's a simple trick to modify the surface of any shape: make small modifications on the normal to the surface at each of its points.</p>
+
+<h2>Perturbating the normal vector</h2>
+
+<p align=justify><a href="txt_diffuse.html">Glossy reflection</a> also perturbates the normal vector, but the technique used and the resulting effect are very different. Glossy reflection perturbation modifies the normal vector after the local color is computed, while normal perturbation modifies the normal when a surface is hit by a ray. Moreover, normal perturbation intensity is determined by a smooth function, while diffuse reflection perturbation uses Monte Carlo integration: it computes several perturbated vectors for the same pixel.</p>
+
+<p align=justify>At first sight, it could also looks as if we could replace normal perturbation by pigments. However, pigments can only modify the local color of the surface, but it cannot modify how light is reflected and refracted by the surface.</p>
+
+<a name="bumps"></a><h2>Bumps</h2>
+
+<p align=justify><b>Bumps</b> is a normal perturbation pattern based in the Perlin's noise generator.</p>
+
+  <ul type="square">
+    <li class=code>Bumps(amount, scale, threshold)</li>
+    <li class=code>Bumps(amount, scale)</li>
+    <li class=code>Bumps(amount)</li>
+  </ul>
+
+<dir><img src="def_bumps.png" border="0"></dir>
+
+<p align=justify>The <i>threshold</i> parameter discard perturbations below the given noise level. The result is shown in the following image:</p>
+
+<dir><img src="def_bumps01.png" border="0"></dir>
+
+<div class="alert" style="margin-left: 32px;">
+  <table cellspacing="0" cellpadding="0">
+    <tr><th align="left"><img alt="Note" src="note.gif" style="border: 0; margin-right: 3px;"></img>Note</th></tr>
+    <tr><td>Use the <i>amount</i> parameter with care. Moving the normal vector beyond its limits may increase the incidence angle beyond the right angle, an abnormal situation.</td></tr>
+  </table>
+</div>
+
+<a name="wrinkles"></a><h2>Wrinkles</h2>
+
+<p align=justify><b>Wrinkles</b> is a normal perturbation pattern based in the solid noise generator used by the <a href="txt_pigment.html#p05">crackle</a> and the <a href="txt_pigment.html#p06">bubbles</a> pigments.</p>
+
+  <ul type="square">
+    <li class=code>Wrinkles(amount, scale, turbulence, metric)</li>
+    <li class=code>Wrinkles(amount, scale, turbulence)</li>
+    <li class=code>Wrinkles(amount, scale)</li>
+    <li class=code>Wrinkles(amount)</li>
+  </ul>
+
+<dir><img src="def_wrink01.png" border="0"></dir>
+
+<p align=justify>This other sphere uses wrinkles with <i>metric</i> equals to one.</p>
+
+<dir><img src="def_wrink02.png" border="0"></dir>
+
+<p align=justify>The following image shows the effect of the <i>Wrinkles</i> effect both in a sphere and in a reflecting surface:</p>
+
+<dir><img src="def_wrink03.png" border="0"></dir>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="silly_textures.html">Materials</a> |
+  <a href="txt_reflection.html">Perfect reflection</a> |
+  <a href="txt_diffuse.html">Diffuse reflection</a> |
+  <a href="txt_phong.html">Phong highlights</a> |
+  <a href="txt_plastic.html">Plastic</a> |
+  <a href="txt_metal.html">Metal</a> |
+  <a href="txt_marble.html">Marble</a> |
+  <a href="txt_spotted.html">Spotted</a> |
+  <a href="txt_pigment.html">Pigment</a> |
+  <a href="txt_metalpig.html">MetalPigment</a> |
+  <a href="txt_glass.html">Glass</a> |
+  <a href="silly_shapes.html">Shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

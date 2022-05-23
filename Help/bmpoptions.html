@@ -1,0 +1,126 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Display options</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Display options</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The <a href="bmpform.html">Image Window</a> supports several easy non-destructive transformations on a rendered image and on its <a href="bmpsource.html#edgemap">edge map</a>:</p>
+
+<ul type="square">
+  <li><a href="#invert">Color inversion</a></li>
+  <li><a href="#desat">Desaturation</a></li>
+  <li><a href="#sepia">Sepia toning</a></li>
+  <li><a href="#gamma">Gamma correction</a></li>
+</ul>
+
+<p align=justify>These options are available both in the Image Window's toolbar and in its context menu:</p>
+
+<dir><img src="displayopts.gif" border="0" /></dir>
+
+<a name="invert"></a><h2>Color inversion</h2>
+
+<p align=justify>Sometimes you'll find convenient to take a look at the negative of a generated image. If that's what you want, you can execute the <b>Invert colors</b> menu command:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="original.png" border="0"></td>
+  </tr>
+  <tr>
+    <td><img src="invcolor.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<a name="desat"></a><h2>Desaturation</h2>
+
+<p align="justify">You can also use the <b>Desaturate</b> menu command to create a grayscale bitmap from the rendered image.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="original.png" border="0"></td>
+  </tr>
+  <tr>
+    <td><img src="desaturate.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align="justify">You can combine the commands for desaturation, edge detection and color inversion as you need. For instance, the following image has been obtained by desaturating and inverting an edge map:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="desatedges.png" border="0"></td>
+  </tr>
+  </tr>
+</table></dir>
+
+<a name="sepia"></a><h2>Sepia toning</h2>
+
+<p align=justify><b>Sepia toning</b> is closely related to desaturation, except that, instead of using shades of gray, the transformed image uses a brownish palette, as in old photographs.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="sepia00.png" border="0"></td>
+  </tr>
+  <tr>
+    <td><img src="sepia01.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>Note that the second image above combines sepia toning and color inversion.</p>
+
+<a name="gamma"></a><h2>Gamma correction</h2>
+
+<p align=justify><b>Gamma correction</b> is, by far, the most important display option in XSight RT. It's a non-linear transformation that changes color channels intensities by the same amount. As a consequence, the resulting image may be either lighter or darker than the original, while preserving hue and saturation.</p>
+
+<p align=justify>Gamma correction is controled by a single numeric parameter, that represents the power used to scale intensities. For instance, a gamma correction of 1.0 leaves the bitmap unchanged. The following image shows the same image, using three diferent gamma values:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="gamma050.png" border="0"></td>
+    <td><img src="gamma100.png" border="0"></td>
+    <td><img src="gamma150.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>An important fact about gamma correction is that it always preserves pure white and black colors.</p>
+
+<div class="alert" style="margin-left: 32px;">
+  <table cellspacing="0" cellpadding="0">
+    <tr><th align="left"><img alt="Warning" src="note.gif" style="border: 0; margin-right: 3px;"></img>Warning</th></tr>
+    <tr><td>Gamma correction can cause <i>color banding</i> in certain scenes, especially when extreme settings are used. Suppose you have a scene background featuring two near colors only. Gamma correction could separate enough those colors so the difference between their respective zones would become noticeable. This is a consequence of having only 256 intensity levels per color channel. A future XSight RT version could integrate gamma correction with rendering, in order to avoid this limitation.</td></tr>
+  </table>
+</div>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="bmpsource.html">Image source</a> |
+  <a href="xsusing.html">Using the Ray Editor</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="noiseform.html">Noise Generator</a> |
+  <a href="optsform.html">XSight RT Options</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Quart</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: quart</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Quarts, or quartic ellipsoids, are convex solids that resemble <a href="shapes_box.html">boxes</a> with rounded edges. They are geometrically related to <a href="shapes_qcyl.html">quartic cylinders</a>.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>A quart is specified by its origin, or center, and each of its axes:</p>
+
+<dir><img src="def_quart.png" border="0"></dir>
+
+<ul type=square>
+  <li class=code>Quart(center, radius, material)</li>
+  <li class=code>Quart(cx, cy, cz, radius, material)</li>
+  <li class=code>Quart(cx, cy, cz, rx, ry, rz, material)</li>
+</ul>
+
+<p align=justify>Primitive quarts are always aligned to the axes. If you need another orientation, you must apply the <a href="shapes_rotate.html">Rotate</a> primitive to the quart. You can also apply a <a href="shapes_scale.html">Scale</a> operation to the rotated quart. Note, however, it doesn't make sense to scale a non-rotated quart, since the same effect could be achieved by modifying the size of its axes.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Shapes</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_box.html">Box</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_torus.html">Torus</a> |
+  <a href="shapes_blob.html">Blob</a> |
+  <a href="shapes_poly.html">Polyhedra</a> |
+  <a href="shapes_qcyl.html">Quartic cylinder</a> |
+  <a href="silly_scenes.html">Scenes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

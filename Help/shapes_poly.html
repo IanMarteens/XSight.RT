@@ -1,0 +1,114 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Polyhedra</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: polyhedra</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>XSight RT provides predefined classes for some common <i>convex polyhedra</i>:</p>
+
+<ul>
+  <li><a href="#p4">Tetrahedron</a> (regular, four triangular faces)</li>
+  <li><a href="#p8">Octahedron</a> (regular, eight triangular faces)</li>
+  <li><a href="#p12">Dodecahedron</a> (regular, twelve pentagonal faces)</li>
+  <li><a href="#p20">Icosahedron</a> (regular, twenty triangular faces)</li>
+  <li><a href="#pyr">Pyramid</a> (not regular, rectangular base, four additional triangular faces)</li>
+</ul>
+
+<p align=justify>All these polyhedra, except the pyramid, are <i>regular polyhedra</i>: all their faces have the same shape and size. You can also defined these and any other convex polyhedra by <a href="shapes_plane.html#csg">intersecting planes</a>. However, these predefined classes render faster and have better bounds.</p>
+
+<h2><a name="p4"></a>Tetrahedron</h2>
+
+<p align=justify>Every <b>tetrahedron</b> has four triangular congruent faces. The only parameter needed to define a tetrahedron is the <a href="silly_textures.html">material</a>:</p>
+
+<ul type=square>
+  <li class=code>Tetrahedron(material)</li>
+</ul>
+
+<p align=justify>The resulting tetrahedron is centered around the origin of coordinates, and its lower face is initially parallel to the XZ plane. You can rotate, resize and translate it as you need.</p>
+
+<dir><dir><img src="def_tetra.gif" border="0" /></dir></dir>
+
+<h2><a name="p8"></a>Octahedron</h2>
+
+<p align=justify>Every <b>octahedron</b> has eight triangular and congruent faces. The only parameter needed to define an octahedron is the <a href="silly_textures.html">material</a>:</p>
+
+<ul type=square>
+  <li class=code>Octahedron(material)</li>
+</ul>
+
+<p align=justify>The octahedron is centered around the origin of coordinates, as shown in the following image:</p>
+
+<dir><dir><img src="def_octa.png" border="0" /></dir></dir>
+
+<h2><a name="p12"></a>Dodecahedron</h2>
+
+<p align=justify>A <b>dodecahedron</b> features twelve pentagonal and congruent faces. The only parameter needed to define a dodecahedron is the <a href="silly_textures.html">material</a>:</p>
+
+<ul type=square>
+  <li class=code>Dodecahedron(material)</li>
+</ul>
+
+<p align=justify>Dodecahedra defined this way are always centered around the origin of coordinates, as shown in the following image:</p>
+
+<dir><dir><img src="def_dod.png" border="0" /></dir></dir>
+
+<h2><a name="p20"></a>Icosahedron</h2>
+
+<p align=justify>An <b>icosahedron</b> features twenty triangular congruent faces. The only parameter needed to define an icosahedron is the <a href="silly_textures.html">material</a>:</p>
+
+<ul type=square>
+  <li class=code>Icosahedron(material)</li>
+</ul>
+
+<p align=justify>Icosahedra defined this way are always centered around the origin of coordinates, as shown in the following image:</p>
+
+<dir><dir><img src="def_icos.png" border="0" /></dir></dir>
+
+<h2><a name="pyr"></a>Pyramid</h2>
+
+<p align=justify>Though <b>pyramids</b> are not regular polyhedra, we provide a shortcut for handling rectangular-based pyramids. The provided class renders faster, and their instances have better bounds. You'll need the base length, the pyramid's height and a material for defining a <i>pyramid</i>:</p>
+
+<ul type=square>
+  <li class=code>Pyramid(side, height, material)</li>
+</ul>
+
+<dir><dir><img src="def_pyramid.png" border="0" /></dir></dir>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="shapes_solids.html">Solid shapes</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_box.html">Box</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_torus.html">Torus</a> |
+  <a href="shapes_blob.html">Blob</a> |
+  <a href="shapes_quart.html">Quart</a> |
+  <a href="shapes_surfaces.html">Surfaces</a> |
+  <a href="shapes_trans.html">Transforms</a> |
+  <a href="shapes_csg.html">CSG operations</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

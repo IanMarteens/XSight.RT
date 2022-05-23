@@ -1,0 +1,75 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Scripting Tools</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Scripting Tools</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>It's almost impossible to remember all available classes and how are they used: this a known problem with all ray tracers based on a scene language. XSight RT's code editor provides some help when writing a scene script.</p>
+
+<h2>The Insert menu</h2>
+
+<p align=justify>The <b>Insert</b> menu, in the main menu bar, contains commands for inserting predefined shape constructors, as shown in the following image:</p>
+
+<dir><img src="insertmenu.gif" border="0" /></dir>
+
+<p align=justify>When one of these special commands is selected and executed, the corresponding text is inserted at the current position inside the scene script.</p>
+
+<h2><a name="fragment"></a>Code fragments</h2>
+
+<p align=justify>You can also press the <span class="KBD">Ctrl+J</span> key combination to show a popup window like this:</p>
+
+<dir><img src="snippets.gif" border="0" /></dir>
+
+<p align=justify>The constructor list is restricted to match text immediately at the left of the insertion point. You can double click the desired constructor or select it by pressing <span class="KBD">Enter</span>. The window can be closed without inserting any text by pressing <span class="KBD">Escape</span>.</p>
+
+<a name="ch"></a><h2>Code help</h2>
+
+<p align=justify>You can also get help about a predefined class or a symbolic <a href="sillytype.html#colors">color name</a> by moving the mouse above an identifier in the <a href="mainform.html">editor window</a>.</p>
+
+<dir><img src="codehelp.gif" border="0" /></dir>
+
+<ol>
+  <li>Classes and alias are always identified. It doesn't matter whether it's a predefined XSight class or a user defined extension, as long as it has been registered for using with XSight RT.</li>
+  <li>User defined macros are not identified, however. If you define a macro using the name of a predefined class, the floating tooltip will show information about the predefined class.</li>
+  <li><a href="sillytype.html#colors">Color names</a> are always detected, and their <b>rgb</b> components are shown:</li>
+</ol>
+
+<dir><img src="codehelp1.gif" border="0"/></dir>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsusing.html">Using XSight's Ray Editor</a> |
+  <a href="mainform.html">Main Window</a> |
+  <a href="keyboard.html">Keyboard shortcuts</a> |
+  <a href="render.html">Rendering</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="scenetree.html">Scene tree</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="noiseform.html">Noise Generator</a> |
+  <a href="optsform.html">XSight RT Options</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

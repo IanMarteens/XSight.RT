@@ -1,0 +1,76 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Intersections</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>CSG: intersection</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>An <b>intersection</b> builds a new solid from a list of shapes by taking the common part of all them.</p>
+
+<p align=justify>Though intersections can be defined using both convex and concave solids, XSight RT provides internal classes for implementing <i>convex solids</i> intersections in a more efficient way. All ray intersections with a convex volume yields one or two intersection points, at most. Our current intersection algorithm takes advantage of this fact to optimize memory use. All primitive shapes in XSight RT are also convex solids, with one exception: <a href="shapes_torus.html">tori</a>. <a href="shapes_plane.html">Planes</a> are considered convex solids: when used in CSG intersections, planes are considered as hemispaces, with one regular intersection point and a second intersection in the infinite limit.</p>
+
+<dir><img src="def_inter01.png" border="0"></dir>
+
+<h2>Syntax</h2>
+
+<ul type=square><li class=code>Intersection(shape1, shape2, ... shape<sub>N</sub>, material)</li></ul>
+
+<p>For instance, when two intersected solids share a common surface, which material should we choose for the intersection?.</p>
+
+<ul type=square><li class=code>Intersection(material, shape1, shape2, ... shape<sub>N</sub>)</li></ul>
+
+<p>Just for your convenience, we have added this alternative constructor if you prefer to specify the new material as the first parameter.</p>
+
+<h2><a name="op"></a>Operator syntax</h2>
+
+<p align=justify>Two shapes can be intersected by using the star operator <b>*</b> with them:</p>
+
+<pre>cylinder([-2, 0, 0], [+2, 0, 0], 0.8, plastic(red)) *
+    cylinder([0, -2, 0], [0, +2, 0], 0.8, plastic(blue))</pre>
+
+<p align=justify>In this case, no material is specified.</p>
+
+<h2>Example</h2>
+
+<p align=justify>This expression intersects three orthogonal cylinders, and then rotates the result, looking for a more dramatic effect:</p>
+
+<pre>rotate(20, 20, 20,
+    intersection(
+        cylinder([-2, 0, 0], [+2, 0, 0], 0.8),
+        cylinder([0, -2, 0], [0, +2, 0], 0.8),
+        cylinder([0, 0, -2], [0, 0, +2], 0.8),
+        metal(royalblue, 0.1, 0.0, 0.8, 1, 10)))</pre>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_diff.html">Difference</a> |
+  <a href="shapes_union.html">Union</a> |
+  <a href="shapes_merge.html">Merge</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_torus.html">Torus</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

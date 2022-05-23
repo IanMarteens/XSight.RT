@@ -1,0 +1,178 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Backgrounds</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Backgrounds</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>When a visual ray thrown from the camera does not hit any object in the scene, its color is computed by the background object. XSight RT gives you these predefined background types:</p>
+
+<ul type="square">
+<li><a href="#flat">Flat</a> and <a href="#grad">gradient</a> backgrounds.</li>
+<li><a href="#sky">Sky</a> and <a href="#flatsky">flat sky</a> backgrounds.</li>
+<li>The versatile <a href="#bmp">bitmap</a> background.</li>
+</ul>
+
+<a name="flat"></a><h2>The flat background</h2>
+
+<p align=justify>This is the simplest posible background: no matter what the direction is, it returns the same color.</p>
+
+<ul type="square">
+  <li class=code>Flat(color)</li>
+</ul>
+
+<p align=justify><i>Flat</i> is a registered alias for the <i>FlatBackground</i> class. There's another convention for saving space: if you only supply a color or a number in the <b>background</b> section, it is assumed we want a flat background.</p>
+
+<pre><i>// A white flat background.</i>
+<b>background</b>
+    White;</pre>
+
+  <dir><img src="back_flat.png" border="0" /></dir>
+
+<p align=justify>The above scene shows a highly reflectant sphere surrounded by a flat background.</p>
+
+<a name="grad"></a><h2>The gradient background</h2>
+
+<p align=justify>The same <i>FlatBackground</i> class can generate a gradient background with the proper parameters. In a gradient background two poles are marked in the virtual sky sphere, and each one is associated with a color. The color for any other point is interpolated. Currently, the interpolation takes place in the RGB color space.</p>
+
+<ul type="square">
+  <li class=code>Flat(color1, color2, up)</li>
+  <li class=code>Flat(color1, color2)</li>
+</ul>
+
+<p align=justify>When the <i>up</i> vector is omitted, the "north pole" is located at the intersection between the sky sphere and the Y axis. The following image shows a highly reflectant sphere surrounded by a gradient background:</p>
+
+  <dir><img src="back_grad.png" border="0" /></dir>
+
+<p align=justify>The cosine of the angle with the north pole is used for interpolation. As a consequence, the gradient is not a linear function of the latitude.</p>
+
+<h2><a name="sky"></a>The sky background</h2>
+
+<p align=justify>The sky background is computed using the cube power of the solid noise function. The third power is taken to avoid an equal distribution of the background and the clouds.</p>
+
+<ul type="square">
+  <li class=code>Sky</li>
+  <li class=code>Sky(backColor)</li>
+  <li class=code>Sky(backColor, cloudsColor)</li>
+  <li class=code>Sky(backColor, turbulence)</li>
+  <li class=code>Sky(backColor, cloudsColor, turbulence)</li>
+</ul>
+
+<p align=justify><i>Sky</i> is a registered alias for the <i>SkyBackground</i> class. The default turbulence is 3, the default background color is <i>RoyalBlue</i> (red: 0.25; green: 0.41; blue: 0.88) and the default color for clouds is white.</p>
+
+  <dir><img src="back_sky.png" border="0" /></dir>
+
+<p align=justify>The above image is generated with a parameterless sky instance. The higher the turbulence, more complicated will be clouds pattern. You can use a lower turbulence for faster rendering.</p>
+
+<h2><a name="flatsky"></a>The flat sky background</h2>
+
+<p align=justify><i>Sky</i> displays a uniform distribution for the clouds, but that's not how clouds behave. In real life, clouds tend to concentrate near the horizon line: clouds are normally located in a plane above the ground, and perspective does the rest. For a more realistic sky, XSight RT provides the <i>FlatSky</i> background:</p>
+
+  <dir><img src="back_flatsky.png" border="0" /></dir>
+
+<p align=justify>As you can see, clouds are simmetrically distributed around the horizon line, and their apparent density increases with the distance to the camera.</p>
+
+<p align=justify>This is the version of <i>FlatSky</i> showing all its parameters:</p>
+
+<ul type="square">
+  <li class=code>FlatSky(skyColor, cloudsColor, scale, turbulence, threshold, profile, quadrantSize)</li>
+</ul>
+
+<p align=justify><i>Scale</i> is a vector. The X and Z components controls the clouds density along those axes, and the Y component picks a given horizontal plane from the Perlin noise 3D domain. As before, <i>turbulence</i> controls the complexity of the noise.</p>
+
+<p align="justify">There are two methods to control the balance between clouds and clear sky. The value returned by the noise function is first adjusted using <i>threshold</i>: <i>0.0</i> uses the whole domain, from <i>0.0</i> to <i>1.0</i>, and a larger value reduces this interval. The value obtained is then elevated to the <i>profile</i> power. Regular values are <i>0.0</i> for the threshold, and <i>3</i> for the profile.</p>
+
+<p align=justify>The last parameter, <i>quadrantSize</i> is used to low or elevate the horizon line. It is expressed as sexagesimal degrees, and the default value is 90 degrees.</p>
+
+
+<a name="bmp"></a><h2>The bitmap background</h2>
+
+<p align=justify>The <i>BitmapBackground</i> class is a versatile kind of background which implements several interesting tricks. In its easier form, a bitmap background projects a scaled bitmap file into the scene background. All you need to supply is the name of the bitmap file:</p>
+
+<ul type="square">
+  <li class=code>BitmapBackground(fileName)</li>
+  <li class=code>Bmp(fileName)</li>
+</ul>
+
+<p align=justify>There are no constraints about the bitmap size: it is always stretched to the dimensions of the rendered image.</p>
+
+  <dir><img src="back_bmp.png" border="0" /></dir>
+
+<a name="filesvc"></a>
+
+<p align="justify">If you don't provide a relative path for the file, the following folders are tried, in this order:</p>
+
+<ol>
+	<li>If the scene file is already stored in a file, the bitmap is searched in the same folder as the scene.</li>
+	<li>My Pictures</li>
+	<li>My Documents/scenes</li>
+	<li>My Documents</li>
+</ol>
+
+<p align=justify>An important characteristic of the bitmap background is that it doesn't show in reflections. This is necessary since the bitmap is already mapped to the projection plane. Let's suppose we have this scene, designed with a dark background:</p>
+
+  <dir><img src="sph00.png" border="0" /></dir>
+
+<p align=justify>Let's say you want to substitute the dark background with a white one. But the fact is that the spheres are made of a highly reflective metal, and this is what happens if you switch to a flat white background:</p>
+
+  <dir><img src="sph01.png" border="0" /></dir>
+
+<p align=justify>The new bright background is being reflected by the spheres, and most of the scene details are lost. The best solution is to substitute the <i>FlatBackground</i> class with a <i>BitmapBackground</i> referencing a white bitmap:</p>
+
+  <dir><img src="sph02.png" border="0" /></dir>
+
+<p align=justify>The bitmap is not reflected now, and the problem has been solved. This fact is the reason behind another way to instantiate a bitmap background:</p>
+
+<ul type="square">
+  <li class=code>BitmapBackground(color)</li>
+  <li class=code>Bmp(color)</li>
+</ul>
+
+<p align=justify>In this case, the bitmap is generated on the fly as a uniform fill, but it's not saved to disk. The effect is almost identical as using a <a href="#flat">flat background</a>... except that the background, this time, is not reflected by any objects in the scene.</p>
+
+<p align=justify>You can also generate a bitmap background on the fly based in the Perlin noise generator:</p>
+
+<ul type="square">
+  <li class=code>BitmapBackground(turbulence, seed, scaleX, scaleY, offX, offY)</li>
+  <li class=code>BitmapBackground(turbulence, seed, scaleX, scaleY)</li>
+  <li class=code>BitmapBackground(turbulence, seed)</li>
+  <li class=code>BitmapBackground(turbulence)</li>
+</ul>
+
+<p align=justify>This background has been generated with the <a href="noiseform.html">Perlin noise generator</a> and no turbulence:</p>
+
+  <dir><img src="back_noise.png" border="0" /></dir>
+
+<p align=justify>If you don't provide a <i>seed</i>, the slice explored in the Perlin noise domain will be different each time the scene is rendered.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_samplers.html">Samplers</a> |
+  <a href="silly_cameras.html">Cameras</a> |
+  <a href="silly_lights.html">Lights</a> |
+  <a href="silly_amb.html">Ambient</a> |
+  <a href="silly_shapes.html">Shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

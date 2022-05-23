@@ -1,0 +1,105 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Scene feedback</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Scene feedback</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Once you have rendered a scene, you can extract more information from it using the rendered image and the internal <a href="scenetree.html">scene tree</a>, which is internally stored by the <b>Image Window</b>.</p>
+
+<a name="zoom"></a><h2>Zooming and panning</h2>
+
+<p align=justify>You can zoom in and out any image on this window using the mouse wheel, as in Windows' image viewer.</p>
+
+<dir><img src="bmpscroll.png" border="0" /></dir>
+
+<p align=justify>You can use the mouse for zooming and panning:</p>
+
+<table class="FEATURES" width="90%">
+<tr><th width="150">Gesture</th><th>Action</th></tr>
+<tr><td class="KBD">Mouse wheel</td><td>Zooms the image in and out.</td></tr>
+<tr><td class="KBD">Control + Mouse wheel</td><td>Zooms the image in and out.</td></tr>
+<tr><td class="KBD">Double click</td><td>Restores the image to its original size.</td></tr>
+</table>
+
+<p align=justify>You can also use the keyboard to perform these operations:</p>
+
+<table class="FEATURES" width="90%">
+<tr><th width="150">Shortcut</th><th>Action</th></tr>
+<tr><td class="KBD">NumPad+</td><td>Zooms in.</td></tr>
+<tr><td class="KBD">NumPad-</td><td>Zooms out.</td></tr>
+<tr><td class="KBD">NumPad*</td><td>Restores original size.</td></tr>
+<tr><td class="KBD">Arrow keys</td><td>Pans the image, when it is greater than the current window.</td></tr>
+<tr><td class="KBD">Control + Arrow keys</td><td>Pans the image at a faster pace.</td></tr>
+<tr><td class="KBD">Home</td><td>Shows the left upper corner of the image.</td></tr>
+<tr><td class="KBD">End</td><td>Shows the right lower corner of the image.</td></tr>
+</table>
+
+<p align=justify>When you zoom in the image, the windows size does not change, so parts of the image are left out from the window. You can drag the image in order to reveal the zones outside the current view:</p>
+
+<a name="status"></a><h2>The status bar</h2>
+
+<p align=justify>The Image Window keeps an internal copy of the last rendered <a href="silly_scenes.html">scene</a>. When you move the mouse over the bitmap, the scene is used for calculating which point in the 3D scene your mouse is pointing to. The result of this query is shown in the status bar:</p>
+
+<dir><img src="statusbar.gif" border="0"></dir>
+
+<p align=justify>The first three panels in the status bar show the <i>x</i>, <i>y</i> and <i>z</i> coordinates of the hit point. The fourth panel contains the <i>row</i> and <i>column</i> in the bitmap, counting from the lower leftmost corner, and the last panel shows the distance, in the scene space, from the camera location to the hit point.</p>
+
+<div class="alert" style="margin-left: 32px;">
+  <table cellspacing="0" cellpadding="0">
+    <tr><th align="left"><img alt="Note" src="note.gif" style="border: 0; margin-right: 3px;"></img>Note</th></tr>
+    <tr><td>When you move the mouse pointer over the scene background, no distance is shown since, by definition, the distance from the camera to the background is infinite.</td></tr>
+  </table>
+</div>
+
+<p align=justify>If you press the <span class="KBD">Control</span> key while moving the cursor over the image, the last panel will show the normal vector at the hit point:</p>
+
+<dir><img src="statusbar1.gif" border="0"></dir>
+
+<p align=justify>If you press both the <span class="KBD">Control</span> and the <span class="KBD">Shift</span> keys while moving the mouse, the last panel will show the cosine of the angle formed between the eye ray and the normal vector at the hit point:</p>
+
+<dir><img src="statusbar2.gif" border="0"></dir>
+
+<p align=justify>Finally, you can hold the <span class="KBD">Shift</span> key in order to show the RGB components, in hexadecimal notation, of the pixel below the cursor:</p>
+
+<dir><img src="statusbar3.gif" border="0"></dir>
+
+<p align=justify>If the color of the selected pixel matches or almost matches any of the <a href="sillytype.html#colors">named colors</a> from SILLY, the color name is also shown.</p>
+
+<p align=justify>In addition, you can copy the hit point position as a SILLY <a href="sillytype.html#vectors">vector</a> by pressing <span class="KBD">Ctrl+Shift+C</span>, or by executing the <i>Copy position as text</i> command from the popup menu.</p>
+
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="bmpform.html">Image Window</a> |
+  <a href="bmpsource.html">Image source</a> |
+  <a href="xsusing.html">Using the Ray Editor</a> |
+  <a href="mainform.html">Editor Window</a> |
+  <a href="blurform.html">Motion Blur</a> |
+  <a href="animform.html">Animation Form</a> |
+  <a href="scwizform.html">Scene Wizard</a> |
+  <a href="noiseform.html">Noise Generator</a> |
+  <a href="optsform.html">XSight RT Options</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

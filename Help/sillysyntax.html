@@ -1,0 +1,107 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Syntax</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Basic Syntax</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify><img src="syntax.png" border="0" align="right" />SILLY is an expression oriented language. Everything you write in SILLY is considered as an expression. Even the whole script can be considered as an expression that defines a scene though, in this case, the syntax is a little different from the regular expression syntax in SILLY.</p>
+
+<h2>Object creation</h2>
+
+<p align=justify>The most common expression in SILLY is the <i>object call</i>, which is interpreted as the instantiation, or creation, of an object from a given class. This is how an sphere is created in SILLY:</p>
+
+<pre>sphere([0, 0, 0], 1, plastic(red))</pre>
+
+<p align=justify>To read the previous expression, you must know beforehand that spheres have a constructor receiving a vector for the sphere's center, its radius and the material the sphere is made of. There's an alternative syntax for object creation, as shown in this variant:</p>
+
+<pre>sphere(
+    center: [0, 0, 0],
+    radius: 1,
+    material: plastic(red))</pre>
+
+<p align=justify>In this case, we have used <i>named parameters</i>, instead of <i>positional parameters</i> (line feeds are not mandatory). Both styles can be mixed, as long as positional parameters appear before any named parameter:</p>
+
+<pre><i>// OK</i>
+sphere([0, 0, 0], radius: 1.0, material: plastic(red));
+
+<i>// Wrong! Material must include the parameter name.</i>
+sphere(center: [0, 0, 0], radius: 1.0, plastic(red));</pre>
+
+<h2>High level syntax</h2>
+
+<p align=justify>The goal of a SILLY script is the creation of a scene object. We could have designed SILLY in a uniform way, and use the previously explained syntax for creating the scene. Instead, we have provided an easier to remember syntax for this task:</p>
+
+<pre><b>sampler</b> <i>sampler-object</i>
+<b>camera</b> <i>camera-object</i>
+<b>background</b> <i>background-object</i>
+<b>ambient</b> <i>ambient-object-list</i>
+<b>lights</b> <i>light-object-list</i>
+<b>media</b> <i>media-object</i>
+<b>objects</b> <i>shape-object-list</i>
+<b>end</b>.</pre>
+
+<p align=justify>This could be viewed as a variant of object creation with named parameters. For more details about scenes and its parameters, check the <a href="silly_scenes.html">Scenes</a> help topic.</p>
+
+<h2>Object lists</h2>
+
+<p align=justify>As you have surely noticed, SILLY needs <i>object lists</i> from time to time. Objects in such lists can be separated using both commas and semicolons. You can mix both separators without restrictions:</p>
+
+<pre>A(1, 2, 3), B([0,0,0]);
+C(123);
+D(<b>rgb</b> 0.1)</pre>
+
+<p align=justify>Why do we allow two different separators? The answer is: <i>refactoring</i>. Suppose you create two objects in a scene:</p>
+
+<pre>sphere([-1, 0, 0], 0.5, plastic(red)),
+sphere([+1, 0, 0], 0.5, plastic(green))</pre>
+
+<p align=justify>Let's say we must repeat this pair several times along the Z axis. Since we used a comma to separate them, it's easier now to nest both objects inside a union:</p>
+
+<pre>union(
+    <font color="maroon">sphere([-1, 0, 0], 0.5, plastic(red)),
+    sphere([+1, 0, 0], 0.5, plastic(green))</font>)
+<b>loop</b> 5 <b>by</b> 2^Z;</pre>
+
+<p align=justify>As a matter of fact, we suggest to use commas as separators whenever it's possible. We still allow semicolons since it's the traditional separator in classic programming languages.</p>
+
+<p align=justify>For more information on syntax, check these help topics:</p>
+
+<ul type="square">
+  <li><a href="sillytype.html">Data types</a></li>
+  <li><a href="sillyexpr.html">Expressions</a></li>
+  <li><a href="sillyvar.html">Animation support</a></li>
+  <li><a href="silly_macros.html">Macros</a></li>
+</ul>
+
+<a name="see"></a><h2>See also</h2>
+
+  <p>
+    <a href="index.html">Home</a> |
+    <a href="xsightovr.html">XSight Ray Tracer overview</a> |
+    <a href="sillyref.html">Simple Instantiation Language</a> |
+    <a href="silly_scenes.html">Scenes</a> |
+    <a href="silly_shapes.html">Predefined shapes</a> |
+    <a href="silly_textures.html">Materials</a> |
+    <a href="silly_macros.html">Macros</a> |
+    <a href="xsusing.html">Using XSight's Ray Editor</a>
+  </p>
+
+</div>
+
+</BODY>
+</HTML>

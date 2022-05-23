@@ -1,0 +1,60 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Spotted Materials</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: Spotted</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p>Spotted materials directly maps the 3D Perlin's noise function to a gradient between two colors.</p>
+
+<dir><img src="def_spotted.png" border="0" /></dir>
+
+<p align=justify>Here you have another spotted effect:</p>
+
+<dir><img src="def_spotted1.png" border="0" /></dir>
+
+<h2>Syntax</h2>
+
+  <ul type="square">
+    <li class=code>Spotted(color1, color2)</li>
+    <li class=code>Spotted(color1, color2, scale, turbulence)</li>
+    <li class=code>Spotted(color1, color2, scale, turbulence, reflection, phongAmount, phongSize)</li>
+  </ul>
+
+<pre>spotted(royalblue, <b>rgb</b>(44, 71, 39), 4, 2, 0.0, 0.4, 3)</pre>
+
+<p align=justify>The <a href="txt_pigment.html#p04">Spots</a> pigment provides the same functionality, and can be used with the <a href="txt_metalpig.html">MetalPigment</a> material to simulate a metalic look.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="silly_textures.html">Textures</a> |
+  <a href="txt_plastic.html">Plastic</a> |
+  <a href="txt_metal.html">Metal</a> |
+  <a href="txt_marble.html">Marble</a> |
+  <a href="txt_pigment.html">Pigment</a> |
+  <a href="txt_metalpig.html">MetalPigment</a> |
+  <a href="txt_glass.html">Glass</a> |
+  <a href="silly_shapes.html">Shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

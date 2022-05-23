@@ -1,0 +1,162 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Cameras</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Small Instantiation Language: Cameras</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Now that your scene has a <a href="silly_samplers.html">sampler</a>, you also must supply a <b>camera</b>. Cameras performs two tasks:</p>
+
+<ol>
+  <li>They control the size of the rendered image.</li>
+  <li>They map pixels in the rendered image to visual rays.</li>
+</ol>
+
+<p align=justify>XSight RT v1.0 supports three camera types:</p>
+
+<ul type="square">
+  <li><a href="#perspective">Perspective cameras</a></li>
+  <li><a href="#cyl">Cylindrical cameras</a></li>
+  <li><a href="#ortho">Orthographic cameras</a></li>
+</ul>
+
+<a name="perspective"></a><h2>Perspective cameras</h2>
+
+<p align="justify">A <b>perspective camera</b> behaves as you would expect from a real-life camera: the 3D scene is translated to a 2D image by sending rays from the camera's location, and sampling these rays as they intersect with the focal plane.</p>
+
+<ul type="square">
+  <li class=code>PerspectiveCamera(location, target, up, angle, width, height)</li>
+  <li class=code>PerspectiveCamera(location, target, angle, width, height)</li>
+  <li class=code>PerspectiveCamera(location, target, width, height)</li>
+</ul>
+
+<p align=justify>The parameters that define a perspective camera are shown in this diagram:</p>
+
+<dir><dir><img src="cam_pers.gif" border="0" /></dir></dir>
+
+<p align=justify><i>Location</i> tells where the camera stands, and <i>target</i> defines the central point in the projection plane. This is a simplification of a more general case: other ray tracers allow the target to be located in any other point of the projection plane. The <i>angle</i> controls how much from the scene is recorded by the camera, and <i>width</i> and <i>height</i> tells in how many pixels must be divided the projection plane. Note that XSight RT always defines pixels with the same width and height.</p>
+
+<p align=justify>These parameters freeze the camera position, but it still can be tilted in one or the other direction. The <i>up</i> parameter tells where is the "sky". These two images were rendered with slightly different <i>up</i> parameter settings:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="camup00.png" border="0"></td>
+    <td><img src="camup02.png" border="0"></td>
+  </tr>
+</table></dir>
+
+
+<p align=justify><a name="angle"></a>The default angle used by XSight RT is 60 degrees. If you use a smaller angle, the effect is similar to zooming in the scene, since the number of pixels in the output image remains unchanged. You can use any value for the angle between 0 and 180. As the angle approaches 180 degrees, the projection degenerates. This animated sequence was rendered from the same fixed scene, just changing the angle of the perspective camera from 180 degrees to 60 degrees:</p>
+
+<dir><img src="anim_angle.gif" border="0" /></dir>
+
+<p align=justify>People often think that a perspective projection would never distort a <a href="shapes_sphere.html">sphere</a>. However, this image shows what happens when we put a sphere near the border of a scene:</p>
+
+<dir><img src="pdist00.png" border="0" /></dir>
+
+<p align=justify>Why is this illusion possible? That's because we only pay full attention to objects near our visual focus. Do you want to check it? Just take a look at a sphere with the corner of one of your eyes... and don't turn the head! Nevertheless, the illusion can be fought by comparing what would happen to a <a href="shapes_box.html">box</a> with similar size and position:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="pdist01.png" border="0"></td>
+    <td><img src="pdist02.png" border="0"></td>
+    <td><img src="pdist03.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<a name="cyl"></a><h2>Cylindrical cameras</h2>
+
+<p align=justify>When a scene is projected over a flat rectangle, pixels in the projection are associated with different solid angles. As we move to the borders of the projection plane, each pixel is responsible for a broader <i>frustum</i> (a truncated pyramid) with its apex at the camera location. As we open the camera's angle, the effect becomes more and more pronounced.</p>
+
+<p align=justify>A simple way to partially solve this problem is substituting the projection plane by a projection cylinder, as in this diagram:</p>
+
+<dir><dir><img src="cam_persc.gif" border="0" /></dir></dir>
+
+<p align=justify>Now, there's no distortion in the horizontal direction. However, there's still distortion in the vertical direction.</p>
+
+<p align=justify>A cylindrical camera uses the same parameter set as the perspective camera:</p>
+
+<ul type="square">
+  <li class=code>CylindricalCamera(location, target, up, angle, width, height)</li>
+  <li class=code>CylindricalCamera(location, target, angle, width, height)</li>
+  <li class=code>CylindricalCamera(location, target, width, height)</li>
+</ul>
+
+<p align="justify">These images show the difference between a plane perspective and a cylindrical one. Images in the left column were rendered with a perspective camera, while the ones at the right used a cylindrical camera. The upper row was rendered with a small angle, while the lower row used an angle greater than ninety degrees:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="cylcam00.png" border="0"></td>
+    <td><img src="cylcam01.png" border="0"></td>
+  </tr>
+  <tr>
+    <td><img src="cylcam02.png" border="0"></td>
+    <td><img src="cylcam03.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>As you can verify, the price we pay is that, with a cylindrical perspective, lines are not always projected as lines.</p>
+
+<a name="ortho"></a><h2>Orthographic cameras</h2>
+
+<p align=justify>Orthographic cameras use parallel rays for projecting the scene onto the projection plane. Objects that will be included in the scene are bounded by a box with an infinite depth.</p>
+
+<ul type="square">
+  <li class=code>OrthographicCamera(location, target, up, angle, width, height)</li>
+  <li class=code>OrthographicCamera(scale, location, target, up, width, height)</li>
+</ul>
+
+<p align=justify>Actually, the projection angle has no meaning with orthographic cameras, but XSight RT allows you to define an orthographic cameras using the same parameters as with a perspective camera. Mixing the angle with the distance to the target, XSight RT defines a scale factor so all objects intersected by the target plane be included in the bounding box defined by the orthographic camera.</p>
+
+<p align=justify>Orthographic cameras display several tricky traits. For instance, if you define a sky background for the scene, you'll always see a flat backspace. That's because most background objects use the direction vector from the visual ray to select a point to sample. However, all rays cast from an orthographic camera has the same direction. Another source of weirdness is the lack of perspective. These images were rendered with a perspective camera:</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="ortho00.png" border="0"></td>
+    <td><img src="ortho02.png" border="0"></td>
+    <td><img src="ortho04.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>This image correspond to the same scene as above, but rendered with an orthographic camera:</p>
+
+  <dir>
+    <img src="ortho_real.png" border="0"/>
+  </dir>
+
+<p align=justify>Where's the orange sphere? Since it has the same size as the green sphere, now the green sphere hides it completely. There's another interesting detail in these images. In the first image generated with the orthographic camera, the
+green horizontal cylinder casts a visible shadow on the rightmost yellow vertical cylinder. However, this shadow is absent in the
+image generated with the perspective camera. In the orthographic view, the shadow grows as it moves deeper in the scene. Of course,
+this also happens in the perspective view, but the perspective effect compensates the effect and the shadow is hidden by the green cylinder.
+In a orthographic view, visual rays are parallel, but light rays still diverges from the point source.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_samplers.html">Samplers</a> |
+  <a href="silly_lights.html">Lights</a> |
+  <a href="silly_amb.html">Ambient lights</a> |
+  <a href="silly_backs.html">Backgrounds</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

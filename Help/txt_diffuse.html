@@ -1,0 +1,72 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Diffuse specular reflection</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: Diffuse specular reflection</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Dull materials emit light with the same intensity in all directions. When a ray of light hits a white wall, for instance, it can be reflected in any direction. On the contrary, when a light ray hits a perfect mirror, it is reflected in a given direction: that which makes the same angle to the normal vector as the incoming ray. These are opposite phenomena: perfect reflection versus perfect scattering.</p>
+
+<p align=justify>In real life, many materials exhibit a mixed behavior. On one hand, they uniformly scatter part of the incoming light. The rest of the rays are reflected, and they are not always reflected in the exact angle as a perfect reflector would do. This behavior is known as <b>glossy</b> or <b>diffuse specular</b> reflection.</p>
+
+<h2>Glossy materials</h2>
+
+<p align=justify>Diffuse specular reflection is emulated in XSight RT by using a <b>roughness</b> property in materials:</p>
+
+<pre>box(-3, -3, 0, +3, +3, 0.1,
+    metal(gray, 0.3, 1, 0.5, 0, 0, <font color="red">0.002</font>))</pre>
+
+<p align=justify>Zero roughness gives perfect reflectors; the greater the roughness, more blurry will be the reflection. The following images show, for comparison, a perfect reflecting wall and a glossy reflecting wall.</p>
+
+<dir><table cellspacing="8" border="0" bgcolor="royalblue">
+  <tr>
+    <td><img src="rough00.png" border="0"></td>
+    <td><img src="rough01.png" border="0"></td>
+  </tr>
+</table></dir>
+
+<p align=justify>Glossy reflection are implemented by casting many rays from the reflector to the reflected objects. Each reflected ray will have a slightly different direction. If the sampler is configured with few samples by pixel, noise can be produced. Use always a sensible high number of samples by pixel when there are glossy reflection in a scene.</p>
+
+<p align=justify>You can also add <a href="txt_phong.html">Phong highlights</a> to diffuse reflective surfaces. In that case, it's recommended to use a wide highlight, by specifying a low <i>Phong size</i>.</p>
+
+<h2>Diffusion levels</h2>
+
+<p align=justify>You can use the <b>Diffusion levels</b> parameter, in the XSight RT <a href="optsform.html">options</a> dialog, to control how diffuse reflection is implemented:</p>
+
+<dir><img src="rough02.png" border="0"/></dir>
+
+<p align=justify>By default, XSight RT casts two secondary reflected rays when a <i>primary ray</i> hits a surface; primary rays are those rays emitted directly from the <a href="silly_cameras.html">camera</a>. This technique ensures that there will be enough rays to smooth the glossy reflection. However, it could be too expensive to cast two rays for secondary rays hitting a glossy surface. So, only one reflected ray is emitted for secondary rays.</p>
+
+<p align=justify>The <b>Diffusion levels</b> options allows casting two rays for more levels. By specifying two diffusion levels, for instance, the first generation of secondary rays also cast two rays for glossy reflections.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_textures.html">Materials</a> |
+  <a href="txt_reflection.html">Perfect reflection</a> |
+  <a href="txt_phong.html">Phong highlights</a> |
+  <a href="txt_normals.html">Normals perturbation</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Predefined shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

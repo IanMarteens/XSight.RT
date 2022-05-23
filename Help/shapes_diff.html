@@ -1,0 +1,65 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Difference</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>CSG: difference</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>A <b>difference</b> creates a new solid by removing or carving space from an already existing solid. Any kind of solid shapes, no matter whether <i>convex</i> or not, can be used in a difference operation. Internally, XSight RT provides alternative classes for implementing special cases more efficiently.</p>
+
+<dir><img src="def_diff01.png" border="0"></dir>
+
+<h2>Syntax</h2>
+
+<ul type=square><li class=code>Difference(shape1, shape2)</li></ul>
+
+<p>No matter what surface become visible, the result always uses the material from the first shape.</p>
+
+<h2><a name="op"></a>Operator syntax</h2>
+
+<p align=justify>As an alternative, the minus operator can be used to find the difference between two arbitrary shapes:</p>
+
+<pre>box([-1.0, -1.0, -1.0], [1.0, 1.0, 1.0], plastic(blue)) -
+    box([0.0, 0.0, 0.0], [1.1, 1.1, 1.1], plastic(red))</pre>
+
+<p align=justify>In this case, no material is specified.</p>
+
+<h2>Example</h2>
+
+<pre>difference(
+    box([-1.0, -1.0, -1.0], [1.0, 1.0, 1.0],
+        metal(royalblue, 0.02, 0.0, 0.8, 1, 10)),
+    box([ 0.0,  0.0,  0.0], [1.1, 1.1, 1.1]));</pre>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_inter.html">Intersection</a> |
+  <a href="shapes_union.html">Union</a> |
+  <a href="shapes_merge.html">Merge</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_torus.html">Torus</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

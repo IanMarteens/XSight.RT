@@ -1,0 +1,144 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Blob</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: blob</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Blobs are complex shapes with an "organic" look defined as surfaces with the same potential in a field defined using point sources.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>Blob definitions requires a list of <i>blob items</i>, a threshold and a material:</p>
+
+<ul type=square><li class=code>Blob(Item1, Item2..., Threshold, Material)</li></ul>
+
+<dir><img src="def_blob.png" border="0"></dir>
+
+<p align=justify><a name="ball"></a>There are four blob item classes: <i>balls</i>, <i>pipes</i>, <i>caps</i> and <i>repeaters</i>. A <b>ball</b> is defined this way:</p>
+
+<ul type=square>
+  <li class=code>Ball(Center, Radius, Strength)</li>
+  <li class=code>Ball(Center, Radius)</li>
+</ul>
+
+<p align=justify>We can also define ellipsoids, substituting the single radius parameter with a vector giving the three main axis of the ellipsoid:</p>
+
+<ul type=square>
+  <li class=code>Ball(Center, Axes, Strength)</li>
+  <li class=code>Ball(Center, Axes)</li>
+</ul>
+
+<p align=justify><a name="pipe"></a><b>Pipes</b> are cylindrical segments with open extremes, and must be specified like this:</p>
+
+<ul type=square>
+  <li class=code>Pipe(Bottom, Top, Radius, Strength)</li>
+  <li class=code>Pipe(Bottom, Top, Radius)</li>
+</ul>
+
+<p align=justify><a name="cap"></a>You can close one or both extremes from a pipe using <b>caps</b>. Caps are hemispheres, so you create a cap the same way you create a ball, except that a <i>top</i> vector is needed for the cap:</p>
+
+<ul type=square>
+  <li class=code>Cap(Center, Top, Radius, Strength)</li>
+  <li class=code>Cap(Center, Top, Radius)</li>
+</ul>
+
+<p align=justify>Repeaters are created like this:</p>
+
+<ul type=square>
+  <li class=code>BlobRepeater(Item, Count, Translation, Rotation)</li>
+  <li class=code>BlobRep(Item, Count, Translation, Rotation)</li>
+</ul>
+
+<p align=justify><i>BlobRepeater</i> can translate and rotate the repeating item. Of course, you don't have to translate <i>and</i> rotate at the same time. The scene optimizer always expands blob repeaters before render.</p>
+
+<p align=justify>There are no equivalent for classes like <i>Translate</i> and <i>Rotate</i> for transforming blob items: the whole blob is a shape and you can rotate, translate and scale it as usual, but each individual blob item is not a shape. However, you still can use the <b>move</b>, <b>spin</b> and <b>loop</b> operators with individual blob items:</p>
+
+<table style="margin-bottom: 0;">
+<tr><td><pre>blob(
+    ball(^y, 1, 0.9) <b>move</b> +0.5^z
+        <b>loop</b> 3 <b>by</b> 1.15^z,
+    ball(^y, 1, 0.9) <b>spin</b>  60^z
+        <b>loop</b> 3 <b>by</b> 1.15^z,
+    ball(^y, 1, 0.9) <b>spin</b> 120^z <b>move</b> +0.5^z
+        <b>loop</b> 3 <b>by</b> 1.15^z,
+    ball(^y, 1, 0.9) <b>spin</b> 180^z
+        <b>loop</b> 3 <b>by</b> 1.15^z,
+    ball(^y, 1, 0.9) <b>spin</b> 240^z <b>move</b> +0.5^z
+        <b>loop</b> 3 <b>by</b> 1.15^z,
+    ball(^y, 1, 0.9) <b>spin</b> 300^z
+        <b>loop</b> 3 <b>by</b> 1.15^z,
+threshold:
+    0.6,
+material:
+    metalPigment(gradient(
+        darkorange, [-1,-1,-1], gold, [+1,+1,+1]),
+        0.0, 0.6, 0.9, 0.2, 90))</pre></td>
+<td valign="top"><img src="twisted.png" border="0" /></td></tr></table>
+
+<p align=justify style="margin-top: 0;">These transformations are always applied by the scene optimizer and they impose no additional runtime burden.</p>
+
+<h2>What's in a blob?</h2>
+
+<p align="justify">Let's imagine an energy field defined around a point:</p>
+
+<dir><img src="field0.gif" border="0" /></dir>
+
+<p align=justify>For our needs, the field will achieve it's maximum at it's source, and a zero intensity at a given distance from the source. If we ask for the surfaces were the intensity is 0.5 and 0.8, for instance, we'll get two concentric spheres:</p>
+
+<dir><img src="field1.gif" border="0" /></dir>
+
+<p align=justify>If we add another source, things get more complicated... and more interesting. If we ask for the surface with a given field intensity, we'll obtain a shape like this:</p>
+
+<dir><img src="field2.gif" border="0" /></dir>
+
+<p align=justify>That's how blobs are defined: we start with a set of points. For each point, we define it's radius and a maximum intensity, and then, a threshold intensity. The blob is the surface where the total field intensity is the one defined by the threshold parameter.</p>
+
+<h2>Tips for dealing with blobs</h2>
+
+<p align=justify>I'm sure you'll find applications for blobs my philosophy never dreamt of... but until you get familiar with blobs, it's advisable to follow these tips, at least, if you appreciate enough you hair:</p>
+
+<ul>
+  <li>Remember that blob fields are always bounded. This mean that, beyond those limits, blob items will never interact in any way.</li>
+  <li>Our pipes are open ended, in contrast with <a href="http://www.povray.org">POV Ray</a> blob cylinders. Of course, you can close a <i>pipe</i> with a <i>cap</i>, which, by the way, is the technique used by POV Ray. Why, then, we didn't add automatic caps for our pipes? Well, we found some interesting uses for open ended pipes.</li>
+  <li>However, we still have a limitation: we only support one material per blob. Next version...</li>
+  <li>Higher thresholds, thinner blobs.</li>
+  <li>You can play with individual field strengths for each blob item. You can also define negative strengths for some items, for a better modeling control.</li>
+</ul>
+
+<dir><dir><img src="madblob.jpg" border="0" /></dir></dir>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language reference</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Shapes</a> |
+  <a href="shapes_box.html">Box</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_torus.html">Torus</a> |
+  <a href="shapes_quart.html">Quart</a> |
+  <a href="shapes_poly.html">Polyhedra</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

@@ -1,0 +1,168 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Rotate</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Transforms: Rotate</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>The <b>rotate</b> primitive combines rotations around the three main axis. Partial rotations are applied in their natural order: <i>x</i>, <i>y</i>, and then, <i>z</i>. If you need another order, you can combine independent rotations.</p>
+
+<p align=justify>Rotations are very important for modeling, since several primitive shapes are always defined with a given orientation. For instance, the <a href="shapes_box.html">box</a> shape is always axis-aligned.</p>
+
+<dir><img src="def_rotate.png" border="0"></dir>
+
+<h2>Syntax</h2>
+
+<p align=justify>The basic technique for specifying a rotation is using three consecutive rotations around the coordinate axis:</p>
+
+<ul type=disc><li class=code>Rotate(x, y, z, original)</li></ul>
+
+<p align=justify>First, the object is rotated around the X axis, then, around the Y axis, and finally, around the Z axis. Consider this example:</p>
+
+<pre>rotate(-45, 45, 0,
+    cone(0, 0, 0, 3, 1, metal(forestGreen, 0.2)))</pre>
+
+<p align=justify>The result is the same as the result of this variant:</p>
+
+<pre>rotate(0, 45, 0,
+    rotate(-45, 0, 0,
+        cone(0, 0, 0, 3, 1, metal(forestGreen, 0.2))))</pre>
+
+<p align=justify>Since rotations are not commutative, this alternative order renders a diferent image:</p>
+
+<pre>rotate(-45, 0, 0,
+     rotate(0, 45, 0,
+        cone(0, 0, 0, 3, 1, metal(forestGreen, 0.2))))</pre>
+
+<dir><img src="rotcones.png" border="0"></dir>
+
+<p align=justify>The cone at the left corresponds to a X-rotation followed by a Y-rotation. The cone at the right was first rotated around the Y-axis, but <a href="shapes_cone.html">cones</a> has Y axis simmetry by default, and the rotation doesn't have any effect on it, so we only see the effect of the final X axis rotation.</p>
+
+<h2><a name="spin"></a>The <span style="font-variant: small-caps;">spin</span> operator</h2>
+
+<p align=justify>The <b>spin</b> infix binary <a href="sillyexpr.html#trans">operator</a> is the preferred way to rotate a shape:</p>
+
+<pre>cone(0, 0, 0, 3, 1, metal(forestGreen, 0.2)))
+    <b>spin</b> -45^X + 45^Y;</pre>
+
+<p align=justify>By using <b>spin</b> instead of <i>Rotate</i>, you avoid a couple of parenthesis. Additionally, <b>spin</b> is a infix binary operator, so the shape to rotate appears now at the beginning of the expression, which is easier to read.</p>
+
+<h2><a name="around"></a>Spinning around...</h2>
+
+<p align=justify>There's yet another variant for the <b>spin</b> operator syntax: the <b>spin</b>/<b>around</b> pair. <i>Rotate</i> always rotate shapes around the origin of coordinates. That's useful when defining a shape near this point, but it complicates things when the shape has already been moved to another location in the scene. Let's define a box for demonstrating this:</p>
+
+<pre>box(0, -2, -1, 2, 0, 1,
+    gradient(yellow, -2^y, springGreen, 2^y))</pre>
+
+<p align=justify>We'll add three small spheres to identify three reference points in the X axis:</p>
+
+<pre>sphere( 0, 0, 0, 0.10, metal(red, 0.2)),
+sphere(-1, 0, 0, 0.10, metal(darkOrange, 0.2)),
+sphere(+1, 0, 0, 0.10, metal(darkOrange, 0.2));</pre>
+
+<p align=justify>This is how our scene could render so far:</p>
+
+<dir><img src="sparound00.png" border="0"></dir>
+
+<p align=justify>Now, we will rotate the box 45 degrees... and, since no <b>around</b> clause has been used yet, the rotation will be defined around the origin of coordinates:</p>
+
+<pre>box(0, -2, -1, 2, 0, 1,
+    gradient(yellow, -2^Y, springGreen, 2^Y))
+        <b>spin</b> 45^Y</pre>
+
+<dir><img src="sparound01.png" border="0"></dir>
+
+<p align=justify>As you can check, the box has rotated around the <i>Y</i>, or vertical, axis: the small red sphere is still at the edge of the cube. This may be or may be not what you want. Now look this example:</p>
+
+<pre>box(0, -2, -1, 2, 0, 1,
+    gradient(yellow, -2^Y, springGreen, 2^Y))
+    <b>spin</b> 45^Y <b>around</b> [1,0,0]</pre>
+
+<p align=justify>This time, there's is an <b>around</b> clause after the <b>spin</b> operator. And this is the rendered scene:</p>
+
+<dir><img src="sparound02.png" border="0"></dir>
+
+<p align=justify>XSight RT handles the <b>around</b> clause by generating two <a href="shapes_translate.html">translations</a>, one before and the other after the rotation. The former moves the coordinates frame so the center of rotation matches the origin of coordinates.After the rotation, the frame is moved to its original location:</p>
+
+<pre>box(0, -2, -1, 2, 0, 1,
+    gradient(yellow, -2^Y, springGreen, 2^Y))
+    <b>move</b> [-1,0,0]
+    <b>spin</b> 45^Y
+    <b>move</b> [+1,0,0]</pre>
+
+<p align=justify>The funny side of all this is that those translations are later simplified and vanish from the scene tree. After the simplification pass, our box would be defined like this:</p>
+
+<pre>box(-0.293, -2.000, -0.293, 1.707, 0.000, 1.707,
+    gradient(yellow, -2^Y, springGreen, 2^Y))
+    <b>spin</b> 45^Y</pre>
+
+<h2>Simplifying rotations</h2>
+
+<p align=justify>If you have doubts about the order of rotations, you should use two cascading <i>Rotate</i> operations. This technique doesn't slow rendering, because both rotations are merged by the engine. Whenever possible, rotations are statically applied to shapes with simmetries.</p>
+
+<p align=justify>Probably you are wondering why could anybody want to rotate a sphere with its center at the origin of coordinates. The answer spells <i>object composition</i>. Take a look at this scene:</p>
+
+<table>
+  <tr>
+    <td><img src="pills.png" border="0"></td>
+    <td><pre>  <font color="008000"><i>// The stuff pills are made of...</i></font>
+  <b>set</b> PillStuff = Spotted(White, color(254, 254, 248), 15.0, 6, 0.05, 0.0, 0.0);
+  <b>set</b> Pill = Difference(
+      Cylinder(0, 0, 0, 0.2, 1.0, PillStuff),
+      Box(-0.1, 0.1, -1.2, 0.1, 0.3, 1.2, PillStuff),
+      PillStuff)</pre></td>
+  </tr>
+</table>
+
+<p align=justify>Pills in the pile are rotated around the Y axis, and that implies a rotation of the difference between a <a href="shapes_cyl.html">cylinder</a> and a box. But there's no need to rotate a cylinder. So, the rotation is moved down the scene tree to be applied only to the box.</p>
+
+<p align=justify>Not all shapes have full rotation simmetry: actually, only the <a href="shapes_sphere.html">sphere</a> have it:</p>
+
+<ul>
+  <li>Cylinders, cones and tori can be rotated around their axis.</li>
+  <li>Boxes can be rotated aroud the three axis as far as they are rotated a multiple of ninety degrees.</li>
+</ul>
+
+<p align=justify>In all the above mentioned cases, a rotation can be eliminated from the scene. Some shapes are internally defined along with a transformation, as the cylinder and the cone. In these cases, the new rotation is merged with the internal transformation to accelerate rendering.</p>
+
+<p align=justify>Finally, we have special shapes for handling some common cases in a more efficient manner:</p>
+
+<ul>
+  <li>Though tori are always defined in SILLY as simmetrical to the Y axis, the scene optimizer detects rotations that change the simmetry axis to another coordinate system axis, and may substitute a <i>Torus</i> with a <i>XTorus</i> or <i>ZTorus</i>, if appropiated. These two classes are internal ones, that cannot be directly referenced in a SILLY script.</li>
+  <li>Most planes in a scene lies on the XZ plane, and have the Y axis as their normal. There's another internal class, <i>YPlane</i> for them.</li>
+  <li>Cylinders may be transformed into <i>YCylinders</i>, for the same reasons.</li>
+</ul>
+
+<p align=justify>You can check which equivalences has been used when optimizing a given scene by looking at the <a href="scenetree.html">scene tree</a>.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_shapes.html">SILLY predefined shapes</a> |
+  <a href="shapes_trans.html">Transforms</a> |
+  <a href="shapes_translate.html">Translate</a> |
+  <a href="shapes_scale.html">Scale</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_plane.html">Infinite surfaces</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

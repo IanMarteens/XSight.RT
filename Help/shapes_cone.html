@@ -1,0 +1,64 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Cone</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: cone</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>XSight RT supports two basic and very similar <i>surfaces of revolution</i> (SOR): <b>cones</b> and <a href="shapes_cyl.html">cylinders</a>.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>The most general way to define is cone is by giving the position of its bottom's center, its top and the radius of its base.</p>
+
+<ul type=square><li class=code>Cone(Bottom, Top, Radius, Material)</li></ul>
+
+<dir><img src="def_cone01.png" border="0"></dir>
+
+<p align=justify>If you only need a vertical cone, you can substitute the coordinates for the top with the height of the cone:</p>
+
+<ul type=square><li class=code>Cone(Bottom, Height, Radius, Material)</li></ul>
+
+<dir><img src="def_cone02.png" border="0"></dir>
+
+<p align=justify>And this final variant splits the bottom vector into its three individual components:</p>
+
+<ul type=square><li class=code>Cone(X, Y, Z, Height, Radius, Material)</li></ul>
+
+<p align=justify>Cones in XSight RT are never open. However, you can simulate an open cone using the <a href="shapes_diff.html">difference</a> operator, by removing the inner part from a cone using another smaller one.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="silly_shapes.html">Predefined shapes</a> |
+  <a href="shapes_box.html">Box</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_torus.html">Torus</a> |
+  <a href="shapes_blob.html">Blob</a> |
+  <a href="shapes_quart.html">Quart</a> |
+  <a href="shapes_poly.html">Polyhedra</a> |
+  <a href="shapes_diff.html">Difference</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_textures.html">Materials</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

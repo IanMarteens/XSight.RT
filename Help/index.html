@@ -1,0 +1,72 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Welcome!</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+
+  <script src="xshelp.js"></script>
+</HEAD>
+
+<BODY background="backg.gif">
+
+<div id="HDR">
+  XSight RT
+  <h1>Welcome to XSight Ray Tracer!</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align="justify"><span style="font-variant: small-caps; font-size: 105%;"><b>XSight Ray Tracer</b> is an experimental ray tracer</span> programmed by <a href="http://www.marteens.com/xsight" title="XSight home page">Intuitive Sight</a> in C# 2.0 with Visual Studio 2005, and running on .NET Framework 2.0. Its original goal was to evaluate how a CPU intensive application would perform in the managed execution environment. The project succeeded: we found the performance of XSight RT to be comparable to the performance of most ray tracers directly compiled into native code. As we learned in the classroom: a well designed algorithm does better for efficiency than most minor optimization tricks when coding.</p>
+
+<dir><img src="about.png" border="0"></dir>
+
+<p align=justify>XSight Ray Tracer contains the following modules:</p>
+
+<ul type="disc"><li><b>IntSight.RayTracing.Engine</b></li></ul>
+
+<dir><p align=justify>This is the extensible <a href="xsightovr.html">ray tracing</a> engine.</p></dir>
+
+<ul type="disc"><li><b>IntSight.RayTracing.Language</b></li></ul>
+
+<dir><p align=justify>Above the engine, we have added support for a very simple <a href="sillyref.html">scene description language</a>, SILLY, which stands for <i>Simple Instantiation Language</i> (yep, and that <i>-LY</i> sufix).</p></dir>
+
+<ul type="disc"><li><b>XSight Ray Editor</b></li></ul>
+
+<dir><p align=justify>This a simple <a href="xsusing.html">application</a> you can use to write and render scene description files programmed in SILLY.</p></dir>
+
+<a name="see"></a><h2>See also</h2>
+
+  <ul type="square">
+    <li><a href="xsightovr.html">XSight Ray Tracer Overview</a>
+      <ul type="disc">
+        <li><a href="rtdefined.html">How does a ray tracer work?</a></li>
+        <li><a href="rtlimits.html">The limits of ray tracing</a></li>
+        <li><a href="rtwhyxs.html">Why XSight RT?</a></li>
+      </ul>
+    </li>
+    <li><a href="sillyref.html">Small Instantiation Language Reference</a>
+      <ul type="disc">
+        <li><a href="sillysyntax.html">Basic syntax</a></li>
+        <li><a href="silly_scenes.html">Scenes</a></li>
+        <li><a href="silly_shapes.html">Shapes</a></li>
+        <li><a href="silly_textures.html">Materials</a></li>
+      </ul>
+    </li>
+    <li><a href="xsusing.html">Using XSight's Ray Editor</a>
+      <ul type="disc">
+        <li><a href="mainform.html">The Editor Window</a></li>
+        <li><a href="keyboard.html">Keyboard reference</a></li>
+        <li><a href="bmpform.html">The Image Window</a></li>
+      </ul>
+    </li>
+  </ul>
+
+</div>
+
+</BODY>
+</HTML>

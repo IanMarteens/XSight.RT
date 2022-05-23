@@ -1,0 +1,79 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Scale</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Transforms: Scale</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>You can distort shapes, and make them bigger or smaller using the <b>scale</b> operation.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>A scale operation is specified by giving three scale factors, one for each axis:</p>
+
+<ul type=disc><li class=code>Scale(x, y, z, original)</li></ul>
+
+<p align=justify>You can use this operation for compressing a torus along the Y axis:</p>
+
+<img src="def_scale.png" border="0">
+
+<p align=justify>But you can also use a scale operation with three equal factors, to reduce or augment the size of a shape without distorting it. In that case, this variant is handy:</p>
+
+<ul type=disc><li class=code>Scale(factor, original)</li></ul>
+
+<p align=justify>The scene optimizer can directly apply a scale operation to several shape types, as <a href="shapes_box.html">boxes</a>. Vertical <a href="shapes_cyl.html">cylinders</a> and <a href="shapes_cone.html">cones</a> can also "absorb" the impact of scale changes when they only affects the Y axis.</p>
+
+<h2><a name="size"></a>The <span style="font-variant: small-caps;">size</span> operator</h2>
+
+<p align=justify>You can use the <b>size</b> infix operator as a better way to perform a scale change:</p>
+
+<pre>sphere(^0, 1.0, plastic(royalBlue))
+    <b>size</b> [0.1, 1.0, 1.0]</pre>
+
+<p align=justify>You can provide a single real value in the second operand of size if you want the same scale factor for the three axis:</p>
+
+<pre>aComplexShape(x, y, z)
+    <b>size</b> 0.1</pre>
+
+<h2>Composing scales and rotations</h2>
+
+<p align=justify>A common case happens when you first rotate a box to scale it later. You could, for instance, use the resulting shape to model a clock's hand:</p>
+
+<pre>box(-1, -1, -1, +1, +1, +1, handMat)
+    <b>spin</b> 45^Y
+    <b>size</b> [0.1, 0.1, 1.0]</pre>
+
+<p align=justify>The rotation cannot be canceled because it's acting on an axis-aligned cube. And even worse, you can't commute rotations and scale changes!</p>
+
+<p align=justify>We use a trick for these cases: a special transformation that applies both a rotation and a scale change in just one step.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_shapes.html">SILLY predefined shapes</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_translate.html">Translate</a> |
+  <a href="shapes_rotate.html">Rotate</a> |
+  <a href="shapes_plane.html">Infinite surfaces</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

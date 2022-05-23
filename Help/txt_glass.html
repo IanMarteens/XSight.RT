@@ -1,0 +1,63 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Glass</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: Glass</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align="justify">This version of XSight RT includes experimental support for the <b>glass</b> material.</p>
+
+<dir><img src="def_glass.png" border="0" /></dir>
+
+<p align=justify>Please note the blend of reflected and refracted rays in the two glass spheres. The refracted image is inverted, but the reflected image, though distorted, is not. Observe how the intensity of the reflections depends on the angle of incidence.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>Glass materials are defined using these constructors:</p>
+
+  <ul type="square">
+    <li class="code">Glass</li>
+    <li class="code">Glass(ior)</li>
+    <li class="code">Glass(ior, minReflection)</li>
+    <li class="code">Glass(ior, minReflection, maxReflection)</li>
+    <li class="code">Glass(ior, minReflection, maxReflection, phongAmount, phongSize)</li>
+  </ul>
+
+<p align=justify>The <i>ior</i> parameter represents the <i>index of refraction</i>. When not specified, an index of 1.5 is assumed: that's the index of refraction for glass. The default value for the maximum reflection is 1.0, and the minimum reflection, when omitted, is calculated from the <i>ior</i> using the Fresnel's formula:</p>
+
+<pre>minReflection = (ior - 1)^2 / (ior + 1)^2</pre>
+
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="silly_textures.html">Materials</a> |
+  <a href="txt_plastic.html">Plastic</a> |
+  <a href="txt_metal.html">Metal</a> |
+  <a href="txt_marble.html">Marble</a> |
+  <a href="txt_spotted.html">Spotted</a> |
+  <a href="txt_pigment.html">Pigment</a> |
+  <a href="txt_metalpig.html">MetalPigment</a> |
+  <a href="silly_shapes.html">Shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Limits of Ray Tracing</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>The limits of ray tracing</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>Ray tracing yields dramatic results for scenes with refraction and perfect specular reflections. There are, however, other scenarios where ray tracing must be complemented with other techniques to offer acceptable results.</p>
+
+<h2>Global illumination</h2>
+
+<p align=justify>Light is everywhere... and this is not a poetic license. Light is scattered by the atmosphere so you can find some illumination even in theoretically shadowed places. A white dull wall diffuses some of the light energy it receives. All these familiar phenomena are classified under the <i>global illumination</i> category.</p>
+
+<dir><img src="cornell.png" border="0" /></dir>
+
+<p align=justify>The classic ray tracing algorithm was not designed to deal with global illumination. When a visual ray hits on a non reflective surface, the trace is over for that ray. We check then which light sources are reachable from the intersection point in order to find the resulting color.</p>
+
+<h2>Diffuse specular reflection</h2>
+
+<p align=justify>Diffuse reflection is supported as an experimental feature in this version of XSight RT. All reflective materials feature a <i>roughness</i> property. When its value is zero, we have a perfect specular reflection. When roughness is greater than zero, reflected rays are distributed in a narrow lobe around the perfect reflection angle. This behavior is simulated by Monte Carlo integration, and the default number of samples is 16.</p>
+
+<p align="justify">These two images show a ball reflected first in a perfect reflective box, and then in a box featuring diffuse specular reflection:</p>
+
+<dir>
+  <table border="0">
+    <tr>
+     <td><img src="rough00.png" border="0"></td>
+     <td><img src="rough01.png" border="0"></td>
+    </tr>
+  </table>
+</dir>
+
+<p align=justify>In order to avoid a geometric explosion in the number of traced rays, tracing is stopped after we hit one of these diffuse reflective surfaces. The heuristic is justified because rays gathered from a second bounce would bring no further recognizable information. We are considering other techniques, such as the Russian roulette, for a better simulation.</p>
+
+<h2>Caustics</h2>
+
+<p align=justify>When several light rays converge in a point due to reflection or refraction, we are dealing with <i>caustics</i>. In the following image, a crystal ball focuses light in a small area in the floor:</p>
+
+  <dir><img src="caustics.png" border="0" /></dir>
+
+<p align=justify>Classic ray tracing can't handle caustics, but this time, the explanation is more subtle. Ray tracing works by running light rays backwards: it starts with a "visual ray", i.e., a ray launched by the eye or the camera, and it traces the ray path until a visible object is found. The problem with caustics has to do with concentrating several rays of light in a small area: you cannot trace them backwards.</p>
+
+<p align=justify>The best technique for dealing with caustics is the so called <i>photon map</i>. The image above has been rendered using a photon map in <a href="http://www.povray.org">POV Ray</a>. The next version of XSight RT must include photon maps for handling caustics and media participation.</p>
+
+<h2>Exotic phenomena</h2>
+
+<p align=justify>Ray tracing, in its classic formulation, cannot handle phenomena related with the ondulatory and quantic nature of light that show in every day life. Perhaps the most interesting of these exotic phenomena are <i>diffraction</i> and <i>interference</i>.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="xsightovr.html">An overview of ray tracing</a> |
+  <a href="rtdefined.html">How does a ray tracer work?</a> |
+  <a href="rtwhyxs.html">Why XSight RT?</a> |
+  <a href="sillyref.html">Small Instantiation Language Reference</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

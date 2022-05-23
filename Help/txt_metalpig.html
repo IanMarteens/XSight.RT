@@ -1,0 +1,72 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: MetalPigment Materials</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: MetalPigment</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align="justify">Actually, the <b>metalPigment</b> material groups several materials only differenced by the color pattern. For more precission, metal pigment materials behave like metals, but you can change the color pattern by specifying one of the supported <i>pigments</i>. The best news about <i>pigments</i> is that they are easily extensible using C# or any other .NET language.</p>
+
+<p align=justify>In this image, we show a metallic sphere with a <i>gradient</i> pigment (from dark orange in the bottom to gold in the top), while the ground has been modeled with a <i>checker</i> pigment and a <b>metalPigment</b> material:</p>
+
+<dir><img src="def_metalpig.png" border="0" /></dir>
+
+<p align=justify>There's a corresponding <a href="txt_pigment.html">pigment</a> material that resembles plastic materials.</p>
+
+<h2>Syntax</h2>
+
+<p align=justify>The syntax for the <b>metalPigment</b> material is identical to the syntax of <a href="txt_metal.html">metal</a>, except that, instead of a color, you must supply a <i>pigment</i> object:</p>
+
+  <ul type="square">
+    <li class="code">MetalPigment(pigment, minReflection)</li>
+    <li class="code">MetalPigment(pigment, minReflection, maxReflection)</li>
+    <li class="code">MetalPigment(pigment, minReflection, maxReflection, diffuse)</li>
+    <li class="code">MetalPigment(pigment, minReflection, maxReflection, diffuse, phongAmount, phongSize)</li>
+  </ul>
+
+<p align=justify>The <i>pigment</i> parameter that plays the role of a color in the <b>pigment</b> material is just an instance of one of these six predefined classes:</p>
+
+  <ul type="disc">
+    <li><a href="txt_pigment.html#p01">Gradient</a></li>
+    <li><a href="txt_pigment.html#p02">Checker</a></li>
+    <li><a href="txt_pigment.html#p03">Stripes</a></li>
+    <li><a href="txt_pigment.html#p04">Spots</a></li>
+    <li><a href="txt_pigment.html#p05">Crackle</a></li>
+    <li><a href="txt_pigment.html#p06">Bubbles</a></li>
+  </ul>
+
+<p align=justify>These pigment classes are defined along with the <a href="txt_pigment.html">pigment</a> material, in the corresponding help topic.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language</a> |
+  <a href="silly_textures.html">Materials</a> |
+  <a href="txt_pigment.html">Pigment</a> |
+  <a href="txt_plastic.html">Plastic</a> |
+  <a href="txt_metal.html">Metal</a> |
+  <a href="txt_marble.html">Marble</a> |
+  <a href="txt_spotted.html">Spotted</a> |
+  <a href="txt_glass.html">Glass</a> |
+  <a href="silly_shapes.html">Shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

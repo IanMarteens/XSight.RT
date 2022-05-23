@@ -1,0 +1,59 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Phong specular highlights</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Materials: Specular Phong highlights</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>There's a funny fact regarding ray tracing. We have been casting rays of light all over the scene... but we cannot see directly any light rays! We see light only when it's dispersed by a <i>Lambertian surface</i>. A Lambertian surface is a theoretical surface kind that disperse incoming light in all directions, with an uniform distribution.</p>
+
+<a name="phong"></a><h2>Phong's trick</h2>
+
+<p align="justify">However, no real material shows the idealized behavior of Lambertian surfaces. A real surface exhibits a mixed behavior, between perfect diffusion and perfect reflection. So, we expect to see light sources reflected in most "shinny" surfaces, though classical ray tracing alone can't handle this.</p>
+
+<dir><img src="def_phong2.png" border="0" /></dir>
+
+<p align=justify>The following matrix show a Phong highlight with different amounts and sizes. <i>Amount</i>, or intensity, increase as we move down, and the <i>size</i> parameter increases as we move from the leftmost to the right.</p>
+
+<dir><img src="def_phong.png" border="0" /></dir>
+
+<p align=justify>Please note that a higher <i>Phong size</i> actually means a smaller area highlight.</p>
+
+<div class="alert" style="margin-left: 32px;">
+  <table cellspacing="0" cellpadding="0">
+    <tr><th align="left"><img alt="Warning" src="note.gif" style="border: 0; margin-right: 3px;"></img>Warning</th></tr>
+    <tr><td>If you set a too high Phong amount, the resulting color for the highlight may sum above the white intensity, and it could be clipped by the sampler. There's nothing wrong with this, except that it would appear as an overexposed patch in a traditional photo.</td></tr>
+  </table>
+</div>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_textures.html">Materials</a> |
+  <a href="txt_reflection.html">Perfect reflection</a> |
+  <a href="txt_diffuse.html">Diffuse reflection</a> |
+  <a href="txt_normals.html">Normals perturbation</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Predefined shapes</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

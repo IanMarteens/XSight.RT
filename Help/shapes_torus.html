@@ -1,0 +1,55 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Torus</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Shapes: torus</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>A <i>torus</i> is the <i>surface of revolution</i> obtained by rotating an excentric sphere around an arbitrary axis. And yes: if you cover it with enough sugar, Homer Simpson could aprove it.</p>
+
+<h2>Syntax</h2>
+
+<p align="justify">You must provide the center of the torus, its outer radius, and its inner radius.</p>
+
+<ul type=square><li class=code>Torus(Center, R0, R1, Material)</li></ul>
+
+<dir><img src="def_torus01.png" border="0"></dir>
+
+<ul type=square><li class=code>Torus(X, Y, Z, R0, R1, Material)</li></ul>
+
+<p align=justify>Tori in XSight RT are always aligned to the Y axis. Of course, you can always rotate a torus with a separate <a href="shapes_rotate.html">rotation</a>. We have also provided internal classes to represent tori aligned along the X and the Z axis. You can't explicitly instantiate these special classes, since that's the task of the scene simplifier. You can check the scene tree if you want to ensure the simplifier is handling a given rotation as it should.</p>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language reference</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Shapes</a> |
+  <a href="shapes_box.html">Box</a> |
+  <a href="shapes_sphere.html">Sphere</a> |
+  <a href="shapes_cone.html">Cone</a> |
+  <a href="shapes_cyl.html">Cylinder</a> |
+  <a href="shapes_blob.html">Blob</a> |
+  <a href="shapes_quart.html">Quart</a> |
+  <a href="shapes_poly.html">Polyhedra</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>

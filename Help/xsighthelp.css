@@ -1,0 +1,207 @@
+<STYLE TYPE="TEXT/CSS">
+
+BODY
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+	}
+
+#HDR
+	{
+		background-color: rgb(212, 223, 255);
+		color: rgb(0, 51, 153);
+		width: 100%;
+		padding: 4px 16px 4px 16px;
+		font: 8pt verdana, arial, sans-serif;
+	}
+
+#MAIN
+	{
+		padding: 8px 20px 16px 20px;
+	}
+
+#HDR A, #HDR A:VISITED, #HDR A:LINK
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		color: blue;
+		text-decoration: underline;
+	}
+
+#HDR A:HOVER
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		color: royalblue;
+		text-decoration: underline;
+	}
+
+P
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		margin-left: 0px;
+	}
+
+UL, LI
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		margin-left: 24px;
+		margin-top: -2px;
+	}
+
+H1
+	{
+		font: bold 12pt verdana, arial, sans-serif;
+		color: rgb(0,51,153);
+		margin-top: 2px;
+		margin-bottom: 6px;
+	}
+
+H2
+	{
+		font: bold 11pt verdana, arial, sans-serif;
+		color: rgb(0,51,153);
+	}
+
+H3
+	{
+		font: bold 10pt verdana, arial, sans-serif;
+		color: navy;
+	}
+
+A, A:VISITED, A:LINK
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		color: blue;
+		text-decoration: none;
+	}
+
+A:HOVER
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		color: midnightblue;
+		background: FFD3A8;
+		text-decoration: underline;
+	}
+
+A.FEATURES, A.FEATURES:VISITED, A.FEATURES:LINK
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		color: blue;
+		text-decoration: none;
+	}
+
+A.FEATURES:HOVER
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		color: midnightblue;
+		background: FFD3A8;
+		text-decoration: underline;
+	}
+
+PRE
+	{
+		font-family: Courier New, monospace;
+		font-size: 9.25pt;
+		margin-left: 32px;
+
+	}
+
+PRE B
+	{
+		font-weight: bold;
+		color: blue;
+	}
+
+LI.CODE
+	{
+		font: 9pt "lucida console", "courier new", monospace;
+	}
+
+TD
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+	}
+
+TD.KBD
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		font-variant: small-caps;
+	}
+
+SPAN.KBD
+	{
+		font-variant: small-caps;
+	}
+
+TABLE.FEATURES
+	{
+		margin-left: 32px;
+	}
+
+TABLE.FEATURES TH
+	{
+		font: bold 8.5pt verdana, arial, sans-serif;
+		text-align: left;
+		background-color: rgb(239, 239, 247);
+		border-bottom: 1px solid rgb(200, 205, 222);
+		padding: 2px 8px 1px 8px;
+	}
+
+TABLE.FEATURES TD
+	{
+		font: 8.5pt verdana, arial, sans-serif;
+		text-align: left;
+		background-color: rgb(247, 247, 255);
+		border-bottom: 1px solid rgb(213, 213, 213);
+		padding: 2px 8px 1px 8px;
+	}
+
+DIV.ALERT TABLE
+{
+	border: 0;
+	font-size: 100%;
+	width: 90%;
+}
+
+DIV.ALERT TABLE TH
+{
+	font: bold 8.5pt verdana, arial, sans-serif;
+	background: #EFEFF7;
+	border-bottom: 1px solid #C8CDDE;
+	color: #000066;
+	padding-left: 5;
+	padding-right: 5;
+	padding-top: 1;
+	padding-bottom: 1;
+}
+
+DIV.ALERT TABLE TD
+{
+	border-bottom: 1px solid #D5D5D3;
+	border-left-color: 1px solid #D5D5D3;
+	margin: 1px;
+
+	background: #F7F7FF;
+	border-top-color: #FFFFFF;
+	border-top-style: solid;
+	border-top-width: 1;
+	padding: 5;
+}
+
+
+div.saveHistory
+{
+	behavior: url(#default#saveHistory);
+}
+
+@media print
+{
+BODY
+	{
+		font: 8.25pt tahoma, arial, sans-serif;
+	}
+
+P, UL, LI
+	{
+		font: 8.25pt tahoma, arial, sans-serif;
+	}
+}
+</STYLE>

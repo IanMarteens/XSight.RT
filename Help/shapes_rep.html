@@ -1,0 +1,106 @@
+<!-- saved from url=(0024)http://www.marteens.com/ -->
+<HTML>
+<HEAD>
+  <TITLE>XSight Ray Tracer: Repeater</TITLE>
+  <meta name="save" content="history" />
+  <LINK REL="stylesheet" HREF="xsighthelp.css" TYPE="text/css">
+  <script src="xshelp.js"></script>
+</HEAD>
+<BODY>
+
+<div id="HDR">
+  XSight RT
+  <h1>Transforms: Repeater</h1>
+  <a href="#see">See also</a>
+</div>
+
+<div id="MAIN">
+
+<div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()">
+</div>
+
+<p align=justify>A <b>repeater</b> can be used to copy any simple or complex shape at regular intervals. These are not physical, but virtual copies.</p>
+
+<dir><img src="def_rep.png" border="0" /></dir>
+
+<h2>Syntax</h2>
+
+<p align=justify>You must specify the number of repetitions, and the vector difference between two consecutive copies:</p>
+
+<ul type=disc>
+  <li class=code>Repeat(count, deltaX, deltaY, deltaZ, original)</li>
+  <li class=code>Repeat(count, delta, original)</li>
+  <li class=code>Repeat(delta, count, original)</li>
+</ul>
+
+<p align=justify>Repetitions can be nested, to create duplicates in two and three dimensions, as this example shows:</p>
+
+<pre>repeat(15, [0, 0, 2.2],
+    repeat(15, [0, 2.2, 0],
+        repeat(15, [2.2, 0, 0],
+            sphere([-16,-16,-8], 0.2, goldenMetal))));</pre>
+
+<h2><a name="loop"></a>The <span style="font-variant: small-caps;">loop</span> operator</h2>
+
+<p align=justify>Using the <i>Repeat</i> class can be confusing: which parameter stands for the number of repetition, and which for the distance? You can use, instead, the <b>loop</b> operator:</p>
+
+<pre><i>any-shape</i> <b>loop</b> <i>times</i> <b>by</b> <i>distance</i></pre>
+
+<p align=justify>The <b>loop</b> operator has the same precedence as <a href="shapes_translate.html#move">move</a>, <a href="shapes_rotate.html#spin">spin</a> and <a href="shapes_scale.html#size">size</a>: they evaluate after any other additive operator in a expression. Of course, you can also nest loops. If you must translate a script already written with <i>Repeat</i>, and find nested repetitions, the most sensible way to simplify the expression is starting with the outer instance, and then proceeding to the inner instances:</p>
+
+<pre>repeat(15, [0, 2.2, 0],
+    repeat(15, [2.2, 0, 0],
+        sphere([-16,-16,-8], 0.2, goldenMetal)))
+            <b>loop</b> 15 <b>by</b> 2.2^Z;</pre>
+
+<p align=justify>In the next step, we transform the repetition along the <i>Y</i> axis:</p>
+
+<pre>repeat(15, [2.2, 0, 0],
+    sphere([-16,-16,-8], 0.2, goldenMetal))
+        <b>loop</b> 15 <b>by</b> 2.2^Z
+        <b>loop</b> 15 <b>by</b> 2.2^Y;</pre>
+
+<p align=justify>Finally, we can remove the last instance of <i>repeat</i>:</p>
+
+<pre>sphere([-16,-16,-8], 0.2, goldenMetal)
+    <b>loop</b> 15 <b>by</b> 2.2^Z
+    <b>loop</b> 15 <b>by</b> 2.2^Y
+    <b>loop</b> 15 <b>by</b> 2.2^X;</pre>
+
+<p align=justify>This a common pattern: a repetition along the three axis of coordinates. Which is the preferred order? Assuming that the camera is orientated along the Z axis, it is recommended to move the repetitions along the X and Y axis to the outer level. That's because most hit tests will be caused by rays from the camera (<i>primary rays</i>), and XSight RT does a better job optimizing <i>Repeat</i> when the repetition is almost orthogonal to the direction of the ray being tested.</p>
+
+<h2>Implementation</h2>
+
+<p align=justify>Repetitions are implemented by transforming the visual ray and testing against the original shape. We use several techniques for avoid testing as many times as repetitions have been specified:</p>
+
+<ul type="disc"><li>Loops with few repetitions are expanded inline.</li></ul>
+
+<dir style="margin-left: 32px;"><p align=justify>When the loop has three or less repetitions, the original shape is cloned the required number of times. The maximum number of repetitions is controled by the <i>Loop threshold option</i> in the <a href="optsform.html">XSight RT Options</a> dialog box:</p>
+
+<dir><img src="sceneopts.png" border="0" /></dir></dir>
+
+<ul type="disc"><li>Bounds are computed for the shape set and each ray is tested against these bounds before proceeding with any individual tests.</li></ul>
+
+<dir style="margin-left: 32px;"><p align=justify>When repetitions are axis-aligned, the rectangular bounds are tight enough to make sense. The repeater can also use a virtual cylinder to bind their items.</p></dir>
+
+<ul type="disc"><li>The two points where the testing ray hits the bounding box are used to find the first and the last item that must be tested.</li></ul>
+
+<dir style="margin-left: 32px;"><p align=justify>This last optimization is more effective when the number of repetitions is large.</p></dir>
+
+<a name="see"></a><h2>See also</h2>
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="sillyref.html">Small Instantiation Language overview</a> |
+  <a href="silly_scenes.html">Scenes</a> |
+  <a href="silly_shapes.html">Predefined shapes</a> |
+  <a href="shapes_solids.html">Solid shapes</a> |
+  <a href="shapes_trans.html">Transforms</a> |
+  <a href="shapes_csg.html">CSG operations</a> |
+  <a href="shapes_surfaces.html">Surfaces</a>
+</p>
+
+</div>
+
+</BODY>
+</HTML>
