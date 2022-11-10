@@ -137,8 +137,8 @@ namespace RayEd
             this.bnCancel = new System.Windows.Forms.ToolStripButton();
             this.sceneTree = new RayEd.SceneTree();
             this.errors = new System.Windows.Forms.ListView();
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
@@ -892,34 +892,36 @@ namespace RayEd
             // 
             this.editorContainer.Panel2.Controls.Add(this.codeEditor);
             this.editorContainer.Size = new System.Drawing.Size(841, 463);
-            this.editorContainer.SplitterDistance = 184;
+            this.editorContainer.SplitterDistance = 195;
             this.editorContainer.SplitterWidth = 1;
             this.editorContainer.TabIndex = 0;
             // 
             // paramsPanel
             // 
-            this.paramsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.paramsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.paramsPanel.AutoSize = true;
-            this.paramsPanel.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.paramsPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.paramsPanel.Location = new System.Drawing.Point(11, 10);
             this.paramsPanel.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.paramsPanel.Name = "paramsPanel";
             this.paramsPanel.RenderProcessor = null;
-            this.paramsPanel.Size = new System.Drawing.Size(245, 446);
+            this.paramsPanel.Size = new System.Drawing.Size(172, 446);
             this.paramsPanel.TabIndex = 1;
             // 
             // codeEditor
             // 
             this.codeEditor.ContextMenuStrip = this.editorStrip;
+            this.codeEditor.Cursor = System.Windows.Forms.Cursors.Default;
             this.codeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.codeEditor.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codeEditor.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.codeEditor.LeftMargin = 16;
             this.codeEditor.Location = new System.Drawing.Point(0, 0);
             this.codeEditor.Margin = new System.Windows.Forms.Padding(4);
             this.codeEditor.MarginColor = System.Drawing.Color.LightSteelBlue;
             this.codeEditor.Name = "codeEditor";
-            this.codeEditor.Size = new System.Drawing.Size(656, 463);
+            this.codeEditor.Size = new System.Drawing.Size(645, 463);
             this.codeEditor.TabIndex = 0;
             this.codeEditor.FileNameChanged += new System.EventHandler(this.CodeEditor_FileNameChanged);
             this.codeEditor.MouseLeave += new System.EventHandler(this.CodeEditor_MouseLeave);
@@ -1228,7 +1230,7 @@ namespace RayEd
             // 
             // bnCancel
             // 
-            this.bnCancel.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.bnCancel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bnCancel.Image = global::RayEd.Properties.Resources.Stop;
             this.bnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bnCancel.Name = "bnCancel";
@@ -1255,7 +1257,6 @@ namespace RayEd
             this.errors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.errors.FullRowSelect = true;
             this.errors.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.errors.HideSelection = false;
             this.errors.Location = new System.Drawing.Point(0, 0);
             this.errors.Margin = new System.Windows.Forms.Padding(4);
             this.errors.Name = "errors";
@@ -1306,7 +1307,7 @@ namespace RayEd
             // printDocument
             // 
             this.printDocument.Editor = this.codeEditor;
-            this.printDocument.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printDocument.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             // 
             // mruFileList
             // 

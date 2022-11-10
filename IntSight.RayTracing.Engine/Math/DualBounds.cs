@@ -258,7 +258,7 @@ public readonly struct DualBounds
             if (u1 > uu0) uu0 = u1;
             if (u0 < uu1) uu1 = u0;
         }
-        return tt0 <= maxt ? (uu0 <= uu1 ? 3 : 1) : (uu0 <= uu1 ? 2 : 0);
+        return (byte)(tt0 <= maxt ? (uu0 <= uu1 ? 3 : 1) : (uu0 <= uu1 ? 2 : 0));
     }
 }
 

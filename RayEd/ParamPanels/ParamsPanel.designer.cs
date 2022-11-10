@@ -32,6 +32,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.flowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.renderPanel = new RayEd.TaskPanel();
+            this.bxKeepHeight = new System.Windows.Forms.CheckBox();
             this.cbQual = new System.Windows.Forms.ComboBox();
             this.tbClock = new RayEd.Slider();
             this.txQuality = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@
             this.coolingPanel = new RayEd.TaskPanel();
             this.edCooling = new System.Windows.Forms.DomainUpDown();
             this.txCooling = new System.Windows.Forms.Label();
-            this.bxKeepHeight = new System.Windows.Forms.CheckBox();
             this.flowLayout.SuspendLayout();
             this.renderPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udClock)).BeginInit();
@@ -79,6 +79,8 @@
             // 
             // renderPanel
             // 
+            this.renderPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.renderPanel.Controls.Add(this.bxKeepHeight);
             this.renderPanel.Controls.Add(this.cbQual);
             this.renderPanel.Controls.Add(this.tbClock);
@@ -94,6 +96,18 @@
             this.renderPanel.TabIndex = 0;
             this.renderPanel.Text = "Render";
             // 
+            // bxKeepHeight
+            // 
+            this.bxKeepHeight.AutoSize = true;
+            this.bxKeepHeight.BackColor = System.Drawing.Color.Transparent;
+            this.bxKeepHeight.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bxKeepHeight.Location = new System.Drawing.Point(62, 102);
+            this.bxKeepHeight.Name = "bxKeepHeight";
+            this.bxKeepHeight.Size = new System.Drawing.Size(83, 17);
+            this.bxKeepHeight.TabIndex = 4;
+            this.bxKeepHeight.Text = "Keep height";
+            this.bxKeepHeight.UseVisualStyleBackColor = false;
+            // 
             // cbQual
             // 
             this.cbQual.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -108,7 +122,7 @@
             "Optimal"});
             this.cbQual.Location = new System.Drawing.Point(62, 30);
             this.cbQual.Name = "cbQual";
-            this.cbQual.Size = new System.Drawing.Size(100, 24);
+            this.cbQual.Size = new System.Drawing.Size(100, 21);
             this.cbQual.TabIndex = 1;
             this.cbQual.TabStop = false;
             // 
@@ -139,7 +153,7 @@
             this.bxDualMode.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bxDualMode.Location = new System.Drawing.Point(62, 54);
             this.bxDualMode.Name = "bxDualMode";
-            this.bxDualMode.Size = new System.Drawing.Size(115, 21);
+            this.bxDualMode.Size = new System.Drawing.Size(94, 17);
             this.bxDualMode.TabIndex = 2;
             this.bxDualMode.Text = "Multithreading";
             this.bxDualMode.UseVisualStyleBackColor = false;
@@ -160,7 +174,7 @@
             0,
             0});
             this.udClock.Name = "udClock";
-            this.udClock.Size = new System.Drawing.Size(100, 24);
+            this.udClock.Size = new System.Drawing.Size(100, 20);
             this.udClock.TabIndex = 6;
             this.udClock.TabStop = false;
             this.udClock.ValueChanged += new System.EventHandler(this.Clock_ValueChanged);
@@ -172,7 +186,7 @@
             this.bxRotateCamera.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bxRotateCamera.Location = new System.Drawing.Point(62, 78);
             this.bxRotateCamera.Name = "bxRotateCamera";
-            this.bxRotateCamera.Size = new System.Drawing.Size(120, 21);
+            this.bxRotateCamera.Size = new System.Drawing.Size(97, 17);
             this.bxRotateCamera.TabIndex = 3;
             this.bxRotateCamera.Text = "Rotate camera";
             this.bxRotateCamera.UseVisualStyleBackColor = false;
@@ -190,6 +204,8 @@
             // 
             // blurPanel
             // 
+            this.blurPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.blurPanel.Controls.Add(this.bxMotionBlur);
             this.blurPanel.Controls.Add(this.udSamples);
             this.blurPanel.Controls.Add(this.txSamples);
@@ -209,7 +225,7 @@
             this.bxMotionBlur.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bxMotionBlur.Location = new System.Drawing.Point(62, 30);
             this.bxMotionBlur.Name = "bxMotionBlur";
-            this.bxMotionBlur.Size = new System.Drawing.Size(126, 21);
+            this.bxMotionBlur.Size = new System.Drawing.Size(100, 17);
             this.bxMotionBlur.TabIndex = 0;
             this.bxMotionBlur.Text = "Use motion blur";
             this.bxMotionBlur.UseVisualStyleBackColor = false;
@@ -229,7 +245,7 @@
             0,
             0});
             this.udSamples.Name = "udSamples";
-            this.udSamples.Size = new System.Drawing.Size(100, 24);
+            this.udSamples.Size = new System.Drawing.Size(100, 20);
             this.udSamples.TabIndex = 2;
             this.udSamples.TabStop = false;
             this.udSamples.Value = new decimal(new int[] {
@@ -281,7 +297,7 @@
             0,
             196608});
             this.udWidth.Name = "udWidth";
-            this.udWidth.Size = new System.Drawing.Size(100, 24);
+            this.udWidth.Size = new System.Drawing.Size(100, 20);
             this.udWidth.TabIndex = 4;
             this.udWidth.TabStop = false;
             this.udWidth.Value = new decimal(new int[] {
@@ -292,6 +308,8 @@
             // 
             // coolingPanel
             // 
+            this.coolingPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.coolingPanel.Controls.Add(this.edCooling);
             this.coolingPanel.Controls.Add(this.txCooling);
             this.coolingPanel.Location = new System.Drawing.Point(0, 306);
@@ -313,7 +331,7 @@
             this.edCooling.Location = new System.Drawing.Point(62, 30);
             this.edCooling.Name = "edCooling";
             this.edCooling.ReadOnly = true;
-            this.edCooling.Size = new System.Drawing.Size(100, 24);
+            this.edCooling.Size = new System.Drawing.Size(100, 20);
             this.edCooling.TabIndex = 1;
             this.edCooling.TabStop = false;
             this.edCooling.Text = "None";
@@ -332,27 +350,15 @@
             this.txCooling.Text = "Pause";
             this.txCooling.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // bxKeepHeight
-            // 
-            this.bxKeepHeight.AutoSize = true;
-            this.bxKeepHeight.BackColor = System.Drawing.Color.Transparent;
-            this.bxKeepHeight.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bxKeepHeight.Location = new System.Drawing.Point(62, 102);
-            this.bxKeepHeight.Name = "bxKeepHeight";
-            this.bxKeepHeight.Size = new System.Drawing.Size(102, 21);
-            this.bxKeepHeight.TabIndex = 4;
-            this.bxKeepHeight.Text = "Keep height";
-            this.bxKeepHeight.UseVisualStyleBackColor = false;
-            // 
             // ParamsPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.flowLayout);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "ParamsPanel";
-            this.Size = new System.Drawing.Size(172, 367);
+            this.Size = new System.Drawing.Size(173, 367);
             this.flowLayout.ResumeLayout(false);
             this.renderPanel.ResumeLayout(false);
             this.renderPanel.PerformLayout();
