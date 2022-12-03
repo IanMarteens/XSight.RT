@@ -71,22 +71,14 @@ public abstract class SamplerBase
             int i = seed.Next(width), j = seed.Next(width);
             if (i != j)
                 for (int row = 0; row < height; row++)
-                {
-                    var t = pairs[i, row];
-                    pairs[i, row] = pairs[j, row];
-                    pairs[j, row] = t;
-                }
+                    (pairs[j, row], pairs[i, row]) = (pairs[i, row], pairs[j, row]);
         }
         for (int times = 0; times < height; times++)
         {
             int i = seed.Next(height), j = seed.Next(height);
             if (i != j)
                 for (int col = 0; col < width; col++)
-                {
-                    var t = pairs[col, i];
-                    pairs[col, i] = pairs[col, j];
-                    pairs[col, j] = t;
-                }
+                    (pairs[col, j], pairs[col, i]) = (pairs[col, i], pairs[col, j]);
         }
         for (int x = 0; x < width; x++)
             for (int y = 0; y < height; y++)

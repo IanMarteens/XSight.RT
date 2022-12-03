@@ -334,7 +334,7 @@ public interface ISnippetManager
 /// <summary>
 /// A line segment returned by the lexical analyzer (a.k.a. code scanner).
 /// </summary>
-public struct Lexeme
+public readonly struct Lexeme
 {
     /// <summary>Lexical tokens.</summary>
     public enum Token

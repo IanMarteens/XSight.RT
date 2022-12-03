@@ -3,7 +3,7 @@
 namespace IntSight.Controls;
 
 /// <summary>Retrieves information about text metrics.</summary>
-public static class FontInfo
+public static partial class FontInfo
 {
     [Serializable, StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     private struct TEXTMETRIC
@@ -32,12 +32,12 @@ public static class FontInfo
 
     [DllImport("gdi32.dll", CharSet = CharSet.Unicode)]
     private static extern bool GetTextMetrics(IntPtr hdc, out TEXTMETRIC lptm);
-    [DllImport("user32.dll")]
-    private static extern IntPtr GetDC(IntPtr hWnd);
-    [DllImport("user32.dll")]
-    private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
-    [DllImport("gdi32.dll")]
-    private static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
+    [LibraryImport("user32.dll")]
+    private static partial IntPtr GetDC(IntPtr hWnd);
+    [LibraryImport("user32.dll")]
+    private static partial int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+    [LibraryImport("gdi32.dll")]
+    private static partial IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
 
     /// <summary>
     /// Retrieves a list with the names of the installed monospaced fonts.
@@ -46,13 +46,13 @@ public static class FontInfo
     /// <returns>A list with monospaced font names.</returns>
     public static string[] GetMonospacedFonts(this IntPtr formHandle)
     {
-        List<string> result = new List<string>();
+        List<string> result = new();
         IntPtr dc = GetDC(formHandle);
         try
         {
             foreach (FontFamily family in FontFamily.Families)
                 if (family.IsStyleAvailable(FontStyle.Regular))
-                    using (Font f = new Font(family, 10.0F))
+                    using (Font f = new(family, 10.0F))
                     {
                         IntPtr oldObj = SelectObject(dc, f.ToHfont());
                         GetTextMetrics(dc, out TEXTMETRIC metric);
@@ -63,14 +63,14 @@ public static class FontInfo
         }
         finally
         {
-            ReleaseDC(formHandle, dc);
+            _ = ReleaseDC(formHandle, dc);
         }
         return result.ToArray();
     }
 
     public static bool IsMonospaced(Form form, string fontName)
     {
-        using Font f = new Font(fontName, 10.0F);
+        using Font f = new(fontName, 10.0F);
         if (!f.FontFamily.IsStyleAvailable(FontStyle.Regular))
             return false;
         IntPtr dc = GetDC(form.Handle);
@@ -82,7 +82,7 @@ public static class FontInfo
         }
         finally
         {
-            ReleaseDC(form.Handle, dc);
+            _ = ReleaseDC(form.Handle, dc);
         }
     }
 }

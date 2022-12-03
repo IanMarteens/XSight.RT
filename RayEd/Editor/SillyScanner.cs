@@ -18,7 +18,7 @@ class SillyScanner : ICodeScanner
         }
     }
 
-    private static readonly Set<string> keywords = new Set<string>(
+    private static readonly Set<string> keywords = new(
         StringComparer.InvariantCultureIgnoreCase,
         "sampler", "camera", "background", "objects", "lights", "ambient",
         "end", "spin", "move", "size", "loop", "rgb", "set", "to", "by", "around",
@@ -38,7 +38,7 @@ class SillyScanner : ICodeScanner
 
     IEnumerable<Lexeme> ICodeScanner.Tokens(string text, bool comment)
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         int p = 0, column = 0;
         char ch;
     START:
@@ -71,7 +71,7 @@ class SillyScanner : ICodeScanner
                     int p0 = p;
                     do { p++; }
                     while (p < text.Length &&
-                        "0123456789ABCDEFabcdef".IndexOf(text[p]) >= 0);
+                        "0123456789ABCDEFabcdef".Contains(text[p]));
                     sb.Append(text, p0, p - p0);
                 }
                 goto START;
@@ -97,7 +97,7 @@ class SillyScanner : ICodeScanner
                     {
                         p++;
                         while (p < text.Length &&
-                            "0123456789ABCDEFabcdef".IndexOf(text[p]) >= 0)
+                            "0123456789ABCDEFabcdef".Contains(text[p]))
                             p++;
                     }
                     else

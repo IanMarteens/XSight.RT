@@ -1,6 +1,7 @@
 using IntSight.Controls.CodeModel;
 using System.IO;
 using System.Text;
+using System;
 
 namespace IntSight.Controls;
 
@@ -41,7 +42,7 @@ public partial class CodeEditor
         /// </summary>
         private struct Header
         {
-            public static readonly Header Empty = new Header(LineState.Clean);
+            public static readonly Header Empty = new(LineState.Clean);
 
             public string Line;
             public LineState State;
@@ -164,7 +165,7 @@ public partial class CodeEditor
         void ICodeModel.Load(TextReader reader)
         {
             lineCount = 0;
-            string tabString = new String(' ', tabLength);
+            string tabString = new(' ', tabLength);
             while (true)
             {
                 string s = reader.ReadLine();
@@ -616,7 +617,7 @@ public partial class CodeEditor
         bool ICodeModel.IsPreviousText(string text, out int indent)
         {
             Header hdr = lines[current.line];
-            if (hdr.State != LineState.Inside && hdr.Line.Substring(0, current.column)
+            if (hdr.State != LineState.Inside && hdr.Line[..current.column]
                 .EndsWith(text, StringComparison.CurrentCultureIgnoreCase))
             {
                 indent = hdr.Indent;
@@ -847,7 +848,7 @@ public partial class CodeEditor
             if (old0.line == old1.line)
             {
                 string s = this[old0.line];
-                this[old0.line] = s.Substring(0, old0.column) +
+                this[old0.line] = s[..old0.column] +
                     Transform(s[old0.column..old1.column], upper) +
                     s[old1.column..];
             }
@@ -856,10 +857,9 @@ public partial class CodeEditor
                 {
                     string s = this[i];
                     if (i == old0.line)
-                        this[i] = s.Substring(0, old0.column) +
-                            Transform(s[old0.column..], upper);
+                        this[i] = string.Concat(s.AsSpan(0, old0.column), Transform(s[old0.column..], upper));
                     else if (i == old1.line)
-                        this[i] = Transform(s.Substring(0, old1.column), upper) +
+                        this[i] = Transform(s[..old1.column], upper) +
                             s[old1.column..];
                     else
                         this[i] = Transform(s, upper);
@@ -908,7 +908,7 @@ public partial class CodeEditor
         {
             if (indent <= 0 || text.Length == 0)
                 return text;
-            string indentStr = new string(' ', indent);
+            string indentStr = new(' ', indent);
             string[] split = text.Split(lineSeparators, StringSplitOptions.None);
             for (int i = 1; i < split.Length; i++)
                 split[i] = indentStr + split[i];
@@ -968,9 +968,9 @@ public partial class CodeEditor
             {
                 if (start.line > end.line)
                 {
-                    Position temp = start; start = end; end = temp;
+                    (end, start) = (start, end);
                 }
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new();
                 string line = this[start.line];
                 sb.Append(line, start.column, line.Length - start.column).Append(CR_LF);
                 for (int i = start.line + 1; i < end.line; i++)
@@ -1088,7 +1088,7 @@ public partial class CodeEditor
                 else { ln0 = end.line; ln1 = start.line; }
                 if (ln0 < 0) ln0 = 0;
                 if (ln1 >= lineCount) ln1 = lineCount - 1;
-                string text = new String(' ', amount);
+                string text = new(' ', amount);
                 for (int i = ln0; i <= ln1; i++)
                     if (exceptions == null || Array.IndexOf<int>(exceptions, i) == -1)
                     {
@@ -1273,7 +1273,7 @@ public partial class CodeEditor
             p.column--;
             IEnumerator<Lexeme> tokenizer =
                 scanner.Tokens(lines[p.line].Line, comment).GetEnumerator();
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
         STATE0:
             if (!tokenizer.MoveNext())
                 return false;

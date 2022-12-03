@@ -70,7 +70,7 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
         {
             if (p1.IsGreaterThan(p2))
             {
-                Position temp = p1; p1 = p2; p2 = temp;
+                (p2, p1) = (p1, p2);
             }
             if (IsGreaterEqual(p2))
             {

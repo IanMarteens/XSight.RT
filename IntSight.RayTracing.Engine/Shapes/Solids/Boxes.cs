@@ -394,7 +394,7 @@ public sealed class Box : BoxBase, IShape
         }
         else
         {
-            Matrix m = new Matrix(1.0 / factor.X, 1.0 / factor.Y, 1.0 / factor.Z);
+            Matrix m = new(1.0 / factor.X, 1.0 / factor.Y, 1.0 / factor.Z);
             transform = m * transform;
             inverse *= m;
         }

@@ -7,7 +7,7 @@ namespace RayEd;
 /// <summary>Displays an image, with zoom and scrolling support.</summary>
 public class ImageView : Control
 {
-    private static readonly Cursor grabCursor = new Cursor(typeof(ImageView), "Grab.cur");
+    private static readonly Cursor grabCursor = new(typeof(ImageView), "Grab.cur");
     private static readonly Keys[] inputKeys = new[]
     {
         Keys.Down, Keys.Up, Keys.Right, Keys.Left,
@@ -475,7 +475,7 @@ public class ImageView : Control
     {
         if (image != null)
         {
-            Rectangle r = new Rectangle(originX, originY, zoomWidth, zoomHeight);
+            Rectangle r = new(originX, originY, zoomWidth, zoomHeight);
             e.Graphics.InterpolationMode = antialiasing;
             e.Graphics.DrawImage(image, r, 0, 0, image.Width, image.Height,
                 GraphicsUnit.Pixel, imgAttributes);
@@ -497,7 +497,7 @@ public class ImageView : Control
                 e.Graphics.FillRectangle(backBrush, this.ClientRectangle);
         if (!string.IsNullOrEmpty(Text))
         {
-            RectangleF r = new RectangleF(Padding.Left, Padding.Top,
+            RectangleF r = new(Padding.Left, Padding.Top,
                 Width - 2 * Padding.Right, Height - 2 * Padding.Bottom);
             using Brush brush = new SolidBrush(ForeColor);
             e.Graphics.DrawString(Text, Font, brush, r, stringFormat);
@@ -512,7 +512,7 @@ public class ImageView : Control
         antialiasing = InterpolationMode.HighQualityBicubic;
         try
         {
-            using Bitmap bmp = new Bitmap(Width, Height);
+            using Bitmap bmp = new(Width, Height);
             DrawToBitmap(bmp, ClientRectangle);
             Clipboard.SetImage(bmp);
         }

@@ -546,13 +546,9 @@ internal sealed class XTorus : TorusBase, IShape
                 return 2;
             case 3:
                 if (roots.R0 > roots.R1)
-                {
-                    double temp = roots.R0; roots.R0 = roots.R1; roots.R1 = temp;
-                }
+                    (roots.R1, roots.R0) = (roots.R0, roots.R1);
                 if (roots.R0 > roots.R2)
-                {
-                    double temp = roots.R0; roots.R0 = roots.R2; roots.R2 = temp;
-                }
+                    (roots.R2, roots.R0) = (roots.R0, roots.R2);
                 hits[1].Time = roots.R2 > roots.R1 ? roots.R2 : roots.R1;
                 hits[0].Time = roots.R0;
                 hits[0].Shape = hits[1].Shape = this;
@@ -754,13 +750,9 @@ internal sealed class YTorus : TorusBase, IShape
             case 3:
                 // The middle point is useless.
                 if (roots.R0 > roots.R1)
-                {
-                    double temp = roots.R0; roots.R0 = roots.R1; roots.R1 = temp;
-                }
+                    (roots.R1, roots.R0) = (roots.R0, roots.R1);
                 if (roots.R0 > roots.R2)
-                {
-                    double temp = roots.R0; roots.R0 = roots.R2; roots.R2 = temp;
-                }
+                    (roots.R2, roots.R0) = (roots.R0, roots.R2);
                 hits[1].Time = roots.R2 > roots.R1 ? roots.R2 : roots.R1;
                 hits[0].Time = roots.R0;
                 hits[0].Shape = hits[1].Shape = this;
@@ -961,13 +953,9 @@ internal sealed class ZTorus : TorusBase, IShape
                 return 2;
             case 3:
                 if (roots.R0 > roots.R1)
-                {
-                    double temp = roots.R0; roots.R0 = roots.R1; roots.R1 = temp;
-                }
+                    (roots.R1, roots.R0) = (roots.R0, roots.R1);
                 if (roots.R0 > roots.R2)
-                {
-                    double temp = roots.R0; roots.R0 = roots.R2; roots.R2 = temp;
-                }
+                    (roots.R2, roots.R0) = (roots.R0, roots.R2);
                 hits[1].Time = roots.R2 > roots.R1 ? roots.R2 : roots.R1;
                 hits[0].Time = roots.R0;
                 hits[0].Shape = hits[1].Shape = this;

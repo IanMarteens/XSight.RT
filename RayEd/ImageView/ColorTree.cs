@@ -29,7 +29,7 @@ public class ColorTree
     }
 
     /// <summary>Singleton instance of the color tree.</summary>
-    public static readonly ColorTree Instance = new ColorTree();
+    public static readonly ColorTree Instance = new();
 
     /// <summary>The kd-tree root node.</summary>
     private ColorNode root;
@@ -113,7 +113,7 @@ public class ColorTree
 
     private static ColorRec Find(ColorNode node, byte[] color, int tolerance)
     {
-        ColorRec cr1 = new ColorRec();
+        ColorRec cr1 = new();
         if (node == null)
             return cr1;
         int d = Math.Max(Math.Max(

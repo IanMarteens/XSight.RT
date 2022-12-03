@@ -204,7 +204,7 @@ internal sealed class SUnion2 : UnionBase, IShape
 
     internal IShape ToUncheckedUnion()
     {
-        Union2 result = new Union2(shapes);
+        Union2 result = new(shapes);
         ((IUnion)result).IsChecking = false;
         return result;
     }

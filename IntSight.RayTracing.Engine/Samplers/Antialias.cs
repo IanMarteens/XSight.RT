@@ -48,8 +48,8 @@ public sealed class AntialiasSampler : BasicSampler
             int j = seed.Next(oversampling) & 0x7ffffffe;
             if (j != i)
             {
-                var t = jitter[i]; jitter[i] = jitter[j]; jitter[j] = t;
-                t = jitter[i + 1]; jitter[i + 1] = jitter[j + 1]; jitter[j + 1] = t;
+                (jitter[j], jitter[i]) = (jitter[i], jitter[j]);
+                (jitter[j + 1], jitter[i + 1]) = (jitter[i + 1], jitter[j + 1]);
             }
         }
     }

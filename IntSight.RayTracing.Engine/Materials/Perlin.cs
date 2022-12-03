@@ -35,9 +35,7 @@ public sealed class SolidNoise
         for (int i = 0; i < phi.Length; i++)
         {
             int j = rnd.Next(phi.Length);
-            int tmp = phi[i];
-            phi[i] = phi[j];
-            phi[j] = tmp;
+            (phi[j], phi[i]) = (phi[i], phi[j]);
         }
     }
 

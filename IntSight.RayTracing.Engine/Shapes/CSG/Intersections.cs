@@ -241,7 +241,7 @@ public sealed class Intersection : IntersectionBase, IShape
             if (t == 0)
                 return -1.0;
             total0 = t;
-            Hit[] temp = accum; accum = hits0; hits0 = temp;
+            (hits0, accum) = (accum, hits0);
         }
         for (int i = 0; i < total0; i++)
         {
@@ -322,7 +322,7 @@ public sealed class Intersection : IntersectionBase, IShape
             if (t == 0)
                 return 0;
             total0 = t;
-            Hit[] temp = accum; accum = hits0; hits0 = temp;
+            (hits0, accum) = (accum, hits0);
         }
         Array.Copy(hits0, hits, total0);
         return total0;

@@ -23,7 +23,7 @@ public sealed class CrackleNoise
                         int hi = rnd.Next(table.Length);
                         if (lo != hi)
                         {
-                            short t = table[lo]; table[lo] = table[hi]; table[hi] = t;
+                            (table[hi], table[lo]) = (table[lo], table[hi]);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ public sealed class CrackleNoise
             double min2 = secondCubelet.SquaredDistance(x, y, z);
             if (min1 > min2)
             {
-                double t = min2; min2 = min1; min1 = t;
+                (min1, min2) = (min2, min1);
             }
             double d = thirdCubelet.SquaredDistance(x, y, z);
             if (d < min1)

@@ -1,6 +1,4 @@
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 using Resources = IntSight.RayTracing.Engine.Properties.Resources;
 
@@ -236,8 +234,7 @@ public sealed class Scene : IScene
             if (0 == Interlocked.Exchange(ref access, 1))
             {
                 lastReport = elapsed;
-                if (listener != null)
-                    listener.Progress(progressInfo);
+                listener?.Progress(progressInfo);
                 access = 0;
             }
             return !progressInfo.CancellationPending;
@@ -269,8 +266,7 @@ public sealed class Scene : IScene
     {
         using var writer = XmlWriter.Create(
             outputFileName: outputFileName,
-            settings: new()
-            { Indent = true, IndentChars = "\t" });
+            settings: new() { Indent = true, IndentChars = "\t" });
         Writer.Write(writer, Root);
         writer.Flush();
     }

@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Threading.Tasks;
 using Rsc = IntSight.RayTracing.Engine.Properties.Resources;
 
 namespace IntSight.RayTracing.Engine;
@@ -386,9 +385,7 @@ public sealed class Union : UnionBase, IShape
             if (infiniteCount == shapes.Length - 1)
             {
                 // There's only one finite solid, and we move it to the pole position.
-                IShape temp = shapes[lastFiniteIndex];
-                shapes[lastFiniteIndex] = shapes[0];
-                shapes[0] = temp;
+                (shapes[0], shapes[lastFiniteIndex]) = (shapes[lastFiniteIndex], shapes[0]);
             }
             else
             {

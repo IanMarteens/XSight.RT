@@ -71,7 +71,7 @@ public sealed class Errors
         #endregion
     }
 
-    private readonly List<Error> errors = new List<Error>();
+    private readonly List<Error> errors = new();
     private bool dirty;
 
     /// <summary>Creates an empty list of errors.</summary>
@@ -81,7 +81,7 @@ public sealed class Errors
     /// <param name="exception">The intercepted exception.</param>
     public void Add(Exception exception)
     {
-        if (!(exception is NullReferenceException))
+        if (exception is not NullReferenceException)
             Add(exception is ParsingException pe ? pe.Position : SourceRange.Default,
                 exception.Message);
     }

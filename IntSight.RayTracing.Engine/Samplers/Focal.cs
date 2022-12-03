@@ -120,9 +120,7 @@ public sealed class FocalSampler : BasicSampler
                     int i1 = (int)(((ulong)oversampling * randSeed) >> 32);
                     if (i0 != i1)
                     {
-                        var tmp = Add(ref p0, i0);
-                        Add(ref p0, i0) = Add(ref p0, i1);
-                        Add(ref p0, i1) = tmp;
+                        (Add(ref p0, i1), Add(ref p0, i0)) = (Add(ref p0, i0), Add(ref p0, i1));
                     }
                 }
                 int col = w;
@@ -166,9 +164,7 @@ public sealed class FocalSampler : BasicSampler
                     int i1 = (int)(((ulong)oversampling * randSeed) >> 32);
                     if (i0 != i1)
                     {
-                        var tmp = Add(ref p0, i0);
-                        Add(ref p0, i0) = Add(ref p0, i1);
-                        Add(ref p0, i1) = tmp;
+                        (Add(ref p0, i1), Add(ref p0, i0)) = (Add(ref p0, i0), Add(ref p0, i1));
                     }
                 }
                 int col = w;

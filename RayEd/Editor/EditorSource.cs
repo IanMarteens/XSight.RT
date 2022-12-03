@@ -151,8 +151,7 @@ public sealed class CodeEditorSource : ISource
     IDocument ISource.Document => document;
 
     SourceRange ISource.GetRange(int length) =>
-        new SourceRange(document,
-            line, (short)(tokenPos + 1), line, (short)(tokenPos + length + 1));
+        new(document, line, (short)(tokenPos + 1), line, (short)(tokenPos + length + 1));
 
     public ushort this[int position]
     {

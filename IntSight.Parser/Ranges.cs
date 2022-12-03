@@ -6,7 +6,7 @@ namespace IntSight.Parser;
 
 /// <summary>Represents an interval inside a single source code file.</summary>
 /// <remarks>This is an immutable data structure.</remarks>
-public struct SourceRange : IComparable<SourceRange>, IEquatable<SourceRange>
+public readonly struct SourceRange : IComparable<SourceRange>, IEquatable<SourceRange>
 {
     private class NullDocument : IDocument
     {

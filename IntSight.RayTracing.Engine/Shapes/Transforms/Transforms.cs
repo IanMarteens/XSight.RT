@@ -679,7 +679,7 @@ internal sealed class Transform : TransformBase, IShape
     /// <param name="factor">Scale factor.</param>
     public override void ApplyScale(in Vector factor)
     {
-        Matrix scale = new Matrix(1.0 / factor.X, 1.0 / factor.Y, 1.0 / factor.Z);
+        Matrix scale = new(1.0 / factor.X, 1.0 / factor.Y, 1.0 / factor.Z);
         inverseTransform *= scale;
         normalTransform = scale * normalTransform;
         bounds = bounds.Scale(factor);

@@ -6,7 +6,7 @@ namespace IntSight.RayTracing.Engine;
 /// <summary>Contains methods for executing XSight standard benchmarks.</summary>
 public static class Benchmark
 {
-    public struct BenchmarkId
+    public readonly struct BenchmarkId
     {
         public int Id { get; init; }
         public string Description { get; init; }

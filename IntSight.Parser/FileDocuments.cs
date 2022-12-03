@@ -208,8 +208,7 @@ public sealed class FileSource : ISource
     IDocument ISource.Document => document;
 
     SourceRange ISource.GetRange(int length) =>
-        new SourceRange(document,
-            line, (short)tokenPos, line, (short)(tokenPos + length));
+        new(document, line, (short)tokenPos, line, (short)(tokenPos + length));
 
     public ushort this[int position]
     {

@@ -12,6 +12,7 @@
     <PackageId>IntSight.Controls.CodeEditor</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Configurations>Debug;Release;ReleaseSSE</Configurations>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSSE|AnyCPU'">
