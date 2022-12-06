@@ -434,11 +434,6 @@ public partial class MainForm : Form
             Tag = GetConstructorText(constructorInfo)
         };
 
-    private const string RxCore0 = @"\s*(\d\.\d*)\s*\,\s*(\d\.\d*)\s*\,\s*(\d\.\d*)\s*";
-    private const string RxCore1 = @"^rgb\s*\(" + RxCore0 + @"\)\s*";
-    private const string RxExpr0 = "^" + RxCore0 + "$";
-    private const string RxExpr1 = "^" + RxCore1 + "$";
-
     private void Color_Click(object sender, EventArgs e)
     {
         string s = codeEditor.SelectedText;
@@ -449,11 +444,11 @@ public partial class MainForm : Form
             colorLabel.BackColor = colorDialog.Color = c;
         else
         {
-            Match match = Regex.Match(s, RxExpr0);
+            Match match = GetRxExpr0().Match(s);
             if (match.Success)
                 formatStr = "{0:F2}, {1:F2}, {2:F2}";
             else
-                match = Regex.Match(s, RxExpr1);
+                match = GetRxExpr1().Match(s);
             if (match.Success)
             {
                 double r = double.Parse(
@@ -472,7 +467,7 @@ public partial class MainForm : Form
         if (colorDialog.ShowDialog(this) == DialogResult.OK)
         {
             c = colorDialog.Color;
-            foreach (KnownColor kc in Enum.GetValues(typeof(KnownColor)))
+            foreach (KnownColor kc in Enum.GetValues<KnownColor>())
                 if (typeof(Color).GetProperty(kc.ToString()) != null)
                     if (Color.FromKnownColor(kc) == c)
                     {
@@ -799,14 +794,8 @@ public partial class MainForm : Form
             }
             else if (mouseText == "rgb")
             {
-                const string RxCore0 = @"^rgb\s*\(\s*" +
-                    @"(?'r'\d(\.\d*)?)\s*\,\s*" +
-                    @"(?'g'\d(\.\d*)?)\s*\,\s*" +
-                    @"(?'b'\d(\.\d*)?)\s*\)";
-                const string RxCore1 = @"^rgb\s*(?'v'\d(\.\d*)?)";
-
                 mouseText = codeEditor.GetMouseText(true) ?? string.Empty;
-                Match match = Regex.Match(mouseText, RxCore0);
+                Match match = GetRxCore0().Match(mouseText);
                 if (match.Success)
                 {
                     double r = double.Parse(
@@ -823,7 +812,7 @@ public partial class MainForm : Form
                 }
                 else
                 {
-                    match = Regex.Match(mouseText, RxCore1);
+                    match = GetRxCore1().Match(mouseText);
                     if (match.Success)
                     {
                         double v = double.Parse(
@@ -856,6 +845,20 @@ public partial class MainForm : Form
         intelliTip.Show(intelliId, codeEditor, p);
         intelliTick = Environment.TickCount;
     }
+
+    private const string RxCore0 = @"\s*(\d\.\d*)\s*\,\s*(\d\.\d*)\s*\,\s*(\d\.\d*)\s*";
+    private const string RxCore1 = @"rgb\s*\(" + RxCore0 + @"\)\s*";
+    private const string RxExpr0 = "^" + RxCore0 + "$";
+    private const string RxExpr1 = "^" + RxCore1 + "$";
+
+    [GeneratedRegex(RxExpr0)]
+    private static partial Regex GetRxExpr0();
+    [GeneratedRegex(RxExpr1)]
+    private static partial Regex GetRxExpr1();
+    [GeneratedRegex("^rgb\\s*\\(\\s*(?'r'\\d(\\.\\d*)?)\\s*\\,\\s*(?'g'\\d(\\.\\d*)?)\\s*\\,\\s*(?'b'\\d(\\.\\d*)?)\\s*\\)")]
+    private static partial Regex GetRxCore0();
+    [GeneratedRegex("^rgb\\s*(?'v'\\d(\\.\\d*)?)")]
+    private static partial Regex GetRxCore1();
 
     #endregion
 }

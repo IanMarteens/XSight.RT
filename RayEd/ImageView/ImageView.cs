@@ -319,7 +319,7 @@ public class ImageView : Control
     public override Image BackgroundImage
     {
         get => base.BackgroundImage;
-        set { base.BackgroundImage = value; }
+        set => base.BackgroundImage = value;
     }
 
     /// <summary>Gets or sets the background image layout.</summary>
@@ -345,7 +345,7 @@ public class ImageView : Control
     protected override void OnMouseDown(MouseEventArgs e)
     {
         if (e.Button == MouseButtons.Left)
-            if (zoomWidth > this.Width || zoomHeight > this.Height)
+            if (zoomWidth > Width || zoomHeight > Height)
             {
                 Capture = true;
                 savedCursor = Cursor;
@@ -646,7 +646,7 @@ public class ImageView : Control
     {
         get
         {
-            Point result = PointToClient(Control.MousePosition);
+            Point result = PointToClient(MousePosition);
             if (image == null)
                 return result;
             result.X -= originX;
