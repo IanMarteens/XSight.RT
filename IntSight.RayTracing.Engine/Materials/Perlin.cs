@@ -71,7 +71,18 @@ public sealed class SolidNoise
                 fk1 = Add(ref p, (fk + 1) & 15);
             fk = Add(ref p, fk & 15);
             double ox0, oy0, oz0;
-            if (Avx.IsSupported)
+            if (Fma.IsSupported && Avx.IsSupported)
+            {
+                var t = Vector256.Create(x, y, z, 0);
+                var t2 = Avx.Multiply(t, t);
+                var v = Fma.MultiplyAdd(m6, t, p15);
+                v = Fma.MultiplyAdd(v, t, m10);
+                v = Fma.MultiplyAdd(v, Avx.Multiply(t2, t), p1);
+                ox0 = v.ToScalar();
+                oy0 = v.GetElement(1);
+                oz0 = v.GetElement(2);
+            }
+            else if (Avx.IsSupported)
             {
                 var t = Vector256.Create(x, y, z, 0);
                 var t2 = Avx.Multiply(t, t);
