@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Rsc = IntSight.Parser.Properties.Resources;
 
 namespace IntSight.Parser;
@@ -48,11 +45,8 @@ public sealed class Errors
 {
     public sealed class Error : IComparable<Error>
     {
-        internal Error(SourceRange position, string message)
-        {
-            Position = position;
-            Message = message;
-        }
+        internal Error(SourceRange position, string message) =>
+            (Position, Message) = (position, message);
 
         public SourceRange Position { get; }
         public string Message { get; }

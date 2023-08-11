@@ -1,7 +1,4 @@
 using IntSight.Controls.CodeModel;
-using System.IO;
-using System.Text;
-using System;
 
 namespace IntSight.Controls;
 
@@ -47,29 +44,23 @@ public partial class CodeEditor
             public string Line;
             public LineState State;
 
-            public Header(string line, LineState state)
-            {
-                this.Line = line;
-                this.State = state;
-            }
+            public Header(string line, LineState state) =>
+                (this.Line, this.State) = (line, state);
 
             /// <summary>
             /// Initializes a clean line, w/ no multiline comments in its neighborhood.
             /// </summary>
             /// <param name="line">Line text.</param>
-            public Header(string line)
-            {
-                this.Line = line;
-                this.State = LineState.Clean;
-            }
+            public Header(string line) =>
+                (this.Line, this.State) = (line, LineState.Clean);
 
             public Header(LineState state) : this(string.Empty, state) { }
 
-            public string TrimmedLine { get { return Line.TrimEnd(trimChars); } }
+            public readonly string TrimmedLine => Line.TrimEnd(trimChars);
 
-            public int Length { get { return Line.Length; } }
+            public readonly int Length => Line.Length;
 
-            public int Indent
+            public readonly int Indent
             {
                 get
                 {
@@ -80,7 +71,7 @@ public partial class CodeEditor
                 }
             }
 
-            public bool IsFirstChar(int position)
+            public readonly bool IsFirstChar(int position)
             {
                 // All previous characters must be blanks.
                 for (int i = 0; i < position; i++)
@@ -1120,8 +1111,7 @@ public partial class CodeEditor
                     string line = this[i];
                     if (line.Length == 0)
                     {
-                        if (exceptions == null)
-                            exceptions = new List<int>();
+                        exceptions ??= new List<int>();
                         exceptions.Add(i);
                     }
                     else

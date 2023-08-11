@@ -1,5 +1,4 @@
 using IntSight.Controls.CodeModel;
-using System.ComponentModel;
 using System.Drawing.Printing;
 using System.Drawing.Text;
 
@@ -165,8 +164,7 @@ public class EditorDocument : PrintDocument
     {
         if (xPos < e.MarginBounds.Right)
         {
-            RectangleF rect = new RectangleF(
-                xPos, yPos, e.MarginBounds.Right - xPos, lineHeight);
+            RectangleF rect = new(xPos, yPos, e.MarginBounds.Right - xPos, lineHeight);
             e.Graphics.DrawString(text, font, brush, rect, stringFormat);
             xPos += e.Graphics.MeasureString(text, font,
                 new PointF(0, 0), stringFormat).Width;

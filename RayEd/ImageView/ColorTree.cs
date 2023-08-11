@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace RayEd;
+﻿namespace RayEd;
 
 /// <summary>A kd-tree for colors.</summary>
 public class ColorTree

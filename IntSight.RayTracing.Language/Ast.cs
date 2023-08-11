@@ -1,11 +1,6 @@
 using IntSight.Parser;
 using IntSight.RayTracing.Engine;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.Text;
 using Rsc = IntSight.RayTracing.Language.Properties.Resources;
 
 namespace IntSight.RayTracing.Language;
@@ -102,7 +97,7 @@ internal sealed class AstString : AstValue, IAstValue
 
     public static string StripString(string s)
     {
-        StringBuilder sb = new StringBuilder(s.Length - 2);
+        StringBuilder sb = new(s.Length - 2);
         s += "\u0000";
         int idx = 0;
         char ch;
@@ -449,7 +444,7 @@ internal sealed class AstUnary : AstValue, IAstValue
     IAstValue IAstValue.Clone() => new AstUnary(v.Clone(), op);
 
     bool IAstValue.IsA(Type type) =>
-        v.IsA(typeof(double)) 
+        v.IsA(typeof(double))
         ? type == typeof(double)
         : v.IsA(typeof(Vector)) && type == typeof(Vector);
 
@@ -503,22 +498,18 @@ internal sealed class AstColor : AstValue, IAstValue
 
     public AstColor() { }
 
-    public AstColor(IAstValue r, IAstValue g, IAstValue b)
-    {
-        if (!r.IsA(typeof(double)) || !g.IsA(typeof(double)) || !b.IsA(typeof(double)))
-            throw new ParsingException(Position, Rsc.ParserInvalidColorComp);
-        value = new(
-            Convert.ToDouble(r.Value),
-            Convert.ToDouble(g.Value),
-            Convert.ToDouble(b.Value));
-    }
+    public AstColor(IAstValue r, IAstValue g, IAstValue b) =>
+        value = !r.IsA(typeof(double)) || !g.IsA(typeof(double)) || !b.IsA(typeof(double))
+            ? throw new ParsingException(Position, Rsc.ParserInvalidColorComp)
+            : new(
+                Convert.ToDouble(r.Value),
+                Convert.ToDouble(g.Value),
+                Convert.ToDouble(b.Value));
 
-    public AstColor(IAstValue brightness)
-    {
-        if (!brightness.IsA(typeof(double)))
-            throw new ParsingException(Position, Rsc.ParserInvalidColorBright);
-        value = new Pixel(Convert.ToDouble(brightness.Value));
-    }
+    public AstColor(IAstValue brightness) =>
+        value = !brightness.IsA(typeof(double))
+            ? throw new ParsingException(Position, Rsc.ParserInvalidColorBright)
+            : new(Convert.ToDouble(brightness.Value));
 
     public AstColor(string colorName)
     {
@@ -542,17 +533,11 @@ internal sealed class AstSplinePoint : IAstNode
 
     public AstSplinePoint(object result) => Result = (IAstValue)result;
 
-    public AstSplinePoint(object time, object result)
-    {
-        Time = (IAstValue)time;
-        Result = (IAstValue)result;
-    }
+    public AstSplinePoint(object time, object result) =>
+        (Time, Result) = ((IAstValue)time, (IAstValue)result);
 
     public AstSplinePoint Clone() =>
-        new AstSplinePoint(Time?.Clone(), Result.Clone())
-        {
-            Position = Position
-        };
+        new(Time?.Clone(), Result.Clone()) { Position = Position };
 
     #region Miembros de IAstNode
 

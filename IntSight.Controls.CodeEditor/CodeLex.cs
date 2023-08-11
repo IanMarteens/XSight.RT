@@ -1,5 +1,4 @@
 using IntSight.Controls.CodeModel;
-using System.Text;
 
 namespace IntSight.Controls;
 
@@ -41,7 +40,7 @@ public partial class CodeEditor
 
         IEnumerable<Lexeme> ICodeScanner.Tokens(string text, bool comment)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             int p = 0, column = 0;
         START:
             if (p >= text.Length)

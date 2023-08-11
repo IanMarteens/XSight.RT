@@ -1,7 +1,6 @@
 using IntSight.RayTracing.Engine;
 using System.Configuration;
 using System.Diagnostics;
-using System.Globalization;
 
 namespace RayEd;
 
@@ -137,7 +136,7 @@ public partial class NoiseForm : Form
             int width, int height, int sampleWidth, int sampleHeight, short turbulence,
             int method, int colorMap)
         {
-            PixelMap map = new PixelMap(width, height);
+            PixelMap map = new(width, height);
             double w = (double)sampleWidth / width, h = (double)sampleHeight / height;
             Func<double, Pixel> v2p;
             if (method == 2)
@@ -157,7 +156,7 @@ public partial class NoiseForm : Form
                         hsv2 = new HsvPixel(Color2);
                         break;
                 }
-                CrackleNoise gen = new CrackleNoise();
+                CrackleNoise gen = new();
                 if (turbulence == 0)
                     for (int row = 0; row < height; row++)
                         for (int col = 0; col < width; col++)
@@ -183,7 +182,7 @@ public partial class NoiseForm : Form
                         hsv2 = new HsvPixel(Color2);
                         break;
                 }
-                CrackleNoise gen = new CrackleNoise(new Vector(-1, 1, 0));
+                CrackleNoise gen = new(new Vector(-1, 1, 0));
                 if (turbulence == 0)
                     for (int row = 0; row < height; row++)
                         for (int col = 0; col < width; col++)
@@ -209,7 +208,7 @@ public partial class NoiseForm : Form
                         hsv2 = new HsvPixel(Color2);
                         break;
                 }
-                SolidNoise gen = new SolidNoise();
+                SolidNoise gen = new();
                 if (turbulence == 0)
                     for (int row = 0; row < height; row++)
                         for (int col = 0; col < width; col++)

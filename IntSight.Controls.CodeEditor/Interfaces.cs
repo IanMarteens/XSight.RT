@@ -1,7 +1,4 @@
-using System.IO;
-using System.Text;
-
-[assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("windows")]
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]
 
 namespace IntSight.Controls.CodeModel;
 

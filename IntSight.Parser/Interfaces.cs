@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics.SymbolStore;
-
 namespace IntSight.Parser;
 
 /// <summary>Creates a ISource entity by demand.</summary>

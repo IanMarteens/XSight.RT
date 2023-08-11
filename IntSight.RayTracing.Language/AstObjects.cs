@@ -1,9 +1,5 @@
 ﻿using IntSight.Parser;
 using IntSight.RayTracing.Engine;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 using Rsc = IntSight.RayTracing.Language.Properties.Resources;
 
 namespace IntSight.RayTracing.Language;
@@ -67,9 +63,7 @@ internal class AstObject : AstValue, IAstValue
             {
                 int j = GetNamedParameter(i, paramsInfo[i].Name);
                 if (j < 0) return false;
-                IAstValue tmp = parameters[i];
-                parameters[i] = parameters[j];
-                parameters[j] = tmp;
+                (parameters[j], parameters[i]) = (parameters[i], parameters[j]);
             }
             if (!parameters[i].IsA(paramsInfo[i].ParameterType))
                 return false;
@@ -374,8 +368,7 @@ internal abstract class AstCsg : AstObject
             IShape[] arguments = new IShape[end - start];
             for (int i = 0; i < arguments.Length; i++)
                 arguments[i] = (IShape)parameters[i + start].Value;
-            if (material == null)
-                material = ((MaterialShape)arguments[0]).Material;
+            material ??= ((MaterialShape)arguments[0]).Material;
             return classtype
                 .GetConstructor(new[] { typeof(IShape[]), typeof(IMaterial) })
                 .Invoke(new object[] { arguments, material });

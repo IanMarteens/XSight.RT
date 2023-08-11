@@ -1,9 +1,5 @@
 using IntSight.RayTracing.Engine;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.Reflection;
 
 namespace IntSight.RayTracing.Language;
 

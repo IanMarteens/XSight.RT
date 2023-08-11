@@ -35,4 +35,13 @@
     </EmbeddedResource>
   </ItemGroup>
 
+	<ItemGroup>
+		<Using Include="System" />
+		<Using Include="System.Collections" />
+		<Using Include="System.Collections.Generic" />
+		<Using Include="System.Diagnostics"/>
+		<Using Include="System.Diagnostics.SymbolStore"/>
+		<Using Include="System.Text"/>
+	</ItemGroup>
+
 </Project>

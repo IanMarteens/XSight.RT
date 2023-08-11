@@ -1,8 +1,5 @@
 using IntSight.RayTracing.Engine;
 using IntSight.RayTracing.Language;
-using System.Globalization;
-using System.Reflection;
-using System.Text;
 
 namespace RayEd;
 

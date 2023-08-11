@@ -1,6 +1,5 @@
 using IntSight.Parser;
 using IntSight.RayTracing.Engine;
-using System.Collections.Generic;
 using Rsc = IntSight.RayTracing.Language.Properties.Resources;
 
 namespace IntSight.RayTracing.Language;
@@ -74,7 +73,7 @@ public sealed class AstScene : IAstNode
         for (int i = 0; i < ambients.Count; i++)
         {
             IAstValue ambient = ambients[i];
-            if (!(ambient is AstObject))
+            if (ambient is not AstObject)
                 if (ambient is AstColor || ambient is AstNumber)
                     ambients[i] = new AstObject(
                         ambient.Position, "ConstantAmbient", ambient);

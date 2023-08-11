@@ -1,7 +1,4 @@
 using IntSight.RayTracing.Engine;
-using System.Globalization;
-using System.Reflection;
-using System.Text;
 using System.Xml;
 
 namespace RayEd;
@@ -191,7 +188,7 @@ public partial class SceneTree : UserControl
         if (strBuilder.Length > 0)
             node.ToolTipText = strBuilder.ToString();
         foreach (ChildrenAttribute attribute in itemType.
-            GetCustomAttributes(typeof(ChildrenAttribute), false))
+            GetCustomAttributes(typeof(ChildrenAttribute), false).Cast<ChildrenAttribute>())
             foreach (string propName in attribute.Names)
             {
                 object child = null;
@@ -220,7 +217,7 @@ public partial class SceneTree : UserControl
     private void ExtractProperties(IBounded shape, Type itemType)
     {
         foreach (PropertiesAttribute attribute in itemType.
-            GetCustomAttributes(typeof(PropertiesAttribute), false))
+            GetCustomAttributes(typeof(PropertiesAttribute), false).Cast<PropertiesAttribute>())
             foreach (string propName in attribute.Names)
             {
                 if (propName == "bounds" || propName == "checkBounds")

@@ -1,6 +1,5 @@
 using IntSight.Parser;
 using IntSight.RayTracing.Engine;
-using System;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.Threading;

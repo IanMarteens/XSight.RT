@@ -50,7 +50,7 @@ public partial class CodeEditor
 
         public override bool TryMerge(UndoAction another)
         {
-            if (!(another is DeleteAction other))
+            if (another is not DeleteAction other)
                 return false;
             else if (start.Equals(other.end))
             {
@@ -132,7 +132,7 @@ public partial class CodeEditor
 
     private abstract class BaseCommentAction : UndoAction
     {
-        protected List<Position> insertPoints = new List<Position>();
+        protected List<Position> insertPoints = new();
         protected string lineComment;
 
         public BaseCommentAction(string lineComment)
@@ -219,10 +219,10 @@ public partial class CodeEditor
 
         public override bool TryMerge(UndoAction another)
         {
-            if (!(another is TypeAction other))
+            if (another is not TypeAction other)
             {
                 // Check if new action is a backspace.
-                if (another is DeleteAction delete && delete.MatchesInsertion(this.end))
+                if (another is DeleteAction delete && delete.MatchesInsertion(end))
                 {
                     end.column--;
                     return true;
@@ -241,9 +241,9 @@ public partial class CodeEditor
 
         public override bool TryClearIndent(ICodeModel model)
         {
-            if (model.Current.Equals(this.end))
+            if (model.Current.Equals(end))
             {
-                Position newEnd = new Position(this.end.line, 0);
+                Position newEnd = new(end.line, 0);
                 if (start.IsLesserThan(newEnd))
                 {
                     end = newEnd;

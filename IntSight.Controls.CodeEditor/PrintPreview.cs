@@ -25,7 +25,7 @@ public partial class PrintPreview : Form
         IntPtr wParam;
         if (scrollLines < 0)
         {
-            wParam = (IntPtr)1;
+            wParam = 1;
             scrollLines = -scrollLines;
         }
         else
@@ -57,10 +57,8 @@ public partial class PrintPreview : Form
         }
     }
 
-    private void WatchPrintPage(object sender, PrintPageEventArgs e)
-    {
+    private void WatchPrintPage(object sender, PrintPageEventArgs e) =>
         pageCount++;
-    }
 
     private void WatchEndPrint(object sender, PrintEventArgs e)
     {
@@ -69,15 +67,11 @@ public partial class PrintPreview : Form
         PrintPreviewControl_StartPageChanged(null, EventArgs.Empty);
     }
 
-    private void PrintPreview_FormClosing(object sender, FormClosingEventArgs e)
-    {
+    private void PrintPreview_FormClosing(object sender, FormClosingEventArgs e) =>
         printPreviewControl.InvalidatePreview();
-    }
 
-    private void Print_Click(object sender, EventArgs e)
-    {
+    private void Print_Click(object sender, EventArgs e) =>
         printPreviewControl.Document.Print();
-    }
 
     private void UpdateButtons()
     {
@@ -120,22 +114,16 @@ public partial class PrintPreview : Form
         UpdateButtons();
     }
 
-    private void PrintPreviewControl_StartPageChanged(object sender, EventArgs e)
-    {
+    private void PrintPreviewControl_StartPageChanged(object sender, EventArgs e) =>
         bnPage.Text = maxPage < 0
             ? string.Format("Page {0}",
                 printPreviewControl.StartPage + 1)
             : string.Format("Page {0}/{1}",
                 printPreviewControl.StartPage + 1, maxPage + 1);
-    }
 
-    private void AutoZoom(object sender, EventArgs e)
-    {
+    private void AutoZoom(object sender, EventArgs e) =>
         printPreviewControl.AutoZoom = true;
-    }
 
-    private void Zoom100(object sender, EventArgs e)
-    {
+    private void Zoom100(object sender, EventArgs e) =>
         printPreviewControl.Zoom = 1.0;
-    }
 }

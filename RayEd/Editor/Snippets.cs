@@ -1,7 +1,5 @@
 using IntSight.Controls.CodeModel;
 using IntSight.RayTracing.Language;
-using System.Reflection;
-using System.Text;
 
 namespace RayEd;
 
@@ -39,7 +37,7 @@ internal class SnippetManager : ISnippetManager
             isSorted = true;
         }
         partialName = partialName.ToLowerInvariant();
-        List<ICodeSnippet> result = new List<ICodeSnippet>();
+        List<ICodeSnippet> result = new();
         foreach (ICodeSnippet snippet in snippets)
             if (snippet.Name.ToLowerInvariant().StartsWith(partialName))
                 result.Add(snippet);
@@ -79,8 +77,8 @@ internal static class IntelliTips
 
     private static string GetTips(Type t)
     {
-        StringBuilder sb = new StringBuilder();
-        List<string> added = new List<string>();
+        StringBuilder sb = new();
+        List<string> added = new();
         foreach (ConstructorInfo info in t.GetConstructors())
         {
             sb.Length = 0;

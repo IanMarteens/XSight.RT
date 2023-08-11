@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Diagnostics.SymbolStore;
 using System.IO;
 using Rsc = IntSight.Parser.Properties.Resources;
 
@@ -49,11 +46,8 @@ public sealed class StreamDocument : IDocument
     private readonly string fileName;
     private readonly Stream stream;
 
-    public StreamDocument(string fileName, Stream stream)
-    {
-        this.fileName = fileName;
-        this.stream = stream;
-    }
+    public StreamDocument(string fileName, Stream stream) =>
+        (this.fileName, this.stream) = (fileName, stream);
 
     public override string ToString() => fileName;
 

@@ -1,6 +1,4 @@
 using IntSight.Parser;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Rsc = IntSight.RayTracing.Language.Properties.Resources;
 

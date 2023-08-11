@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Rsc = IntSight.Controls.Properties.Resources;
 
 namespace IntSight.Controls;
@@ -10,7 +9,7 @@ public class MruFileList : Component, ISupportInitialize
 {
     private const int DefaultCapacity = 8;
 
-    private readonly List<string> fileList = new List<string>();
+    private readonly List<string> fileList = new();
     private string keyName = string.Empty;
     private string valueName = string.Empty;
     private int capacity = DefaultCapacity;
@@ -21,10 +20,7 @@ public class MruFileList : Component, ISupportInitialize
     {
     }
 
-    public MruFileList(IContainer container)
-    {
-        container.Add(this);
-    }
+    public MruFileList(IContainer container) => container.Add(this);
 
     public event MruFileListEventHandler FileOpen;
 
@@ -71,8 +67,7 @@ public class MruFileList : Component, ISupportInitialize
         {
             if (loaded && menuItem != value)
             {
-                if (menuItem != null)
-                    menuItem.DropDownItems.Clear();
+                menuItem?.DropDownItems.Clear();
                 fileList.Clear();
                 loaded = false;
             }
@@ -167,7 +162,7 @@ public class MruFileList : Component, ISupportInitialize
         string fileName = item.Text;
         fileList.Remove(fileName);
         menuItem.DropDownItems.Remove(item);
-        if (System.IO.File.Exists(fileName))
+        if (File.Exists(fileName))
         {
             OnFileOpen(fileName, null);
             fileList.Insert(0, fileName);

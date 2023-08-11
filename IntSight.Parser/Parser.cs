@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using static System.Runtime.CompilerServices.Unsafe;
 using Rsc = IntSight.Parser.Properties.Resources;
 
@@ -551,11 +548,8 @@ public abstract class Parser
         public readonly ushort NewState;
         public readonly int[] NextTerminals;
 
-        public RecoveryAction(ushort newState, int[] nextTerminals)
-        {
-            NewState = newState;
-            NextTerminals = nextTerminals;
-        }
+        public RecoveryAction(ushort newState, int[] nextTerminals) =>
+            (NewState, NextTerminals) = (newState, nextTerminals);
     }
 
     /// <summary>

@@ -6,9 +6,9 @@ internal partial class GotoLineDialog : Form
 {
     private int maxLines;
 
-    public static bool Execute(IntSight.Controls.CodeEditor editor)
+    public static bool Execute(CodeEditor editor)
     {
-        using GotoLineDialog form = new GotoLineDialog
+        using GotoLineDialog form = new()
         {
             maxLines = editor.LineCount
         };

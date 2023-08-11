@@ -6,16 +6,21 @@ public partial class CodeEditor
 {
     #region Caret.
 
-    [DllImport("user32.dll")]
-    private static extern bool CreateCaret(IntPtr wnd, IntPtr bmp, int width, int height);
-    [DllImport("user32.dll")]
-    private static extern bool DestroyCaret();
-    [DllImport("user32.dll")]
-    private static extern bool HideCaret(IntPtr hWnd);
-    [DllImport("user32.dll")]
-    private static extern bool ShowCaret(IntPtr hWnd);
-    [DllImport("user32.dll")]
-    private static extern bool SetCaretPos(int x, int y);
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool CreateCaret(IntPtr wnd, IntPtr bmp, int width, int height);
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool DestroyCaret();
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool HideCaret(IntPtr hWnd);
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool ShowCaret(IntPtr hWnd);
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool SetCaretPos(int x, int y);
 
     #endregion
 

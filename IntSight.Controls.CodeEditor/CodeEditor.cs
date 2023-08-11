@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using System.IO;
-
 namespace IntSight.Controls;
 
 using IntSight.Controls.CodeModel;
@@ -31,27 +28,24 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
         public Position(int line, int column)
         {
             this.line = line;
-            if (column < 0)
-                this.column = 0;
-            else
-                this.column = column;
+            this.column = column < 0 ? 0 : column;
         }
 
         public int Line
-        {
-            get => line;
+        { 
+            readonly get => line;
             set => line = value;
         }
 
         public int Column
         {
-            get => column;
+            readonly get => column;
             set => column = value;
         }
 
-        internal Position ChangeLine(int value) => new(value, column);
+        internal readonly Position ChangeLine(int value) => new(value, column);
 
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj != null && obj.GetType() == typeof(Position))
             {
@@ -62,9 +56,9 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
                 return false;
         }
 
-        public override int GetHashCode() => line.GetHashCode() ^ column.GetHashCode();
+        public override readonly int GetHashCode() => line.GetHashCode() ^ column.GetHashCode();
 
-        public override string ToString() => $"{line}, {column}";
+        public override readonly string ToString() => $"{line}, {column}";
 
         public Position RangeDecrement(Position p1, Position p2)
         {
@@ -85,19 +79,19 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
         /// <param name="other">Position to compare with.</param>
         /// <returns>True if positions are not equals.</returns>
         /// <remarks>Operators pass both parameters by value.</remarks>
-        internal bool NotEquals(Position other) =>
+        internal readonly bool NotEquals(Position other) =>
             line != other.line || column != other.column;
 
-        internal bool IsLesserThan(Position p) =>
+        internal readonly bool IsLesserThan(Position p) =>
             line < p.line || line == p.line && column < p.column;
 
-        internal bool IsGreaterThan(Position p) =>
+        internal readonly bool IsGreaterThan(Position p) =>
             line > p.line || line == p.line && column > p.column;
 
-        internal bool IsLesserEqual(Position p) =>
+        internal readonly bool IsLesserEqual(Position p) =>
             line < p.line || line == p.line && column <= p.column;
 
-        internal bool IsGreaterEqual(Position p) =>
+        internal readonly bool IsGreaterEqual(Position p) =>
             line > p.line || line == p.line && column >= p.column;
 
         public static bool operator ==(Position p1, Position p2) =>
@@ -120,7 +114,7 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
 
         #region IComparable<Position> members.
 
-        public int CompareTo(Position other)
+        public readonly int CompareTo(Position other)
         {
             int result = line.CompareTo(other.line);
             return result != 0 ? result : column.CompareTo(other.column);
@@ -130,7 +124,7 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
 
         #region IEquatable<Position> members.
 
-        public bool Equals(Position other) => line == other.line && column == other.column;
+        public readonly bool Equals(Position other) => line == other.line && column == other.column;
 
         #endregion
     }

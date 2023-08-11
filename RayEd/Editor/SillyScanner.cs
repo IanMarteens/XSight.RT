@@ -1,6 +1,5 @@
 using IntSight.Controls;
 using IntSight.Controls.CodeModel;
-using System.Text;
 
 namespace RayEd;
 

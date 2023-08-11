@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics.SymbolStore;
 using Rsc = IntSight.Parser.Properties.Resources;
 
 namespace IntSight.Parser;
@@ -153,13 +151,9 @@ public readonly struct SourceRange : IComparable<SourceRange>, IEquatable<Source
         int fl; short fc;
         if (r1.FromLine < r2.FromLine ||
             r1.FromLine == r2.FromLine && r1.FromColumn <= r2.FromColumn)
-        {
-            fl = r1.FromLine; fc = r1.FromColumn;
-        }
+            (fl, fc) = (r1.FromLine, r1.FromColumn);
         else
-        {
-            fl = r2.FromLine; fc = r2.FromColumn;
-        }
+            (fl, fc) = (r2.FromLine, r2.FromColumn);
         return r1.ToLine > r2.ToLine ||
             r1.ToLine == r2.ToLine && r1.ToColumn >= r2.ToColumn
             ? new(r1.Document, fl, fc, r1.ToLine, r1.ToColumn)

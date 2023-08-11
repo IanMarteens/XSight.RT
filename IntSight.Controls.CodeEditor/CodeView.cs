@@ -261,12 +261,12 @@ public partial class CodeEditor
 
     protected override void OnPaintBackground(PaintEventArgs pevent)
     {
-        using SolidBrush solid = new SolidBrush(BackColor);
+        using SolidBrush solid = new(BackColor);
         if (margin > 0)
         {
-            Rectangle r = new Rectangle(0, 0, margin, Height);
+            Rectangle r = new(0, 0, margin, Height);
             if (pevent.ClipRectangle.IntersectsWith(r))
-                using (SolidBrush brush = new SolidBrush(marginColor))
+                using (SolidBrush brush = new(marginColor))
                     pevent.Graphics.FillRectangle(brush, r);
             pevent.Graphics.FillRectangle(solid, margin, 0, Width - margin, Height);
         }

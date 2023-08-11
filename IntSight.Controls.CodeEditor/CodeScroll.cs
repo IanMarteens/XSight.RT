@@ -39,8 +39,7 @@ public partial class CodeEditor
                     model.ScrollTo(
                         ref topLine, (int)(((uint)m.WParam) >> 16), linesInPage);
                     // Hide the tooltip message window.
-                    if (toolTip != null)
-                        toolTip.Hide(this);
+                    toolTip?.Hide(this);
                     break;
                 case SB_THUMBTRACK:
                     // The user holds and moves the scrollbar's thumb.
@@ -201,7 +200,7 @@ public partial class CodeEditor
         const int SIF_PAGE = 0x2;
         const int SIF_POS = 0x4;
 
-        SCROLLINFO info = new SCROLLINFO
+        SCROLLINFO info = new()
         {
             cbSize = 28,
             fMask = SIF_POS | SIF_RANGE | SIF_PAGE,
@@ -210,7 +209,7 @@ public partial class CodeEditor
             nPage = page,
             nPos = pos
         };
-        return SetScrollInfo(this.Handle, vertical ? SB_VERT : SB_HORZ, ref info, true);
+        return SetScrollInfo(Handle, vertical ? SB_VERT : SB_HORZ, info, true);
     }
 
     private int ScrollWindow(int dx, int dy)
@@ -223,12 +222,12 @@ public partial class CodeEditor
             SW_INVALIDATE | SW_ERASE);
     }
 
-    [DllImport("user32.dll")]
-    private static extern int ScrollWindowEx(IntPtr wnd, int dx, int dy,
+    [LibraryImport("user32.dll")]
+    private static partial int ScrollWindowEx(IntPtr wnd, int dx, int dy,
         IntPtr scroll, IntPtr clip, IntPtr region, IntPtr update, uint flags);
-    [DllImport("user32.dll")]
-    private static extern int SetScrollInfo(IntPtr hwnd, int fnBar,
-        [In] ref SCROLLINFO lpsi, bool fRedraw);
+    [LibraryImport("user32.dll")]
+    private static partial int SetScrollInfo(IntPtr hwnd, int fnBar,
+        in SCROLLINFO lpsi, [MarshalAs(UnmanagedType.Bool)] bool fRedraw);
 
     #endregion
 }
