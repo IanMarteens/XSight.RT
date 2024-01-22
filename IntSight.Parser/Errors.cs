@@ -15,10 +15,7 @@ public sealed class ParsingException : Exception
         : base(message, innerException) { }
     public ParsingException(string message, params object[] args)
         : base(string.Format(message, args)) { }
-    private ParsingException(
-        System.Runtime.Serialization.SerializationInfo info,
-        System.Runtime.Serialization.StreamingContext context)
-        : base(info, context) { }
+
 
     public ParsingException(SourceRange position, string message, params object[] args)
         : base(string.Format(message, args)) => Position = position;
@@ -33,10 +30,6 @@ public sealed class AbortException : Exception
     public AbortException(string message) : base(message) { }
     public AbortException(string message, Exception innerException)
         : base(message, innerException) { }
-    private AbortException(
-        System.Runtime.Serialization.SerializationInfo info,
-        System.Runtime.Serialization.StreamingContext context)
-        : base(info, context) { }
 }
 
 
@@ -65,7 +58,7 @@ public sealed class Errors
         #endregion
     }
 
-    private readonly List<Error> errors = new();
+    private readonly List<Error> errors = [];
     private bool dirty;
 
     /// <summary>Creates an empty list of errors.</summary>
