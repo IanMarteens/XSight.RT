@@ -3,14 +3,10 @@
 namespace IntSight.RayTracing.Engine;
 
 /// <summary>A cheaper substitute for <see cref="Color"/>.</summary>
-public readonly struct TransPixel
+/// <remarks>Creates a color from its internal numeric representation.</remarks>
+/// <param name="value">Alpha, red, green and blue channels.</param>
+public readonly struct TransPixel(uint value)
 {
-    /// <summary>The internal color representation.</summary>
-    private readonly uint value;
-
-    /// <summary>Creates a color from its internal numeric representation.</summary>
-    /// <param name="value">Alpha, red, green and blue channels.</param>
-    public TransPixel(uint value) => this.value = value;
 
     /// <summary>Gets the blue channel of the color.</summary>
     public byte B => unchecked((byte)value);

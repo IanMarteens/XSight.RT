@@ -239,18 +239,15 @@ public abstract class UnionBase : Shape, IUnion
 }
 
 /// <summary>The most general kind of union.</summary>
+/// <remarks>Creates a union.</remarks>
+/// <param name="shapes">The list of shapes grouped by the union.</param>
 [XSight]
 [Properties(nameof(checkBounds), nameof(squaredRadius), nameof(Centroid))]
 [Children(nameof(shapes))]
-public sealed class Union : UnionBase, IShape
+public sealed class Union(params IShape[] shapes) : UnionBase(shapes, false, true), IShape
 {
     /// <summary>The list of shapes with an alternative order, for shadow testing.</summary>
     private IShape[] lightBuffer;
-
-    /// <summary>Creates a union.</summary>
-    /// <param name="shapes">The list of shapes grouped by the union.</param>
-    public Union(params IShape[] shapes)
-        : base(shapes, false, true) { }
 
     /// <summary>Updates the bounding box and the bounding sphere around the union.</summary>
     protected override void RecomputeBounds()
@@ -401,7 +398,7 @@ public sealed class Union : UnionBase, IShape
                 shapes = infiniteGroup;
             }
 #if USE_SSE
-    AGAIN:
+        AGAIN:
 #endif
         switch (shapes.Length)
         {
@@ -413,11 +410,11 @@ public sealed class Union : UnionBase, IShape
                     var pairs = shapes.OfType<Union2F>().Take(2).ToList();
                     if (pairs.Count == 2)
                     {
-                        var u4 = new Union4F(pairs[0].Shapes.Concat(pairs[1].Shapes).ToArray());
+                        var u4 = new Union4F([.. pairs[0].Shapes, .. pairs[1].Shapes]);
                         // Create the new list of shapes.
                         var newShapes = shapes.Where(s => !pairs.Contains(s)).ToList();
                         newShapes.Add(u4);
-                        shapes = newShapes.ToArray();
+                        shapes = [.. newShapes];
                         goto AGAIN;
                     }
                     return Simplify4();
@@ -434,21 +431,21 @@ public sealed class Union : UnionBase, IShape
                         // Create the new Union4F
                         foreach (var s in candidates.OfType<IBoundsChecker>())
                             s.IsChecking = false;
-                        var u4 = new Union4F(candidates.ToArray());
+                        var u4 = new Union4F([.. candidates]);
                         // Create the new list of shapes.
                         var newShapes = shapes.Where(s => !candidates.Contains(s)).ToList();
                         newShapes.Add(u4);
-                        shapes = newShapes.ToArray();
+                        shapes = [.. newShapes];
                         goto AGAIN;
                     }
                     if (candidates.Count == 2)
                     {
                         foreach (var s in candidates.OfType<IBoundsChecker>())
                             s.IsChecking = false;
-                        var u2 = new Union2F(candidates.ToArray());
+                        var u2 = new Union2F([.. candidates]);
                         var newShapes = shapes.Where(s => !candidates.Contains(s)).ToList();
                         newShapes.Add(u2);
-                        shapes = newShapes.ToArray();
+                        shapes = [.. newShapes];
                         goto AGAIN;
                     }
                 }
@@ -456,11 +453,11 @@ public sealed class Union : UnionBase, IShape
                     var pairs = shapes.OfType<Union2F>().Take(2).ToList();
                     if (pairs.Count == 2)
                     {
-                        var u4 = new Union4F(pairs[0].Shapes.Concat(pairs[1].Shapes).ToArray());
+                        var u4 = new Union4F([.. pairs[0].Shapes, .. pairs[1].Shapes]);
                         // Create the new list of shapes.
                         var newShapes = shapes.Where(s => !pairs.Contains(s)).ToList();
                         newShapes.Add(u4);
-                        shapes = newShapes.ToArray();
+                        shapes = [.. newShapes];
                         goto AGAIN;
                     }
                 }
@@ -548,10 +545,10 @@ public sealed class Union : UnionBase, IShape
             {
                 foreach (var s in candidates.OfType<IBoundsChecker>())
                     s.IsChecking = false;
-                var u2 = new Union2F(candidates.ToArray());
+                var u2 = new Union2F([.. candidates]);
                 var newShapes = shapes.Where(s => !candidates.Contains(s)).ToList();
                 newShapes.Add(u2);
-                shapes = newShapes.ToArray();
+                shapes = [.. newShapes];
             }
             return CanBindWithSphere() ? new SUnion(shapes) : this;
         }
@@ -641,20 +638,18 @@ public sealed class Union : UnionBase, IShape
         base.Initialize(scene, inCsg, inTransform);
     }
 
-#endregion
+    #endregion
 }
 
 /// <summary>Two shapes enclosed by an axis-aligned bounding box.</summary>
+/// <remarks>Creates a binary union.</remarks>
+/// <param name="shapes">The two involved shapes.</param>
 [Properties(nameof(checkBounds)), Children(nameof(shape0), nameof(shape1))]
-internal sealed class Union2 : UnionBase, IShape
+internal sealed class Union2(IShape[] shapes) : UnionBase(shapes, true, true), IShape
 {
     private IShape shape0, shape1;
     private Union2 tail;
     private Hit[] hits0, hits1;
-
-    /// <summary>Creates a binary union.</summary>
-    /// <param name="shapes">The two involved shapes.</param>
-    public Union2(IShape[] shapes) : base(shapes, true, true) { }
 
     /// <summary>Updates direct references to shapes in the shape list.</summary>
     protected override void Rebind() => (shape1, shape0) = (shapes[1], shapes[0]);
@@ -671,7 +666,7 @@ internal sealed class Union2 : UnionBase, IShape
             shape1.Cost > ShapeCost.EasyPeasy;
     }
 
-#region IShape members.
+    #region IShape members.
 
     /// <summary>Find an intersection between union items and a ray.</summary>
     /// <param name="ray">Ray emitted by a light source.</param>
@@ -767,9 +762,9 @@ internal sealed class Union2 : UnionBase, IShape
         return total;
     }
 
-#endregion
+    #endregion
 
-#region ITransformable members.
+    #region ITransformable members.
 
     /// <summary>Creates a new independent copy of the whole shape.</summary>
     /// <param name="force">True when a new copy is needed.</param>
@@ -778,7 +773,7 @@ internal sealed class Union2 : UnionBase, IShape
     {
         IShape s0 = shape0.Clone(force), s1 = shape1.Clone(force);
         return force || s0 != shape0 || s1 != shape1 || hits0 != null
-            ? new Union2(new[] { s0, s1 }) { checkBounds = checkBounds }
+            ? new Union2([s0, s1]) { checkBounds = checkBounds }
             : this;
     }
 
@@ -798,23 +793,21 @@ internal sealed class Union2 : UnionBase, IShape
         tail = shape1 as Union2;
     }
 
-#endregion
+    #endregion
 }
 
 /// <summary>A union containing three subitems.</summary>
+/// <remarks>Creates a union with three shapes.</remarks>
+/// <param name="shape0">First shape.</param>
+/// <param name="shape1">Second shape.</param>
+/// <param name="shape2">Third shape.</param>
 [Properties(nameof(checkBounds))]
 [Children(nameof(shape0), nameof(shape1), nameof(shape2))]
-internal sealed class Union3 : UnionBase, IShape
+internal sealed class Union3(IShape shape0, IShape shape1, IShape shape2) :
+    UnionBase(new[] { shape0, shape1, shape2 }, true, true), IShape
 {
     private IShape shape0, shape1, shape2;
     private Hit[] hits0, hits1;
-
-    /// <summary>Creates a union with three shapes.</summary>
-    /// <param name="shape0">First shape.</param>
-    /// <param name="shape1">Second shape.</param>
-    /// <param name="shape2">Third shape.</param>
-    public Union3(IShape shape0, IShape shape1, IShape shape2)
-        : base(new[] { shape0, shape1, shape2 }, true, true) { }
 
     /// <summary>Updates direct references to shapes in the shape list.</summary>
     protected override void Rebind() =>
@@ -830,7 +823,7 @@ internal sealed class Union3 : UnionBase, IShape
             !bounds.IsInfinite;
     }
 
-#region IShape members.
+    #region IShape members.
 
     /// <summary>Find an intersection between union items and a ray.</summary>
     /// <param name="ray">Ray emitted by a light source.</param>
@@ -962,9 +955,9 @@ internal sealed class Union3 : UnionBase, IShape
         return total;
     }
 
-#endregion
+    #endregion
 
-#region ITransformable members.
+    #region ITransformable members.
 
     /// <summary>Creates a new independent copy of the whole shape.</summary>
     /// <param name="force">True when a new copy is needed.</param>
@@ -993,5 +986,5 @@ internal sealed class Union3 : UnionBase, IShape
         base.Initialize(scene, inCsg, inTransform);
     }
 
-#endregion
+    #endregion
 }

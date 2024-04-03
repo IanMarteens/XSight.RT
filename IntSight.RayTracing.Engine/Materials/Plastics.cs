@@ -101,14 +101,11 @@ public abstract class PhongMaterial : BaseMaterial, IMaterial
 
 /// <summary>A solid color surface with non-metallic Phong reflections.</summary>
 [XSight, Properties("color", "reflection", "phongAmount", "phongSize", "roughness")]
-public sealed class Plastic : PhongMaterial
+public sealed class Plastic(Pixel color,
+    double reflection, double phongAmount, double phongSize, double roughness,
+    IPerturbator perturbator) : PhongMaterial(reflection, phongAmount, phongSize, roughness, perturbator)
 {
-    private readonly Pixel color;
-
-    public Plastic(Pixel color,
-        double reflection, double phongAmount, double phongSize, double roughness,
-        IPerturbator perturbator)
-        : base(reflection, phongAmount, phongSize, roughness, perturbator) => this.color = color;
+    private readonly Pixel color = color;
 
     public Plastic(Pixel color,
         double reflection, double phongAmount, double phongSize, double roughness)
@@ -161,15 +158,11 @@ public sealed class Plastic : PhongMaterial
 /// <remarks>
 /// This material is used when a pigment is used where a material is expected.
 /// </remarks>
+/// <remarks>Creates an instance of the default pigment material.</remarks>
+/// <param name="pigment">Pigment determining the surface color.</param>
 [Children(nameof(pigment))]
-public sealed class DefaultPigment : BaseMaterial, IMaterial
+public sealed class DefaultPigment(IPigment pigment) : BaseMaterial(0.0), IMaterial
 {
-    private IPigment pigment;
-
-    /// <summary>Creates an instance of the default pigment material.</summary>
-    /// <param name="pigment">Pigment determining the surface color.</param>
-    public DefaultPigment(IPigment pigment)
-        : base(0.0) => this.pigment = pigment;
 
     /// <summary>Gets the index of refraction (IOR).</summary>
     double IMaterial.IndexOfRefraction => 0.0;
@@ -328,30 +321,16 @@ public sealed class Pigment : PhongMaterial
 [XSight, Properties(
     "color1", "color2", "scale", "stripes", "octaves",
     "reflection", "phongAmount", "phongSize", "roughness")]
-public sealed class Marble : PhongMaterial
+public sealed class Marble(Pixel color1, Pixel color2,
+    double scale, double stripes, int octaves,
+    double reflection, double phongAmount, double phongSize,
+    double roughness, IPerturbator perturbator) : PhongMaterial(reflection, phongAmount, phongSize, roughness, perturbator)
 {
     private readonly SolidNoise noise = new(1984);
-    private readonly Pixel color1, color2, delta;
-    private readonly double scale;
-    private readonly double freq;
-    private readonly double stripes;
-    private readonly short octaves;
+    private readonly Pixel delta = color1 - color2;
+    private readonly double freq = Math.PI * stripes;
+    private readonly short octaves = (short)octaves;
     private Vector translation;
-
-    public Marble(Pixel color1, Pixel color2,
-        double scale, double stripes, int octaves,
-        double reflection, double phongAmount, double phongSize,
-        double roughness, IPerturbator perturbator)
-        : base(reflection, phongAmount, phongSize, roughness, perturbator)
-    {
-        this.color1 = color1;
-        this.color2 = color2;
-        delta = color1 - color2;
-        this.scale = scale;
-        this.stripes = stripes;
-        freq = Math.PI * stripes;
-        this.octaves = (short)octaves;
-    }
 
     public Marble(Pixel color1, Pixel color2,
         double scale, double stripes, int octaves,
@@ -431,25 +410,13 @@ public sealed class Marble : PhongMaterial
 [XSight, Properties(
     "color1", "color2", "scale", "turbulence",
     "reflection", "phongAmount", "phongSize", "roughness")]
-public sealed class Spotted : PhongMaterial
+public sealed class Spotted(Pixel color1, Pixel color2, double scale, int turbulence,
+    double reflection, double phongAmount, double phongSize,
+    double roughness, IPerturbator perturbator) : PhongMaterial(reflection, phongAmount, phongSize, roughness, perturbator)
 {
     private readonly SolidNoise noise = new(1984);
-    private readonly Pixel color1, color2, c1, c2;
-    private readonly double scale;
-    private readonly short turbulence;
-
-    public Spotted(Pixel color1, Pixel color2, double scale, int turbulence,
-        double reflection, double phongAmount, double phongSize,
-        double roughness, IPerturbator perturbator)
-        : base(reflection, phongAmount, phongSize, roughness, perturbator)
-    {
-        this.color1 = color1;
-        this.color2 = color2;
-        c1 = (color1 + color2) * 0.5f;
-        c2 = (color2 - color1) * 0.5f;
-        this.scale = scale;
-        this.turbulence = (short)turbulence;
-    }
+    private readonly Pixel c1 = (color1 + color2) * 0.5f, c2 = (color2 - color1) * 0.5f;
+    private readonly short turbulence = (short)turbulence;
 
     public Spotted(Pixel color1, Pixel color2, double scale, int turbulence,
         double reflection, double phongAmount, double phongSize, double roughness)

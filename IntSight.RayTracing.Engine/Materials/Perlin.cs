@@ -9,7 +9,7 @@ namespace IntSight.RayTracing.Engine;
 public sealed class SolidNoise
 {
     private static readonly Vector[] grd =
-    {
+    [
         new(+1.0, +1.0, 0.0), new(-1.0, +1.0, 0.0),
         new(+1.0, -1.0, 0.0), new(-1.0, -1.0, 0.0),
         new(+1.0, 0.0, +1.0), new(-1.0, 0.0, +1.0),
@@ -18,9 +18,9 @@ public sealed class SolidNoise
         new(0.0, +1.0, -1.0), new(0.0, -1.0, -1.0),
         new(+1.0, +1.0, 0.0), new(-1.0, +1.0, 0.0),
         new(0.0, -1.0, +1.0), new(0.0, -1.0, -1.0)
-    };
+    ];
 
-    private readonly int[] phi = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    private readonly int[] phi = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
     private readonly Vector256<double> m6 = Vector256.Create(-6d);
     private readonly Vector256<double> p15 = Vector256.Create(15d);

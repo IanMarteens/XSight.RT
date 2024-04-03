@@ -22,7 +22,7 @@ internal class SnippetManager : ISnippetManager
     private readonly List<ICodeSnippet> snippets;
     private bool isSorted;
 
-    public SnippetManager() => snippets = new List<ICodeSnippet>();
+    public SnippetManager() => snippets = [];
 
     public void AddSnippet(string name, string text) =>
         snippets.Add(new MemorySnippet(name, text));
@@ -37,11 +37,11 @@ internal class SnippetManager : ISnippetManager
             isSorted = true;
         }
         partialName = partialName.ToLowerInvariant();
-        List<ICodeSnippet> result = new();
+        List<ICodeSnippet> result = [];
         foreach (ICodeSnippet snippet in snippets)
-            if (snippet.Name.ToLowerInvariant().StartsWith(partialName))
+            if (snippet.Name.StartsWith(partialName, StringComparison.InvariantCultureIgnoreCase))
                 result.Add(snippet);
-        return result.ToArray();
+        return [.. result];
     }
 
     void ISnippetManager.Refresh() { }
@@ -61,7 +61,7 @@ internal static class IntelliTips
     {
         if (tips == null)
         {
-            tips = new Dictionary<Type, string>();
+            tips = [];
             foreach (Type t in XrtRegistry.Types)
                 tips.Add(t, GetTips(t));
         }
@@ -78,7 +78,7 @@ internal static class IntelliTips
     private static string GetTips(Type t)
     {
         StringBuilder sb = new();
-        List<string> added = new();
+        List<string> added = [];
         foreach (ConstructorInfo info in t.GetConstructors())
         {
             sb.Length = 0;

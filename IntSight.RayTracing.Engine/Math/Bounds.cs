@@ -246,7 +246,7 @@ public readonly struct Bounds
             return this;
         if (rotation.Equals(Matrix.Identity))
             return new(From + translation, To + translation);
-        ReadOnlySpan<Vector> points = stackalloc[] {
+        ReadOnlySpan<Vector> points = [
             new(x0, y0, z0),
             new(x0, y0, z1),
             new(x0, y1, z0),
@@ -255,7 +255,7 @@ public readonly struct Bounds
             new(x1, y0, z1),
             new(x1, y1, z0),
             new Vector(x1, y1, z1)
-        };
+        ];
         double xx0 = double.PositiveInfinity, yy0 = double.PositiveInfinity,
             zz0 = double.PositiveInfinity, xx1 = double.NegativeInfinity,
             yy1 = double.NegativeInfinity, zz1 = double.NegativeInfinity;

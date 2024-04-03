@@ -7,8 +7,7 @@ public abstract class BaseMaterial
     private readonly struct PerturbationList
     {
         /// <summary>Maps roughness coefficients into perturbation tables.</summary>
-        private static readonly Dictionary<double, PerturbationList> roughnessMaps =
-            new();
+        private static readonly Dictionary<double, PerturbationList> roughnessMaps = [];
 
         public readonly Vector[] perturbations;
         public readonly float[] weights;

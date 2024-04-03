@@ -45,12 +45,12 @@ public abstract class Parser
     // Special terminals
     private const ushort EOF_SYMBOL = 0;
     private const ushort ERROR_SYMBOL = 1;
-    protected Dictionary<int, RecoveryAction> recoveryActions = new();
+    protected Dictionary<int, RecoveryAction> recoveryActions = [];
     // Protection against infinite loops in error recovery.
     private bool errorLoop;
 
     // Expected tokens for error handling
-    protected List<int> ExpectedTokens { get; private set; } = new();
+    protected List<int> ExpectedTokens { get; private set; } = [];
 
     /// <summary>
     /// Called after a new input token is pushed on the input stack.

@@ -3,12 +3,8 @@ using Rsc = IntSight.Parser.Properties.Resources;
 
 namespace IntSight.Parser;
 
-public sealed class FileDocument : IDocument
+public sealed class FileDocument(string fileName) : IDocument
 {
-    private readonly string fileName;
-
-    public FileDocument(string fileName) => this.fileName = fileName;
-
     public override string ToString() => fileName;
 
     #region IDocument members.

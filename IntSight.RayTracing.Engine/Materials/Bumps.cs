@@ -3,25 +3,15 @@
 namespace IntSight.RayTracing.Engine;
 
 /// <summary>A normal perturbator based on the Perlin noise generator.</summary>
+/// <remarks>Creates a bumpy perturbator.</remarks>
+/// <param name="amount">Amount of perturbation.</param>
+/// <param name="scale">Spacial scale.</param>
+/// <param name="threshold">Minimum amount before perturbation.</param>
 [XSight]
-public sealed class Bumps : IPerturbator
+public sealed class Bumps(double amount, Vector scale, double threshold) : IPerturbator
 {
-    private readonly double amount;
-    private readonly double threshold;
-    private readonly Vector scale;
     private readonly SolidNoise uNoise = new(1453);
     private readonly SolidNoise vNoise = new(3541);
-
-    /// <summary>Creates a bumpy perturbator.</summary>
-    /// <param name="amount">Amount of perturbation.</param>
-    /// <param name="scale">Spacial scale.</param>
-    /// <param name="threshold">Minimum amount before perturbation.</param>
-    public Bumps(double amount, Vector scale, double threshold)
-    {
-        this.amount = amount;
-        this.scale = scale;
-        this.threshold = threshold;
-    }
 
     public Bumps(double amount, double scale, double threshold)
         : this(amount, new Vector(scale), threshold) { }
@@ -78,27 +68,17 @@ public sealed class Bumps : IPerturbator
 }
 
 /// <summary>A normal perturbator based on the Crackle noise generator.</summary>
+/// <remarks>Creates a wrinkled perturbator.</remarks>
+/// <param name="amount">Amount of perturbation.</param>
+/// <param name="scale">Spacial scale.</param>
+/// <param name="turbulence">Turbulence.</param>
+/// <param name="metric">Metric used by the noise generator.</param>
 [XSight]
-public sealed class Wrinkles : IPerturbator
+public sealed class Wrinkles(double amount, Vector scale, int turbulence, int metric) : IPerturbator
 {
-    private readonly double amount;
-    private readonly Vector scale;
-    private readonly short turbulence;
-    private readonly short metric;
+    private readonly short turbulence = (short)turbulence;
+    private readonly short metric = (short)metric;
     private readonly CrackleNoise noise = new(145377);
-
-    /// <summary>Creates a wrinkled perturbator.</summary>
-    /// <param name="amount">Amount of perturbation.</param>
-    /// <param name="scale">Spacial scale.</param>
-    /// <param name="turbulence">Turbulence.</param>
-    /// <param name="metric">Metric used by the noise generator.</param>
-    public Wrinkles(double amount, Vector scale, int turbulence, int metric)
-    {
-        this.amount = amount;
-        this.scale = scale;
-        this.turbulence = (short)turbulence;
-        this.metric = (short)metric;
-    }
 
     public Wrinkles(double amount, Vector scale, int turbulence)
         : this(amount, scale, turbulence, 1) { }

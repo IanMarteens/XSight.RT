@@ -121,31 +121,32 @@ public abstract class MetalPhongMaterial : BaseMaterial, IMaterial
 [XSight, Properties(
     nameof(color), nameof(minReflection), nameof(maxReflection), nameof(diffuse),
     nameof(phongAmount), nameof(phongSize), nameof(Roughness))]
-public sealed class Metal : MetalPhongMaterial
+public sealed class Metal(Pixel color,
+    double minReflection, double maxReflection, double diffuse,
+    double phongAmount, double phongSize, double roughness, IPerturbator perturbator) :
+    MetalPhongMaterial(color, minReflection, maxReflection,
+        diffuse, phongAmount, phongSize, roughness, perturbator)
 {
-    private readonly Pixel color;
-
-    public Metal(Pixel color,
-        double minReflection, double maxReflection, double diffuse,
-        double phongAmount, double phongSize, double roughness, IPerturbator perturbator)
-        : base(color, minReflection, maxReflection,
-            diffuse, phongAmount, phongSize, roughness, perturbator) => this.color = color;
+    private readonly Pixel color = color;
 
     public Metal(Pixel color,
         double minReflection, double maxReflection, double diffuse,
         double phongAmount, double phongSize, double roughness)
         : this(color, minReflection, maxReflection,
-            diffuse, phongAmount, phongSize, roughness, null) { }
+            diffuse, phongAmount, phongSize, roughness, null)
+    { }
 
     public Metal(Pixel color, double minReflection, double maxReflection,
         double diffuse, double phongAmount, double phongSize, IPerturbator perturbator)
         : this(color, minReflection, maxReflection,
-            diffuse, phongAmount, phongSize, 0.0, perturbator) { }
+            diffuse, phongAmount, phongSize, 0.0, perturbator)
+    { }
 
     public Metal(Pixel color, double minReflection, double maxReflection,
         double diffuse, double phongAmount, double phongSize)
         : this(color, minReflection, maxReflection,
-            diffuse, phongAmount, phongSize, 0.0, null) { }
+            diffuse, phongAmount, phongSize, 0.0, null)
+    { }
 
     public Metal(Pixel color, double minReflection, double maxReflection, double diffuse)
         : this(color, minReflection, maxReflection, diffuse, 0.0, 120.0, 0.0) { }
@@ -189,27 +190,25 @@ public sealed class Metal : MetalPhongMaterial
 [XSight, Children(nameof(pigment)), Properties(
     nameof(minReflection), nameof(maxReflection), nameof(diffuse),
     nameof(phongAmount), nameof(phongSize), nameof(Roughness))]
-public sealed class MetalPigment : MetalPhongMaterial
+public sealed class MetalPigment(IPigment pigment,
+    double minReflection, double maxReflection, double diffuse,
+    double phongAmount, double phongSize, double roughness, IPerturbator perturbator) :
+    MetalPhongMaterial(pigment.DraftColor, minReflection, maxReflection, diffuse,
+        phongAmount, phongSize, roughness, perturbator)
 {
-    private IPigment pigment;
-
-    public MetalPigment(IPigment pigment,
-        double minReflection, double maxReflection, double diffuse,
-        double phongAmount, double phongSize, double roughness, IPerturbator perturbator)
-        : base(pigment.DraftColor, minReflection, maxReflection, diffuse,
-            phongAmount, phongSize, roughness, perturbator) => this.pigment = pigment;
-
     public MetalPigment(IPigment pigment,
         double minReflection, double maxReflection, double diffuse,
         double phongAmount, double phongSize, double roughness)
         : this(pigment, minReflection, maxReflection, diffuse,
-            phongAmount, phongSize, roughness, null) { }
+            phongAmount, phongSize, roughness, null)
+    { }
 
     public MetalPigment(IPigment pigment,
         double minReflection, double maxReflection, double diffuse,
         double phongAmount, double phongSize)
         : this(pigment, minReflection, maxReflection, diffuse,
-            phongAmount, phongSize, 0.0, null) { }
+            phongAmount, phongSize, 0.0, null)
+    { }
 
     public MetalPigment(IPigment pigment,
         double minReflection, double maxReflection, double diffuse)

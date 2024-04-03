@@ -26,7 +26,7 @@ public partial class AnimationForm : Form
 
     public static bool Execute(Parameters result)
     {
-        using AnimationForm form = new AnimationForm();
+        using AnimationForm form = new();
         form.FrameRate.Value = result.FrameRate;
         form.TotalFrames.Value = result.TotalFrames;
         form.FirstFrame.Value = result.FirstFrame;

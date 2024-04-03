@@ -44,26 +44,15 @@ public abstract class PigmentBase
 }
 
 [XSight, Properties("color1", "color2", "point1", "point2")]
-public sealed class Gradient : PigmentBase, IPigment
+public sealed class Gradient(
+    [Proposed("[0,0,0]")] Vector p1,
+    [Proposed("Black")] Pixel c1,
+    [Proposed("[0,0,0]")] Vector p2,
+    [Proposed("White")] Pixel c2) : PigmentBase, IPigment
 {
-    private Vector p1, p2, unit;
-    private readonly Pixel c1, c2, delta;
-    private readonly double max;
-
-    public Gradient(
-        [Proposed("[0,0,0]")]Vector p1,
-        [Proposed("Black")]Pixel c1,
-        [Proposed("[0,0,0]")]Vector p2,
-        [Proposed("White")]Pixel c2)
-    {
-        this.p1 = p1;
-        this.c1 = c1;
-        this.p2 = p2;
-        this.c2 = c2;
-        unit = p2.Difference(p1);
-        max = p2.Distance(p1);
-        delta = c2 - c1;
-    }
+    private Vector unit = p2.Difference(p1);
+    private readonly Pixel delta = c2 - c1;
+    private readonly double max = p2.Distance(p1);
 
     public Gradient(
         [Proposed("Black")]Pixel c1,
@@ -274,25 +263,14 @@ public sealed class Checkers : PigmentBase, IPigment
 }
 
 [XSight, Properties("color1", "color2", "turbulence", "power", "scale")]
-public sealed class Spots : PigmentBase, IPigment
+public sealed class Spots(Pixel color1, Pixel color2, Vector scale, int turbulence, double power) : PigmentBase, IPigment
 {
     private readonly SolidNoise noise = new(1492);
-    private readonly Pixel color1, color2, delta;
-    private Vector scale, translation;
-    private readonly short turbulence;
-    private readonly double power;
-    private readonly PowerCase powerCase;
-
-    public Spots(Pixel color1, Pixel color2, Vector scale, int turbulence, double power)
-    {
-        this.color1 = color1;
-        this.color2 = color2;
-        delta = color2 - color1;
-        this.scale = scale;
-        this.turbulence = (short)turbulence;
-        powerCase = GetPowerCase(power);
-        this.power = power < Tolerance.Epsilon ? 0.0 : power;
-    }
+    private readonly Pixel delta = color2 - color1;
+    private Vector translation;
+    private readonly short turbulence = (short)turbulence;
+    private readonly double power = power < Tolerance.Epsilon ? 0.0 : power;
+    private readonly PowerCase powerCase = GetPowerCase(power);
 
     public Spots(Pixel color1, Pixel color2, double scale, int turbulence, double power)
         : this(color1, color2, new Vector(scale), turbulence, power) { }
@@ -460,21 +438,11 @@ public sealed class Crackle : PigmentBase, IPigment
 }
 
 [XSight, Properties("color1, color2, low, high, scl, turb")]
-public sealed class Bubbles : PigmentBase, IPigment
+public sealed class Bubbles(Pixel color1, Pixel color2, Vector scale, int turbulence) : PigmentBase, IPigment
 {
     private readonly CrackleNoise noise = new(9125, Vector.XRay);
-    private readonly Pixel color1, color2, delta;
-    private readonly Vector scale;
-    private readonly short turb;
-
-    public Bubbles(Pixel color1, Pixel color2, Vector scale, int turbulence)
-    {
-        this.color1 = color1;
-        this.color2 = color2;
-        delta = color2 - color1;
-        this.scale = scale;
-        turb = (short)turbulence;
-    }
+    private readonly Pixel delta = color2 - color1;
+    private readonly short turb = (short)turbulence;
 
     public Bubbles(Pixel color1, Pixel color2, Vector scale)
         : this(color1, color2, scale, 0) { }
@@ -512,21 +480,12 @@ public sealed class Bubbles : PigmentBase, IPigment
 }
 
 [XSight, Properties("color1, color2, scl, turb")]
-public sealed class Wood : PigmentBase, IPigment
+public sealed class Wood(Pixel color1, Pixel color2, Vector scale, int turbulence) : PigmentBase, IPigment
 {
     private readonly SolidNoise noise = new(9125);
-    private readonly Pixel color1, color2, delta;
-    private Vector scale, translation;
-    private readonly short turb;
-
-    public Wood(Pixel color1, Pixel color2, Vector scale, int turbulence)
-    {
-        this.color1 = color1;
-        this.color2 = color2;
-        delta = color2 - color1;
-        this.scale = scale;
-        turb = (short)turbulence;
-    }
+    private readonly Pixel delta = color2 - color1;
+    private Vector translation;
+    private readonly short turb = (short)turbulence;
 
     public Wood(Pixel color1, Pixel color2, double scale, int turbulence)
         : this(color1, color2, new Vector(scale), turbulence) { }

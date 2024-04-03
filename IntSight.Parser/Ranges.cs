@@ -4,7 +4,8 @@ namespace IntSight.Parser;
 
 /// <summary>Represents an interval inside a single source code file.</summary>
 /// <remarks>This is an immutable data structure.</remarks>
-public readonly struct SourceRange : IComparable<SourceRange>, IEquatable<SourceRange>
+public readonly struct SourceRange(IDocument document,
+    int fromLine, short fromColumn, int toLine, short toColumn) : IComparable<SourceRange>, IEquatable<SourceRange>
 {
     private class NullDocument : IDocument
     {
@@ -31,19 +32,9 @@ public readonly struct SourceRange : IComparable<SourceRange>, IEquatable<Source
 
     public static readonly SourceRange Default = new(new NullDocument(), int.MaxValue);
 
-    public readonly int FromLine, ToLine;
-    public readonly short FromColumn, ToColumn;
-    public readonly IDocument Document;
-
-    public SourceRange(IDocument document,
-        int fromLine, short fromColumn, int toLine, short toColumn)
-    {
-        Document = document;
-        FromLine = fromLine;
-        FromColumn = fromColumn;
-        ToLine = toLine;
-        ToColumn = toColumn;
-    }
+    public readonly int FromLine = fromLine, ToLine = toLine;
+    public readonly short FromColumn = fromColumn, ToColumn = toColumn;
+    public readonly IDocument Document = document;
 
     public SourceRange(IDocument document)
         : this(document, int.MaxValue) { }

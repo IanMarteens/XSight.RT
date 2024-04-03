@@ -328,7 +328,7 @@ public sealed class Torus : TorusBase, IShape
     /// <returns>The new shape.</returns>
     IShape ITransformable.Clone(bool force)
     {
-        IShape t = new Torus(Centroid, r0, r1, transform, material.Clone(force));
+        Torus t = new(Centroid, r0, r1, transform, material.Clone(force));
         if (negated)
             t.Negate();
         return t;
@@ -570,7 +570,7 @@ internal sealed class XTorus : TorusBase, IShape
     /// <returns>The new shape.</returns>
     IShape ITransformable.Clone(bool force)
     {
-        IShape t = new XTorus(Centroid, r0, r1, material.Clone(force));
+        XTorus t = new(Centroid, r0, r1, material.Clone(force));
         if (negated)
             t.Negate();
         return t;
@@ -774,7 +774,7 @@ internal sealed class YTorus : TorusBase, IShape
     /// <returns>The new shape.</returns>
     IShape ITransformable.Clone(bool force)
     {
-        IShape t = new YTorus(Centroid, r0, r1, material.Clone(force));
+        YTorus t = new(Centroid, r0, r1, material.Clone(force));
         if (negated)
             t.Negate();
         return t;
@@ -977,7 +977,7 @@ internal sealed class ZTorus : TorusBase, IShape
     /// <returns>The new shape.</returns>
     IShape ITransformable.Clone(bool force)
     {
-        IShape t = new ZTorus(Centroid, r0, r1, material.Clone(force));
+        ZTorus t = new(Centroid, r0, r1, material.Clone(force));
         if (negated)
             t.Negate();
         return t;

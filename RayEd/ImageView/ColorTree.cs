@@ -70,9 +70,9 @@ public class ColorTree
     /// <summary>Adds a named color to the tree.</summary>
     /// <param name="color">Color to add.</param>
     public void Add(Color color) =>
-        Add(new[] { color.R, color.G, color.B }, 0, ref root, color.Name);
+        Add([color.R, color.G, color.B], 0, ref root, color.Name);
 
-    private void Add(byte[] color, byte axis, ref ColorNode node, string name)
+    private static void Add(byte[] color, byte axis, ref ColorNode node, string name)
     {
         if (node == null)
             node = new ColorNode() { color = color, axis = axis, name = name };
@@ -96,7 +96,7 @@ public class ColorTree
     /// <returns>The found name, or an empty string if the search failed.</returns>
     public string FindNeighbor(Color color, out bool exact)
     {
-        ColorRec cr = Find(root, new byte[] { color.R, color.G, color.B }, 8);
+        ColorRec cr = Find(root, [color.R, color.G, color.B], 8);
         if (cr.node == null)
         {
             exact = false;

@@ -170,10 +170,9 @@ public sealed class Slider : Control
     }
 
     private Rectangle ThumbArea =>
-        new Rectangle(
-                _value * (ClientSize.Width - thumbWidth) / maxValue,
-                (ClientSize.Height - thumbHeight) / 2,
-                thumbWidth, thumbHeight);
+        new(_value * (ClientSize.Width - thumbWidth) / maxValue,
+            (ClientSize.Height - thumbHeight) / 2,
+            thumbWidth, thumbHeight);
 
     protected override void OnPaint(PaintEventArgs pe)
     {

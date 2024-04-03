@@ -17,6 +17,8 @@
     <ApplicationIcon>RayEd.ico</ApplicationIcon>
     <LangVersion>preview</LangVersion>
     <Configurations>Debug;Release;ReleaseSSE</Configurations>
+	  <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+	  <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSSE|AnyCPU'">
