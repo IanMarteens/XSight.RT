@@ -59,11 +59,10 @@ static void SceneTest()
             angle: 85,
             width: 640,
             height: 480),
-        new ILight[]
-        {
+        [
             new PointLight(new(0, 200, -100), new(0.05F)),
             new PointLight(new(110, -50, 80), new(0.4F)),
-        },
+        ],
         new ConstantAmbient(0.1),
         new FlatBackground(Color.Black, new(0, 0, 0.2), new(0, 1, 0.5)),
         null,

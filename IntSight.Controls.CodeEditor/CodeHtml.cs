@@ -8,7 +8,7 @@ public partial class CodeEditor
     /// <param name="fileName">A file name.</param>
     public void WriteHtml(string fileName)
     {
-        using TextWriter writer = File.CreateText(fileName);
+        using StreamWriter writer = File.CreateText(fileName);
         writer.WriteLine("<html>");
         writer.WriteLine("<head>");
         writer.WriteLine("<style>");
@@ -35,7 +35,7 @@ public partial class CodeEditor
     public void WriteHtml(TextWriter writer)
     {
         writer.Write("<pre>");
-        foreach (Lexeme lexeme in this.Tokens())
+        foreach (Lexeme lexeme in Tokens())
             switch (lexeme.Kind)
             {
                 case Lexeme.Token.NewLine:

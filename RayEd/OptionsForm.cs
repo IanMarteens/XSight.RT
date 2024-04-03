@@ -22,8 +22,7 @@ public partial class OptionsForm : Form
         // Scene editor settings
         edTabSize.Value = Properties.Settings.Default.TabLength;
         edLeftMargin.Value = Properties.Settings.Default.LeftMargin;
-        if (monospacedFonts == null)
-            monospacedFonts = IntSight.Controls.FontInfo.GetMonospacedFonts(Handle);
+        monospacedFonts ??= IntSight.Controls.FontInfo.GetMonospacedFonts(Handle);
         cbFamilies.Items.AddRange(monospacedFonts);
         cbFamilies.SelectedIndex = cbFamilies.FindString(Properties.Settings.Default.FontName);
         edFontSize.Value = Convert.ToDecimal(Properties.Settings.Default.FontSize);

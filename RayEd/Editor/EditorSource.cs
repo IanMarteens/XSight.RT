@@ -4,22 +4,15 @@ using System.Diagnostics.SymbolStore;
 
 namespace RayEd;
 
-public sealed class CodeEditorDocument : IDocument
+public sealed class CodeEditorDocument(CodeEditor editor) : IDocument
 {
     private ISymbolDocumentWriter symbolWriter;
-    private readonly CodeEditor editor;
-
-    public CodeEditorDocument(CodeEditor editor)
-    {
-        this.Url = string.Empty;
-        this.editor = editor;
-    }
 
     public override string ToString() => Url;
 
     #region IDocument Members
 
-    public string Url { get; set; }
+    public string Url { get; set; } = string.Empty;
 
     string IDocument.Name => Url;
 

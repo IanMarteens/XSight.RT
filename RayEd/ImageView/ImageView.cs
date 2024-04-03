@@ -8,11 +8,11 @@ namespace RayEd;
 public class ImageView : Control
 {
     private static readonly Cursor grabCursor = new(typeof(ImageView), "Grab.cur");
-    private static readonly Keys[] inputKeys = new[]
-    {
+    private static readonly Keys[] inputKeys =
+    [
         Keys.Down, Keys.Up, Keys.Right, Keys.Left,
         Keys.Home, Keys.End, Keys.PageDown, Keys.PageUp
-    };
+    ];
 
     private const int MIN_ZOOM = -6;
     private const int MAX_ZOOM = 14;
@@ -52,44 +52,44 @@ public class ImageView : Control
         gamma = 1.0F;
         imgAttributes = new ImageAttributes();
         imgAttributes.SetGamma(gamma);
-        grayColorMatrix = new ColorMatrix(new[]
-        {
-            new[]{ 0.212F,  0.212F,  0.212F, 0.0F, 0.0F},
-            new[]{ 0.715F,  0.715F,  0.715F, 0.0F, 0.0F},
-            new[]{ 0.073F,  0.073F,  0.073F, 0.0F, 0.0F},
-            new[]{ 0.000F,  0.000F,  0.000F, 1.0F, 0.0F},
-            new[]{ 0.000F,  0.000F,  0.000F, 0.0F, 1.0F}
-        });
-        invColorMatrix = new ColorMatrix(new[]
-        {
-            new[]{-1.000F,  0.000F,  0.000F, 0.0F, 0.0F},
-            new[]{ 0.000F, -1.000F,  0.000F, 0.0F, 0.0F},
-            new[]{ 0.000F,  0.000F, -1.000F, 0.0F, 0.0F},
-            new[]{ 0.000F,  0.000F,  0.000F, 1.0F, 0.0F},
-            new[]{ 1.000F,  1.000F,  1.000F, 0.0F, 1.0F}
-        });
-        grayInvColorMatrix = new ColorMatrix(new[]
-        {
-            new[]{-0.212F, -0.212F, -0.212F, 0.0F, 0.0F},
-            new[]{-0.715F, -0.715F, -0.715F, 0.0F, 0.0F},
-            new[]{-0.073F, -0.073F, -0.073F, 0.0F, 0.0F},
-            new[]{ 0.000F,  0.000F,  0.000F, 1.0F, 0.0F},
-            new[]{ 1.000F,  1.000F,  1.000F, 0.0F, 1.0F}
-        });
-        sepiaColorMatrix = new ColorMatrix(new[]{
-            new[]{ 0.393F,  0.349F,  0.272F, 0.0F, 0.0F},
-            new[]{ 0.769F,  0.686F,  0.534F, 0.0F, 0.0F},
-            new[]{ 0.189F,  0.168F,  0.131F, 0.0F, 0.0F},
-            new[]{ 0.000F,  0.000F,  0.000F, 1.0F, 0.0F},
-            new[]{ 0.000F,  0.000F,  0.000F, 0.0F, 1.0F}
-        });
-        sepiaInvColorMatrix = new ColorMatrix(new[]{
-            new[]{-0.393F, -0.349F, -0.272F, 0.0F, 0.0F},
-            new[]{-0.769F, -0.686F, -0.534F, 0.0F, 0.0F},
-            new[]{-0.189F, -0.168F, -0.131F, 0.0F, 0.0F},
-            new[]{ 0.000F,  0.000F,  0.000F, 1.0F, 0.0F},
-            new[]{ 1.000F,  1.000F,  1.000F, 0.0F, 1.0F}
-        });
+        grayColorMatrix = new ColorMatrix(
+        [
+            [0.212F,  0.212F,  0.212F, 0.0F, 0.0F],
+            [0.715F,  0.715F,  0.715F, 0.0F, 0.0F],
+            [0.073F,  0.073F,  0.073F, 0.0F, 0.0F],
+            [0.000F,  0.000F,  0.000F, 1.0F, 0.0F],
+            [0.000F,  0.000F,  0.000F, 0.0F, 1.0F]
+        ]);
+        invColorMatrix = new ColorMatrix(
+        [
+            [-1.000F,  0.000F,  0.000F, 0.0F, 0.0F],
+            [0.000F, -1.000F,  0.000F, 0.0F, 0.0F],
+            [0.000F,  0.000F, -1.000F, 0.0F, 0.0F],
+            [0.000F,  0.000F,  0.000F, 1.0F, 0.0F],
+            [1.000F,  1.000F,  1.000F, 0.0F, 1.0F]
+        ]);
+        grayInvColorMatrix = new ColorMatrix(
+        [
+            [-0.212F, -0.212F, -0.212F, 0.0F, 0.0F],
+            [-0.715F, -0.715F, -0.715F, 0.0F, 0.0F],
+            [-0.073F, -0.073F, -0.073F, 0.0F, 0.0F],
+            [0.000F,  0.000F,  0.000F, 1.0F, 0.0F],
+            [1.000F,  1.000F,  1.000F, 0.0F, 1.0F]
+        ]);
+        sepiaColorMatrix = new ColorMatrix([
+            [0.393F,  0.349F,  0.272F, 0.0F, 0.0F],
+            [0.769F,  0.686F,  0.534F, 0.0F, 0.0F],
+            [0.189F,  0.168F,  0.131F, 0.0F, 0.0F],
+            [0.000F,  0.000F,  0.000F, 1.0F, 0.0F],
+            [0.000F,  0.000F,  0.000F, 0.0F, 1.0F]
+        ]);
+        sepiaInvColorMatrix = new ColorMatrix([
+            [-0.393F, -0.349F, -0.272F, 0.0F, 0.0F],
+            [-0.769F, -0.686F, -0.534F, 0.0F, 0.0F],
+            [-0.189F, -0.168F, -0.131F, 0.0F, 0.0F],
+            [0.000F,  0.000F,  0.000F, 1.0F, 0.0F],
+            [1.000F,  1.000F,  1.000F, 0.0F, 1.0F]
+        ]);
     }
 
     /// <summary>Occurs when the zoom factor changes.</summary>

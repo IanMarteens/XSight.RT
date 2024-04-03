@@ -37,22 +37,13 @@ public sealed class ConstantAmbient : IAmbient
 
 /// <summary>Ambient source with squared distance intensity decay.</summary>
 [XSight]
-public sealed class LocalAmbient : IAmbient
+[method: Preferred]
+public sealed class LocalAmbient(
+    [Proposed("[0,0,0]")] Vector center,
+    [Proposed("rgb 0.10")] Pixel color,
+    [Proposed("10")] double fade) : IAmbient
 {
-    private readonly Vector center;
-    private readonly Pixel color;
-    private readonly double inv;
-
-    [Preferred]
-    public LocalAmbient(
-        [Proposed("[0,0,0]")] Vector center,
-        [Proposed("rgb 0.10")] Pixel color,
-        [Proposed("10")] double fade)
-    {
-        this.center = center;
-        this.color = color;
-        inv = Tolerance.Zero(fade) ? 0.0 : 1.0 / (fade * fade);
-    }
+    private readonly double inv = Tolerance.Zero(fade) ? 0.0 : 1.0 / (fade * fade);
 
     public LocalAmbient(double x0, double y0, double z0, Pixel color, double fade)
         : this(new Vector(x0, y0, z0), color, fade) { }
@@ -78,26 +69,14 @@ public sealed class LocalAmbient : IAmbient
 }
 
 [XSight]
-public sealed class LightSource : IAmbient
+[method: Preferred]
+public sealed class LightSource(
+    [Proposed("[0,0,0]")] Vector center,
+    [Proposed("rgb 0.10")] Pixel color1,
+    [Proposed("rgb 1.00")] Pixel color2,
+    [Proposed("10")] double radius) : IAmbient
 {
-    private readonly Vector center;
-    private readonly Pixel color1, color2;
-    private readonly double radius;
-    private readonly double r2;
-
-    [Preferred]
-    public LightSource(
-        [Proposed("[0,0,0]")] Vector center,
-        [Proposed("rgb 0.10")] Pixel color1,
-        [Proposed("rgb 1.00")] Pixel color2,
-        [Proposed("10")] double radius)
-    {
-        this.center = center;
-        this.color1 = color1;
-        this.color2 = color2;
-        this.radius = radius;
-        r2 = radius * radius;
-    }
+    private readonly double r2 = radius * radius;
 
     public LightSource(double x0, double y0, double z0,
         Pixel color1, Pixel color2, double radius)
@@ -125,28 +104,19 @@ public sealed class LightSource : IAmbient
 
 /// <summary>Fill light with environment occlusion.</summary>
 [XSight(Alias = "occluder")]
-public sealed class AmbientOccluder : IAmbient
+public sealed class AmbientOccluder(Pixel minColor, Pixel maxColor, int samples) : IAmbient
 {
-    private readonly Pixel minColor, maxColor, delta;
-    private int samples, cacheSize, idx;
+    private readonly Pixel delta = maxColor - minColor;
+    private int cacheSize, idx;
     private float factor;
     private Vector[] r;
-    private readonly Vector seed;
+    private readonly Vector seed = new Vector(0.0072, 1.0000, 0.0034).Normalized();
     /// <summary>An auxiliary ray for occlusion tests.</summary>
     private readonly Ray testRay = new();
     /// <summary>The root of the scene tree.</summary>
     private IShape rootShape;
     /// <summary>Last occluder for this light.</summary>
     private IShape occluder;
-
-    public AmbientOccluder(Pixel minColor, Pixel maxColor, int samples)
-    {
-        this.minColor = minColor;
-        this.maxColor = maxColor;
-        delta = maxColor - minColor;
-        this.samples = samples;
-        seed = new Vector(0.0072, 1.0000, 0.0034).Normalized();
-    }
 
     public AmbientOccluder(double minColor, double maxColor, int samples)
         : this(new Pixel(minColor), new Pixel(maxColor), samples) { }
@@ -241,17 +211,8 @@ public sealed class AmbientOccluder : IAmbient
 }
 
 /// <summary>Represents the sum of several ambients.</summary>
-public sealed class ComboAmbient : IAmbient
+public sealed class ComboAmbient(Pixel threshold, params IAmbient[] ambients) : IAmbient
 {
-    private readonly IAmbient[] ambients;
-    private readonly Pixel threshold;
-
-    public ComboAmbient(Pixel threshold, params IAmbient[] ambients)
-    {
-        this.ambients = ambients;
-        this.threshold = threshold;
-    }
-
     public ComboAmbient(params IAmbient[] ambients)
         : this(Pixel.White, ambients) { }
 

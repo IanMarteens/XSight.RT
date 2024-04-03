@@ -265,13 +265,13 @@ public sealed class Tetrahedron : Polyhedron
         Vector centroid, double squaredRadius, Bounds bounds, IMaterial material)
         : base(normals, offsets, centroid, squaredRadius, bounds, material) { }
 
-    private static Vector[] GetNormals() => new[]
-    {
+    private static Vector[] GetNormals() =>
+    [
         Face(0, -1, 0,     0,   0),
         Face(0, 0, -1, 19.47,   0),
         Face(0, 0, -1, 19.47, 120),
         Face(0, 0, -1, 19.47, 240)
-    };
+    ];
 
     /// <summary>Creates a new independent copy of the whole shape.</summary>
     /// <param name="force">True when a new copy is needed.</param>
@@ -294,8 +294,8 @@ public sealed class Octahedron : Polyhedron
         Vector centroid, double squaredRadius, Bounds bounds, IMaterial material)
         : base(normals, offsets, centroid, squaredRadius, bounds, material) { }
 
-    private static Vector[] GetNormals() => new[]
-    {
+    private static Vector[] GetNormals() =>
+    [
         Face(0, 0, +1, +35.26438968275, 0),
         Face(0, 0, +1, -35.26438968275, 0),
         Face(0, 0, -1, +35.26438968275, 0),
@@ -304,7 +304,7 @@ public sealed class Octahedron : Polyhedron
         Face(+1, 0, 0, 0, 0, -35.26438968275),
         Face(-1, 0, 0, 0, 0, +35.26438968275),
         Face(-1, 0, 0, 0, 0, -35.26438968275)
-    };
+    ];
 
     /// <summary>Creates a new independent copy of the whole shape.</summary>
     /// <param name="force">True when a new copy is needed.</param>
@@ -327,8 +327,8 @@ public sealed class Dodecahedron : Polyhedron
         Vector centroid, double squaredRadius, Bounds bounds, IMaterial material)
         : base(normals, offsets, centroid, squaredRadius, bounds, material) { }
 
-    private static Vector[] GetNormals() => new[]
-    {
+    private static Vector[] GetNormals() =>
+    [
         Face(0, 0, -1, -26.56505117708,    0),
         Face(0, 0, -1, -26.56505117708,  -72),
         Face(0, 0, -1, -26.56505117708, -144),
@@ -341,7 +341,7 @@ public sealed class Dodecahedron : Polyhedron
         Face(0, 0, -1, +26.56505117708, -324),
         Face(0, +1, 0, 0, 0),
         Face(0, -1, 0, 0, 0)
-    };
+    ];
 
     /// <summary>Creates a new independent copy of the whole shape.</summary>
     /// <param name="force">True when a new copy is needed.</param>
@@ -364,8 +364,8 @@ public sealed class Icosahedron : Polyhedron
         Vector centroid, double squaredRadius, Bounds bounds, IMaterial material)
         : base(normals, offsets, centroid, squaredRadius, bounds, material) { }
 
-    private static Vector[] GetNormals() => new[]
-    {
+    private static Vector[] GetNormals() =>
+    [
         Face(0, 0, -1, +52.6625,    0),
         Face(0, 0, -1, +52.6625,  -72),
         Face(0, 0, -1, +52.6625, -144),
@@ -389,7 +389,7 @@ public sealed class Icosahedron : Polyhedron
         Face(0, 0, -1, -10.8125, -180),
         Face(0, 0, -1, -10.8125, -252),
         Face(0, 0, -1, -10.8125, -324)
-    };
+    ];
 
     /// <summary>Creates a new independent copy of the icosahedron.</summary>
     /// <param name="force">True when a new copy is needed.</param>
@@ -445,19 +445,19 @@ public sealed class Pyramid : Polyhedron
         }
     }
 
-    private static Vector[] GetNormals(double side, double height) => new[]
-    {
+    private static Vector[] GetNormals(double side, double height) =>
+    [
         Face(0, -1, 0, 0, 0),
         new Vector(+height, 0.5 * side, 0).Normalized(),
         new Vector(0, 0.5 * side, +height).Normalized(),
         new Vector(-height, 0.5 * side, 0).Normalized(),
         new Vector(0, 0.5 * side, -height).Normalized()
-    };
+    ];
 
     private static double[] GetOffsets(double side, double height)
     {
         double offset = 0.5 * side * height /
             Math.Sqrt(0.25 * side * side + height * height);
-        return new[] { 0.0, offset, offset, offset, offset };
+        return [0.0, offset, offset, offset, offset];
     }
 }

@@ -59,38 +59,25 @@ public sealed class FlatBackground : IBackground
     #endregion
 }
 
-internal sealed class FlatBackgroundImpl : IBackground
+internal sealed class FlatBackgroundImpl(Pixel bgcolor) : IBackground
 {
-    private readonly Pixel color;
-
-    public FlatBackgroundImpl(Pixel bgcolor) => color = bgcolor;
-
     #region IBackground members.
 
     IBackground IBackground.Clone() => this;
 
     void IBackground.Initialize(IScene scene) { }
-    Pixel IBackground.this[Ray ray] => color;
-    Pixel IBackground.DraftColor(Ray ray) => color;
+    Pixel IBackground.this[Ray ray] => bgcolor;
+    Pixel IBackground.DraftColor(Ray ray) => bgcolor;
 
     IBackground IBackground.Simplify() => this;
 
     #endregion
 }
 
-internal sealed class GradientBackgroundImpl : IBackground
+internal sealed class GradientBackgroundImpl(Pixel color1, Pixel color2, Vector up) : IBackground
 {
-    private readonly Pixel color1, color2, middle, delta;
-    private readonly Vector up;
-
-    public GradientBackgroundImpl(Pixel color1, Pixel color2, Vector up)
-    {
-        this.color1 = color1;
-        this.color2 = color2;
-        middle = (color1 + color2) * 0.5f;
-        delta = (color2 - color1) * 0.5f;
-        this.up = up.Normalized();
-    }
+    private readonly Pixel middle = (color1 + color2) * 0.5f, delta = (color2 - color1) * 0.5f;
+    private readonly Vector up = up.Normalized();
 
     #region IBackground members.
 

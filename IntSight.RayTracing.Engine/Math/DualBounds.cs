@@ -10,24 +10,17 @@ namespace IntSight.RayTracing.Engine;
 #if USE_SSE
 
 /// <summary>Represents two finite rectangular bounding boxes.</summary>
-public readonly struct DualBounds
+/// <remarks>Create instance from two finite bounds.</remarks>
+/// <param name="b1">First bounding box.</param>
+/// <param name="b2">Second bounding box.</param>
+public readonly struct DualBounds(in Bounds b1, in Bounds b2)
 {
     /// <summary>X coordinates of the two bounds.</summary>
-    private readonly Vector256<double> xs;
+    private readonly Vector256<double> xs = Vector256.Create(b1.From.X, b2.From.X, b1.To.X, b2.To.X);
     /// <summary>Y coordinates of the two bounds.</summary>
-    private readonly Vector256<double> ys;
+    private readonly Vector256<double> ys = Vector256.Create(b1.From.Y, b2.From.Y, b1.To.Y, b2.To.Y);
     /// <summary>Z coordinates of the two bounds.</summary>
-    private readonly Vector256<double> zs;
-
-    /// <summary>Create instance from two finite bounds.</summary>
-    /// <param name="b1">First bounding box.</param>
-    /// <param name="b2">Second bounding box.</param>
-    public DualBounds(in Bounds b1, in Bounds b2)
-    {
-        xs = Vector256.Create(b1.From.X, b2.From.X, b1.To.X, b2.To.X);
-        ys = Vector256.Create(b1.From.Y, b2.From.Y, b1.To.Y, b2.To.Y);
-        zs = Vector256.Create(b1.From.Z, b2.From.Z, b1.To.Z, b2.To.Z);
-    }
+    private readonly Vector256<double> zs = Vector256.Create(b1.From.Z, b2.From.Z, b1.To.Z, b2.To.Z);
 
     /// <summary>Combined intersection test between a ray and two bounding boxes.</summary>
     /// <param name="ray">Ray to be tested.</param>
@@ -84,35 +77,25 @@ public readonly struct DualBounds
 }
 
 /// <summary>Represents four finite rectangular bounding boxes.</summary>
-public readonly struct FourBounds
+/// <remarks>Create instance from four finite bounds.</remarks>
+/// <param name="b1">First bounding box.</param>
+/// <param name="b2">Second bounding box.</param>
+/// <param name="b3">Third bounding box.</param>
+/// <param name="b4">Fourth bounding box.</param>
+public readonly struct FourBounds(in Bounds b1, in Bounds b2, in Bounds b3, in Bounds b4)
 {
     /// <summary>Low X coordinates.</summary>
-    private readonly Vector256<double> loxs;
+    private readonly Vector256<double> loxs = Vector256.Create(b1.From.X, b2.From.X, b3.From.X, b4.From.X);
     /// <summary>Low Y coordinates.</summary>
-    private readonly Vector256<double> loys;
+    private readonly Vector256<double> loys = Vector256.Create(b1.From.Y, b2.From.Y, b3.From.Y, b4.From.Y);
     /// <summary>Low Z coordinates.</summary>
-    private readonly Vector256<double> lozs;
+    private readonly Vector256<double> lozs = Vector256.Create(b1.From.Z, b2.From.Z, b3.From.Z, b4.From.Z);
     /// <summary>High X coordinates.</summary>
-    private readonly Vector256<double> hixs;
+    private readonly Vector256<double> hixs = Vector256.Create(b1.To.X, b2.To.X, b3.To.X, b4.To.X);
     /// <summary>High Y coordinates.</summary>
-    private readonly Vector256<double> hiys;
+    private readonly Vector256<double> hiys = Vector256.Create(b1.To.Y, b2.To.Y, b3.To.Y, b4.To.Y);
     /// <summary>High Z coordinates.</summary>
-    private readonly Vector256<double> hizs;
-
-    /// <summary>Create instance from four finite bounds.</summary>
-    /// <param name="b1">First bounding box.</param>
-    /// <param name="b2">Second bounding box.</param>
-    /// <param name="b3">Third bounding box.</param>
-    /// <param name="b4">Fourth bounding box.</param>
-    public FourBounds(in Bounds b1, in Bounds b2, in Bounds b3, in Bounds b4)
-    {
-        loxs = Vector256.Create(b1.From.X, b2.From.X, b3.From.X, b4.From.X);
-        loys = Vector256.Create(b1.From.Y, b2.From.Y, b3.From.Y, b4.From.Y);
-        lozs = Vector256.Create(b1.From.Z, b2.From.Z, b3.From.Z, b4.From.Z);
-        hixs = Vector256.Create(b1.To.X, b2.To.X, b3.To.X, b4.To.X);
-        hiys = Vector256.Create(b1.To.Y, b2.To.Y, b3.To.Y, b4.To.Y);
-        hizs = Vector256.Create(b1.To.Z, b2.To.Z, b3.To.Z, b4.To.Z);
-    }
+    private readonly Vector256<double> hizs = Vector256.Create(b1.To.Z, b2.To.Z, b3.To.Z, b4.To.Z);
 
     /// <summary>Combined intersection test between a ray and four bounding boxes.</summary>
     /// <param name="ray">Ray to be tested.</param>

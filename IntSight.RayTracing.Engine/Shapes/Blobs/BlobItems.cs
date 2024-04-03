@@ -700,7 +700,7 @@ internal sealed class XPipe : BlobItem, IBlobItem
         Bounds.Create(0.0, -radius, -radius, height, radius, radius) + bottom;
 
     Vector IBounded.Centroid =>
-        new Vector(0.5 * (bottom.X + top.X), bottom.Y, bottom.Z);
+        new(0.5 * (bottom.X + top.X), bottom.Y, bottom.Z);
 
     double IBlobItem.CentroidX => 0.5 * (bottom.X + top.X);
     double IBlobItem.CentroidY => bottom.Y;
@@ -828,7 +828,7 @@ internal sealed class YPipe : BlobItem, IBlobItem
     public Bounds Bounds =>
         Bounds.Create(-radius, 0.0, -radius, radius, height, radius) + bottom;
 
-    Vector IBounded.Centroid => new Vector(bottom.X, 0.5 * (bottom.Y + top.Y), bottom.Z);
+    Vector IBounded.Centroid => new(bottom.X, 0.5 * (bottom.Y + top.Y), bottom.Z);
 
     double IBlobItem.CentroidX => bottom.X;
     double IBlobItem.CentroidY => 0.5 * (bottom.Y + top.Y);

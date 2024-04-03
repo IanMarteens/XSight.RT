@@ -27,8 +27,7 @@ class SillyScanner : ICodeScanner
     #region ICodeScanner Members
 
     bool ICodeScanner.ContainsCommentCharacters(string text) =>
-        text.IndexOf('{') != -1 ||
-        text.IndexOf('}') != -1 || text.IndexOf('/') != -1;
+        text.Contains('{') || text.Contains('}') || text.Contains('/');
 
     bool ICodeScanner.IsCommentCharacter(char ch) => ch == '{' || ch == '}' || ch == '/';
 

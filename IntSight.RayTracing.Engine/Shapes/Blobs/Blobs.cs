@@ -41,8 +41,8 @@ public sealed class Blob : MaterialShape, IShape
         int IComparer<Hit>.Compare(Hit x, Hit y) => x.Time.CompareTo(y.Time);
     }
 
-    private static readonly ItemHitComparer comparer = new ItemHitComparer();
-    private static readonly HitComparer hitComparer = new HitComparer();
+    private static readonly ItemHitComparer comparer = new();
+    private static readonly HitComparer hitComparer = new();
 
     private IBlobItem[] items;
     private BlobUnion blobs;
@@ -96,13 +96,13 @@ public sealed class Blob : MaterialShape, IShape
                         }
                         else
                         {
-                            var t = itemHits[1]; itemHits[1] = itemHits[2]; itemHits[2] = t;
+                            (itemHits[2], itemHits[1]) = (itemHits[1], itemHits[2]);
                         }
                 }
                 else if (itemHits[3].time <= itemHits[0].time)
                 {
-                    var t = itemHits[0]; itemHits[0] = itemHits[2]; itemHits[2] = t;
-                    t = itemHits[1]; itemHits[1] = itemHits[3]; itemHits[3] = t;
+                    (itemHits[2], itemHits[0]) = (itemHits[0], itemHits[2]);
+                    (itemHits[3], itemHits[1]) = (itemHits[1], itemHits[3]);
                 }
                 else if (itemHits[3].time > itemHits[1].time)
                 {
@@ -121,7 +121,7 @@ public sealed class Blob : MaterialShape, IShape
                 break;
         }
 
-        QuarticCoefficients coeffs = new QuarticCoefficients
+        QuarticCoefficients coeffs = new()
         {
             c4 = -threshold
         };
@@ -177,13 +177,13 @@ public sealed class Blob : MaterialShape, IShape
                         }
                         else
                         {
-                            var t = itemHits[1]; itemHits[1] = itemHits[2]; itemHits[2] = t;
+                            (itemHits[2], itemHits[1]) = (itemHits[1], itemHits[2]);
                         }
                 }
                 else if (itemHits[3].time <= itemHits[0].time)
                 {
-                    var t = itemHits[0]; itemHits[0] = itemHits[2]; itemHits[2] = t;
-                    t = itemHits[1]; itemHits[1] = itemHits[3]; itemHits[3] = t;
+                    (itemHits[2], itemHits[0]) = (itemHits[0], itemHits[2]);
+                    (itemHits[3], itemHits[1]) = (itemHits[1], itemHits[3]);
                 }
                 else if (itemHits[3].time > itemHits[1].time)
                 {
@@ -202,7 +202,7 @@ public sealed class Blob : MaterialShape, IShape
                 break;
         }
 
-        QuarticCoefficients coeffs = new QuarticCoefficients
+        QuarticCoefficients coeffs = new()
         {
             c4 = -threshold
         };
@@ -259,13 +259,13 @@ public sealed class Blob : MaterialShape, IShape
         if (total > 1)
             Array.Sort(itemHits, 0, total + 1, comparer);
 
-        QuarticCoefficients coeffs = new QuarticCoefficients
+        QuarticCoefficients coeffs = new()
         {
             c4 = -threshold
         };
         int active = 0, count = 0;
         bool mustSort = false;
-        Solver.Roots roots = new Solver.Roots();
+        Solver.Roots roots = new();
         for (int i = 0; i < total; i++)
         {
             ItemHit hit = itemHits[i];
@@ -311,11 +311,11 @@ public sealed class Blob : MaterialShape, IShape
                         // The middle point is useless and must be discarded.
                         if (roots.R0 > roots.R1)
                         {
-                            double temp = roots.R0; roots.R0 = roots.R1; roots.R1 = temp;
+                            (roots.R1, roots.R0) = (roots.R0, roots.R1);
                         }
                         if (roots.R0 > roots.R2)
                         {
-                            double temp = roots.R0; roots.R0 = roots.R2; roots.R2 = temp;
+                            (roots.R2, roots.R0) = (roots.R0, roots.R2);
                         }
                         if (roots.R1 > roots.R2)
                             roots.R2 = roots.R1;
@@ -418,10 +418,10 @@ public sealed class Blob : MaterialShape, IShape
     /// <returns>This shape, or a new and more efficient equivalent.</returns>
     public override IShape Simplify()
     {
-        List<IBlobItem> newItems = new List<IBlobItem>();
+        List<IBlobItem> newItems = [];
         foreach (IBlobItem item in items)
             item.Simplify(newItems);
-        items = newItems.ToArray();
+        items = [.. newItems];
         itemHits = new ItemHit[2 * items.Length];
         return this;
     }

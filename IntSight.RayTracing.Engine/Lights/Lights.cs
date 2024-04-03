@@ -3,7 +3,10 @@ using static System.Runtime.CompilerServices.Unsafe;
 namespace IntSight.RayTracing.Engine;
 
 /// <summary>A common base class for all lights.</summary>
-public abstract class BaseLight
+/// <remarks>Initializes a base light.</remarks>
+/// <param name="location">Light source's location.</param>
+/// <param name="color">Light's color.</param>
+public abstract class BaseLight(Vector location, Pixel color)
 {
     /// <summary>Last shape to succeed in an occlusion test.</summary>
     [ThreadStatic]
@@ -14,23 +17,14 @@ public abstract class BaseLight
     /// <summary>The root of the scene tree.</summary>
     protected IShape rootShape;
     /// <summary>The color of the light source.</summary>
-    protected readonly Pixel color;
+    protected readonly Pixel color = color;
     /// <summary>Coordinates of the light source.</summary>
-    protected Vector loc;
+    protected Vector loc = location;
     /// <summary>Last occluder for this light.</summary>
     protected IShape occluder;
     /// <summary>Is this light located at the same point as the camera?</summary>
     /// <remarks>When the answer is yes, occlusion testing can be omitted.</remarks>
     protected bool useCameraLocation;
-
-    /// <summary>Initializes a base light.</summary>
-    /// <param name="location">Light source's location.</param>
-    /// <param name="color">Light's color.</param>
-    protected BaseLight(Vector location, Pixel color)
-    {
-        loc = location;
-        this.color = color;
-    }
 
     /// <summary>Gets the location of the light source.</summary>
     public Vector Location => loc;
@@ -79,14 +73,12 @@ public abstract class BaseLight
 }
 
 /// <summary>A point light source.</summary>
+/// <remarks>Creates a point light source.</remarks>
+/// <param name="location">Light's location.</param>
+/// <param name="color">Light's color.</param>
 [XSight(Alias = "Point")]
-public sealed class PointLight : BaseLight, ILight
+public sealed class PointLight(Vector location, Pixel color) : BaseLight(location, color), ILight
 {
-    /// <summary>Creates a point light source.</summary>
-    /// <param name="location">Light's location.</param>
-    /// <param name="color">Light's color.</param>
-    public PointLight(Vector location, Pixel color)
-        : base(location, color) { }
 
     /// <summary>Creates a white point light source.</summary>
     /// <param name="location">Light's location.</param>

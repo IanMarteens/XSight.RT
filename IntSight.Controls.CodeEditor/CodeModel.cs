@@ -11,8 +11,8 @@ public partial class CodeEditor
     {
         private const string CR_LF = "\r\n";
         /// <summary>Characters in whitespace.</summary>
-        private readonly static char[] trimChars = new char[] { ' ', '\t', '\n', '\r' };
-        private readonly static string[] lineSeparators = new string[] { CR_LF };
+        private readonly static char[] trimChars = [' ', '\t', '\n', '\r'];
+        private readonly static string[] lineSeparators = [CR_LF];
 
         /// <summary>
         /// Represents the relationship between lines and multiline comments.
@@ -45,14 +45,14 @@ public partial class CodeEditor
             public LineState State;
 
             public Header(string line, LineState state) =>
-                (this.Line, this.State) = (line, state);
+                (Line, State) = (line, state);
 
             /// <summary>
             /// Initializes a clean line, w/ no multiline comments in its neighborhood.
             /// </summary>
             /// <param name="line">Line text.</param>
             public Header(string line) =>
-                (this.Line, this.State) = (line, LineState.Clean);
+                (Line, State) = (line, LineState.Clean);
 
             public Header(LineState state) : this(string.Empty, state) { }
 
@@ -114,22 +114,22 @@ public partial class CodeEditor
         /// <param name="owner">The editor control.</param>
         public CodeModel(ICodeView owner)
         {
-            this.wrapper = new OperationWrapper(this);
-            this.watchEventArgs = new SelectionChangedEventArgs(
+            wrapper = new OperationWrapper(this);
+            watchEventArgs = new SelectionChangedEventArgs(
                 Position.Zero, Position.Zero);
-            this.defaultScanner = new DefaultScanner();
-            this.scanner = this.defaultScanner;
-            this.view = owner;
-            this.lines = new Header[256];
-            this.capacity = 256;
-            this.lines[0] = Header.Empty;
-            this.lineCount = 1;
-            this.undoList = new Stack<UndoAction>();
-            this.redoList = new Stack<UndoAction>();
-            this.tabLength = 4;
-            this.smartIndentation = true;
-            this.mergeUndoCommands = true;
-            this.bookmarks = new List<int>();
+            defaultScanner = new DefaultScanner();
+            scanner = defaultScanner;
+            view = owner;
+            lines = new Header[256];
+            capacity = 256;
+            lines[0] = Header.Empty;
+            lineCount = 1;
+            undoList = new Stack<UndoAction>();
+            redoList = new Stack<UndoAction>();
+            tabLength = 4;
+            smartIndentation = true;
+            mergeUndoCommands = true;
+            bookmarks = [];
         }
 
         #region ICodeModel document management.
@@ -1111,7 +1111,7 @@ public partial class CodeEditor
                     string line = this[i];
                     if (line.Length == 0)
                     {
-                        exceptions ??= new List<int>();
+                        exceptions ??= [];
                         exceptions.Add(i);
                     }
                     else
@@ -1130,7 +1130,7 @@ public partial class CodeEditor
                 Current = new Position(end.line, end.column - amount);
                 view.Redraw(ln0, ln1);
                 if (exceptions != null)
-                    return exceptions.ToArray();
+                    return [.. exceptions];
             }
             return null;
         }
@@ -1734,19 +1734,9 @@ public partial class CodeEditor
             }
         }
 
-        private sealed class OperationWrapper : IDisposable
+        private sealed class OperationWrapper(CodeEditor.CodeModel model) : IDisposable
         {
-            private readonly CodeModel model;
-
-            public OperationWrapper(CodeModel model)
-            {
-                this.model = model;
-            }
-
-            public void Dispose()
-            {
-                model.CleanWrapper();
-            }
+            public void Dispose() => model.CleanWrapper();
         }
 
         #endregion

@@ -6,39 +6,31 @@ namespace IntSight.RayTracing.Engine;
 /// <remarks>
 /// All public samplers inherit this class. The tracing algorithm is implemented here.
 /// </remarks>
+/// <remarks>Creates a basic sampler with no antialiasing.</remarks>
+/// <param name="bounces">Maximum number of bounces allowed.</param>
+/// <param name="minWeight">Minumum ray intensity allowed.</param>
 [XSight(Alias = "Basic")]
-public class BasicSampler : SamplerBase, ISampler
+[method: Preferred]
+public class BasicSampler(
+    [Proposed("10")] int bounces,
+    [Proposed("0.001")] double minWeight) : SamplerBase, ISampler
 {
     /// <summary>Maximum number of allowed bounces.</summary>
-    protected int bounces;
+    protected int bounces = bounces;
     /// <summary>Lowest bounce counter reached.</summary>
-    protected int lowestBounce;
+    protected int lowestBounce = bounces;
     /// <summary>
     /// Minimum level for tracing an additional ray with diffuse reflections.
     /// </summary>
-    protected readonly int diffuseBounces;
+    protected readonly int diffuseBounces = bounces - Properties.Settings.Default.DiffusionLevels;
     /// <summary>Number of rays hitting the background for a pixel.</summary>
     protected int missingRays;
     /// <summary>Minimum weight allowed for a light ray.</summary>
-    protected float minWeight;
+    protected float minWeight = (float)minWeight;
     /// <summary>Intersection information for tracing primary rays.</summary>
     private HitInfo info;
     /// <summary>A cache for media container nodes.</summary>
     private MediaLink containerCache = new();
-
-    /// <summary>Creates a basic sampler with no antialiasing.</summary>
-    /// <param name="bounces">Maximum number of bounces allowed.</param>
-    /// <param name="minWeight">Minumum ray intensity allowed.</param>
-    [Preferred]
-    public BasicSampler(
-        [Proposed("10")] int bounces,
-        [Proposed("0.001")] double minWeight)
-    {
-        this.bounces = bounces;
-        lowestBounce = bounces;
-        diffuseBounces = bounces - Properties.Settings.Default.DiffusionLevels;
-        this.minWeight = (float)minWeight;
-    }
 
     /// <summary>Creates a basic sampler with no antialiasing.</summary>
     /// <param name="bounces">Maximum number of bounces allowed.</param>

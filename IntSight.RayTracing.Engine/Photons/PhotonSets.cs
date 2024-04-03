@@ -4,29 +4,14 @@
 public sealed partial class PhotonMap
 {
     /// <summary>Implements photon gathering for the irradiance estimator.</summary>
-    public sealed class PhotonSet
+    public sealed class PhotonSet(PhotonMap.Photon[] photons, int storedCount, int maxCount, float maxDistance)
     {
-        private readonly Photon[] photons;
-        private readonly int storedCount;
-        private readonly int maxCount;
-        private readonly float maxDistance;
         private int foundCount;
         private float x, y, z;
         private float nx, ny, nz;
-        private float maxDistance2;
-        public Photon[] found;
-        public float[] dist2;
-
-        public PhotonSet(Photon[] photons, int storedCount, int maxCount, float maxDistance)
-        {
-            this.photons = photons;
-            this.storedCount = storedCount;
-            this.maxCount = maxCount;
-            this.maxDistance = maxDistance;
-            found = new Photon[maxCount];
-            dist2 = new float[maxCount];
-            maxDistance2 = maxDistance * maxDistance;
-        }
+        private float maxDistance2 = maxDistance * maxDistance;
+        public Photon[] found = new Photon[maxCount];
+        public float[] dist2 = new float[maxCount];
 
         public void Locate(in Vector hitPoint, in Vector normal)
         {

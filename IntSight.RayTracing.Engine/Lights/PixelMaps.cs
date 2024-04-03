@@ -54,7 +54,7 @@ public sealed class PixelMap
             pixs[i] = array[i];
         Incremental = true;
         Scene = scene;
-        strips = new[] { new PixelStrip(this, scene, 0, Height - 1) };
+        strips = [new PixelStrip(this, scene, 0, Height - 1)];
     }
 
     internal PixelStrip GetStrip()

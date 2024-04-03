@@ -16,10 +16,7 @@ public partial class FindDialog : FindBase
         }
     }
 
-    protected FindDialog()
-    {
-        InitializeComponent();
-    }
+    protected FindDialog() => InitializeComponent();
 
     public FindDialog(CodeEditor editor, EventHandler<FindCompleteEventArgs> findComplete)
         : base(editor, findComplete)
@@ -28,11 +25,7 @@ public partial class FindDialog : FindBase
         RestoreValues();
     }
 
-    public static void Shutdown()
-    {
-        if (instance != null)
-            instance.Close();
-    }
+    public static void Shutdown() => instance?.Close();
 
     private void FindDialog_FormClosed(object sender, FormClosedEventArgs e)
     {

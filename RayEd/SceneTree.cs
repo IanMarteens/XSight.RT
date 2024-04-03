@@ -5,18 +5,11 @@ namespace RayEd;
 
 public partial class SceneTree : UserControl
 {
-    private sealed class ShapeInfo
+    private sealed class ShapeInfo(string boundsStr)
     {
         public static int Current;
-
-        public ShapeInfo(string boundsStr)
-        {
-            AbsoluteIndex = Current++;
-            BoundsStr = boundsStr ?? string.Empty;
-        }
-
-        public int AbsoluteIndex;
-        public string BoundsStr;
+        public int AbsoluteIndex = Current++;
+        public string BoundsStr = boundsStr ?? string.Empty;
     }
 
     private IScene scene;
@@ -342,7 +335,7 @@ public partial class SceneTree : UserControl
         }
     }
 
-    private bool TopExpand(TreeNode treeNode)
+    private static bool TopExpand(TreeNode treeNode)
     {
         if (!unionNames.Contains(treeNode.Text))
             return false;

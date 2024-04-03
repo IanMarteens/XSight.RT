@@ -17,19 +17,13 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
     private static readonly Cursor inverseArrow =
         new(typeof(CodeEditor), "InverseArrow.cur");
 
-    public struct Position : IComparable<Position>, IEquatable<Position>
+    public struct Position(int line, int column) : IComparable<Position>, IEquatable<Position>
     {
         public static readonly Position Zero;
         public static readonly Position Infinite =
             new(int.MaxValue, int.MaxValue);
 
-        internal int line, column;
-
-        public Position(int line, int column)
-        {
-            this.line = line;
-            this.column = column < 0 ? 0 : column;
-        }
+        internal int line = line, column = column < 0 ? 0 : column;
 
         public int Line
         { 
@@ -141,8 +135,8 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
     private ToolTip toolTip;
     private readonly Dictionary<char, string[]> triggers;
 
-    private static readonly Keys[] inputKeys = new Keys[]
-    {
+    private static readonly Keys[] inputKeys =
+    [
         Keys.Down, Keys.Up, Keys.Right, Keys.Left,
         Keys.Home, Keys.End, Keys.PageDown, Keys.PageUp,
         Keys.Back, Keys.Delete, Keys.Enter,
@@ -150,7 +144,7 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
         Keys.Up | Keys.Shift, Keys.Down | Keys.Shift,
         Keys.Home | Keys.Shift, Keys.End | Keys.Shift,
         Keys.Tab, Keys.Tab | Keys.Shift
-    };
+    ];
 
     /// <summary>Creates a code editor instance.</summary>
     public CodeEditor()
@@ -466,15 +460,15 @@ public partial class CodeEditor : Control, ICodeView, ICodeSnippetCallback
         {
             trigger = trigger.ToLowerInvariant();
             char key = trigger[^1];
-            if (triggers.ContainsKey(key))
+            if (triggers.TryGetValue(key, out string[] value))
             {
-                string[] list = triggers[key];
+                string[] list = value;
                 Array.Resize(ref list, list.Length + 1);
                 list[^1] = trigger;
                 triggers[key] = list;
             }
             else
-                triggers.Add(key, new string[] { trigger });
+                triggers.Add(key, [trigger]);
         }
     }
 

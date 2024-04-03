@@ -17,15 +17,9 @@ namespace RayEd
             }
         }
 
-        public static void Shutdown()
-        {
-            instance?.Close();
-        }
+        public static void Shutdown() => instance?.Close();
 
-        protected ReplaceDialog()
-        {
-            InitializeComponent();
-        }
+        protected ReplaceDialog() => InitializeComponent();
 
         private ReplaceDialog(CodeEditor editor, EventHandler<FindCompleteEventArgs> findComplete)
             : base(editor, findComplete)
@@ -59,7 +53,7 @@ namespace RayEd
             replaceCombo.Text = settings.ReplaceText;
             replaceCombo.Items.Clear();
             if (settings.ReplaceItems == null)
-                settings.ReplaceItems = new StringCollection();
+                settings.ReplaceItems = [];
             else
                 foreach (string value in settings.ReplaceItems)
                     replaceCombo.Items.Add(value);

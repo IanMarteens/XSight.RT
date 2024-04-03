@@ -89,11 +89,9 @@ internal sealed class AstNumber : AstValue, IAstValue
     #endregion
 }
 
-internal sealed class AstString : AstValue, IAstValue
+internal sealed class AstString(object value) : AstValue, IAstValue
 {
-    private readonly string value;
-
-    public AstString(object value) => this.value = StripString(value.ToString());
+    private readonly string value = StripString(value.ToString());
 
     public static string StripString(string s)
     {
@@ -162,11 +160,9 @@ internal sealed class AstVector : AstValue, IAstValue
     #endregion
 }
 
-internal sealed class AstVectorConstant : AstValue, IAstValue
+internal sealed class AstVectorConstant(double x, double y, double z) : AstValue, IAstValue
 {
-    private Vector value;
-
-    public AstVectorConstant(double x, double y, double z) => value = new(x, y, z);
+    private Vector value = new(x, y, z);
 
     public AstVectorConstant Multiply(double factor)
     {
@@ -546,25 +542,19 @@ internal sealed class AstSplinePoint : IAstNode
     #endregion
 }
 
-internal sealed class AstSpline : AstValue, IAstValue
+internal sealed class AstSpline(object parameters, ITimeProvider timeProvider) : AstValue, IAstValue
 {
-    private List<AstSplinePoint> parameters;
+    private List<AstSplinePoint> parameters = (List<AstSplinePoint>)parameters;
     private Type baseType;
-    private readonly ITimeProvider timeProvider;
+    private readonly ITimeProvider timeProvider = timeProvider;
     private bool hasTime;
-
-    public AstSpline(object parameters, ITimeProvider timeProvider)
-    {
-        this.parameters = (List<AstSplinePoint>)parameters;
-        this.timeProvider = timeProvider;
-    }
 
     #region IAstValue members
 
     IAstValue IAstValue.Clone()
     {
         AstSpline other = (AstSpline)MemberwiseClone();
-        other.parameters = new List<AstSplinePoint>();
+        other.parameters = [];
         foreach (AstSplinePoint p in parameters)
             other.parameters.Add(p.Clone());
         return other;

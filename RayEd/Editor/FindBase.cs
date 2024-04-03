@@ -8,10 +8,7 @@ public partial class FindBase : Form
     protected EventHandler<FindCompleteEventArgs> findComplete;
     protected CodeEditor editor;
 
-    protected FindBase()
-    {
-        InitializeComponent();
-    }
+    protected FindBase() => InitializeComponent();
 
     public FindBase(CodeEditor editor, EventHandler<FindCompleteEventArgs> findComplete)
     {
@@ -23,10 +20,8 @@ public partial class FindBase : Form
         this.findComplete = findComplete;
     }
 
-    protected virtual void OnFindComplete(FindCompleteEventArgs e)
-    {
+    protected virtual void OnFindComplete(FindCompleteEventArgs e) =>
         findComplete?.Invoke(this, e);
-    }
 
     protected virtual void SaveValues()
     {
@@ -58,7 +53,7 @@ public partial class FindBase : Form
         }
         textCombo.Items.Clear();
         if (settings.FindItems == null)
-            settings.FindItems = new StringCollection();
+            settings.FindItems = [];
         else
             foreach (string value in settings.FindItems)
                 textCombo.Items.Add(value);

@@ -57,11 +57,9 @@ public partial class SceneWizard : Form
         }
     }
 
-    internal class TypeItem
+    internal class TypeItem(Type type)
     {
-        public TypeItem(Type type) => Type = type;
-
-        public Type Type { get; }
+        public Type Type { get; } = type;
 
         public override string ToString() => Type.Name;
     }

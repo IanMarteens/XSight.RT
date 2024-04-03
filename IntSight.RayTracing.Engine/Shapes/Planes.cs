@@ -218,11 +218,9 @@ internal abstract class PlaneBase : MaterialShape
 }
 
 [Properties(nameof(offset), nameof(material))]
-internal sealed class XPlane : PlaneBase, IShape
+internal sealed class XPlane(double offset, IMaterial material) :
+    PlaneBase(Vector.XRay, offset, material), IShape
 {
-    public XPlane(double offset, IMaterial material)
-        : base(Vector.XRay, offset, material) { }
-
     #region IShape members.
 
     /// <summary>Checks whether a given ray intersects the shape.</summary>
@@ -294,7 +292,7 @@ internal sealed class XPlane : PlaneBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape p = new XPlane(offset, m);
+            XPlane p = new(offset, m);
             if (negated) p.Negate();
             return p;
         }
@@ -306,11 +304,9 @@ internal sealed class XPlane : PlaneBase, IShape
 }
 
 [Properties(nameof(offset), nameof(material))]
-internal sealed class YPlane : PlaneBase, IShape
+internal sealed class YPlane(double offset, IMaterial material) :
+    PlaneBase(Vector.YRay, offset, material), IShape
 {
-    public YPlane(double offset, IMaterial material)
-        : base(Vector.YRay, offset, material) { }
-
     #region IShape members.
 
     /// <summary>Checks whether a given ray intersects the shape.</summary>
@@ -382,7 +378,7 @@ internal sealed class YPlane : PlaneBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape p = new YPlane(offset, m);
+            YPlane p = new(offset, m);
             if (negated) p.Negate();
             return p;
         }
@@ -394,11 +390,9 @@ internal sealed class YPlane : PlaneBase, IShape
 }
 
 [Properties(nameof(offset), nameof(material))]
-internal sealed class ZPlane : PlaneBase, IShape
+internal sealed class ZPlane(double offset, IMaterial material) :
+    PlaneBase(Vector.ZRay, offset, material), IShape
 {
-    public ZPlane(double offset, IMaterial material)
-        : base(Vector.ZRay, offset, material) { }
-
     #region IShape members.
 
     /// <summary>Checks whether a given ray intersects the shape.</summary>
@@ -470,7 +464,7 @@ internal sealed class ZPlane : PlaneBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape p = new ZPlane(offset, m);
+            ZPlane p = new(offset, m);
             if (negated) p.Negate();
             return p;
         }

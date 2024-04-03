@@ -46,7 +46,7 @@ public static partial class FontInfo
     /// <returns>A list with monospaced font names.</returns>
     public static string[] GetMonospacedFonts(this IntPtr formHandle)
     {
-        List<string> result = new();
+        List<string> result = [];
         IntPtr dc = GetDC(formHandle);
         try
         {
@@ -65,7 +65,7 @@ public static partial class FontInfo
         {
             _ = ReleaseDC(formHandle, dc);
         }
-        return result.ToArray();
+        return [.. result];
     }
 
     public static bool IsMonospaced(Form form, string fontName)

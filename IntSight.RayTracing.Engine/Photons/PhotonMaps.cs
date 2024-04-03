@@ -92,26 +92,18 @@ public sealed partial class PhotonMap
         if (left < right)
         {
             int j = (left + right) / 2;
-            Photon temp = photons[j];
-            photons[j] = photons[left + 1];
-            photons[left + 1] = temp;
+            (photons[left + 1], photons[j]) = (photons[j], photons[left + 1]);
             if (photons[left + 1].x > photons[right].x)
             {
-                temp = photons[left + 1];
-                photons[left + 1] = photons[right];
-                photons[right] = temp;
+                (photons[right], photons[left + 1]) = (photons[left + 1], photons[right]);
             }
             if (photons[left].x > photons[right].x)
             {
-                temp = photons[left];
-                photons[left] = photons[right];
-                photons[right] = temp;
+                (photons[right], photons[left]) = (photons[left], photons[right]);
             }
             if (photons[left + 1].x > photons[left].x)
             {
-                temp = photons[left + 1];
-                photons[left + 1] = photons[left];
-                photons[left] = temp;
+                (photons[left], photons[left + 1]) = (photons[left + 1], photons[left]);
             }
             j = left + 1;
             int k = right;
@@ -122,10 +114,10 @@ public sealed partial class PhotonMap
                 for (k--; k >= left && photons[k].x > v; k--) ;
                 if (j < k)
                 {
-                    temp = photons[j]; photons[j] = photons[k]; photons[k] = temp;
+                    (photons[k], photons[j]) = (photons[j], photons[k]);
                 }
             }
-            temp = photons[left]; photons[left] = photons[k]; photons[k] = temp;
+            (photons[k], photons[left]) = (photons[left], photons[k]);
             if (k - left > 0 && middle >= left && middle < k)
                 HalfSortX(left, k - 1, middle);
             else if (right - k > 0 && middle > k && middle <= right)
@@ -142,7 +134,8 @@ public sealed partial class PhotonMap
         if (left < right)
         {
             int j = (left + right) / 2;
-            Photon temp = photons[j];
+            Photon temp;
+            temp = photons[j];
             photons[j] = photons[left + 1];
             photons[left + 1] = temp;
             if (photons[left + 1].y > photons[right].y)
@@ -192,26 +185,18 @@ public sealed partial class PhotonMap
         if (left < right)
         {
             int j = (left + right) / 2;
-            Photon temp = photons[j];
-            photons[j] = photons[left + 1];
-            photons[left + 1] = temp;
+            (photons[left + 1], photons[j]) = (photons[j], photons[left + 1]);
             if (photons[left + 1].z > photons[right].z)
             {
-                temp = photons[left + 1];
-                photons[left + 1] = photons[right];
-                photons[right] = temp;
+                (photons[right], photons[left + 1]) = (photons[left + 1], photons[right]);
             }
             if (photons[left].z > photons[right].z)
             {
-                temp = photons[left];
-                photons[left] = photons[right];
-                photons[right] = temp;
+                (photons[right], photons[left]) = (photons[left], photons[right]);
             }
             if (photons[left + 1].z > photons[left].z)
             {
-                temp = photons[left + 1];
-                photons[left + 1] = photons[left];
-                photons[left] = temp;
+                (photons[left], photons[left + 1]) = (photons[left + 1], photons[left]);
             }
             j = left + 1;
             int k = right;
@@ -222,10 +207,10 @@ public sealed partial class PhotonMap
                 for (k--; k >= left && photons[k].z > v; k--) ;
                 if (j < k)
                 {
-                    temp = photons[j]; photons[j] = photons[k]; photons[k] = temp;
+                    (photons[k], photons[j]) = (photons[j], photons[k]);
                 }
             }
-            temp = photons[left]; photons[left] = photons[k]; photons[k] = temp;
+            (photons[k], photons[left]) = (photons[left], photons[k]);
             if (k - left > 0 && middle >= left && middle < k)
                 HalfSortZ(left, k - 1, middle);
             else if (right - k > 0 && middle > k && middle <= right)

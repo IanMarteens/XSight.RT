@@ -51,7 +51,7 @@ public sealed class Scene : IScene
                 var photonParameters = lights[idx] as Photons;
                 var list = new List<ILight>(lights);
                 list.RemoveAt(idx);
-                Lights = list.ToArray();
+                Lights = [.. list];
                 Photons = new PhotonMap(
                     photonParameters.TotalPhotons,
                     photonParameters.GatherCount);

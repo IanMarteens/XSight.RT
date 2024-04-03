@@ -22,26 +22,20 @@ public sealed class PreferredAttribute : Attribute
 }
 
 [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false)]
-public sealed class ProposedAttribute : Attribute
+public sealed class ProposedAttribute(string defaultValue) : Attribute
 {
-    public ProposedAttribute(string defaultValue) => DefaultValue = defaultValue;
-
-    public string DefaultValue { get; }
+    public string DefaultValue { get; } = defaultValue;
 }
 
 /// <summary>Specifies which properties must be saved in an XML dump.</summary>
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class PropertiesAttribute : Attribute
+public sealed class PropertiesAttribute(params string[] names) : Attribute
 {
-    public PropertiesAttribute(params string[] names) => Names = names ?? Array.Empty<string>();
-
-    public string[] Names { get; }
+    public string[] Names { get; } = names ?? [];
 }
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class ChildrenAttribute : Attribute
+public sealed class ChildrenAttribute(params string[] names) : Attribute
 {
-    public ChildrenAttribute(params string[] names) => Names = names ?? Array.Empty<string>();
-
-    public string[] Names { get; }
+    public string[] Names { get; } = names ?? [];
 }

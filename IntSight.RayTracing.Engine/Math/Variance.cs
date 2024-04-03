@@ -30,7 +30,7 @@ public struct VarianceTest
     /// <param name="alphaHits">Number of missing rays.</param>
     /// <returns>The resulting color, including the transparence channel.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public TransPixel ToColor(int alphaHits)
+    public readonly TransPixel ToColor(int alphaHits)
     {
         float f = 255.0F / Samples;
         var (r, g, b) = sm * f;

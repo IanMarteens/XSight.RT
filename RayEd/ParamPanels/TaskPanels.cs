@@ -8,7 +8,7 @@ public class TaskPanel : Panel
 {
     private readonly VisualStyleRenderer renderer;
     private readonly CollapseButton button;
-    private readonly System.Windows.Forms.Timer timer;
+    private readonly Timer timer;
     private int oldHeight;
     private int accelerator;
     private bool collapsed;

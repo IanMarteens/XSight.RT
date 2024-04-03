@@ -167,14 +167,12 @@ public abstract class Shape
 /// Not all shapes are "material" shapes.
 /// Unions and Euclidean transforms, for instances, have no associated material.
 /// </remarks>
-public abstract class MaterialShape : Shape
+/// <remarks>Initializes a material shape.</remarks>
+/// <param name="material">Shape's material.</param>
+public abstract class MaterialShape(IMaterial material) : Shape
 {
     /// <summary>Shape's material.</summary>
-    protected IMaterial material;
-
-    /// <summary>Initializes a material shape.</summary>
-    /// <param name="material">Shape's material.</param>
-    protected MaterialShape(IMaterial material) => this.material = material;
+    protected IMaterial material = material;
 
     /// <summary>Gets the material this shape is made of.</summary>
     public IMaterial Material => material;

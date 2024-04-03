@@ -6,16 +6,13 @@ namespace IntSight.RayTracing.Engine;
 [XSight]
 [Properties(nameof(radius), nameof(SquaredRadius), nameof(bottom), nameof(top),
     nameof(Centroid), nameof(material))]
-public sealed class Cone : LinearSoR, IShape
+public sealed class Cone(
+    [Proposed("[0,0,0]")] Vector bottom,
+    [Proposed("[0,1,0]")] Vector top,
+    [Proposed("1")] double radius,
+    IMaterial material) : LinearSoR(bottom, top, radius, material), IShape
 {
     private double h2, rh, rh2;
-
-    public Cone(
-        [Proposed("[0,0,0]")] Vector bottom,
-        [Proposed("[0,1,0]")] Vector top,
-        [Proposed("1")] double radius,
-        IMaterial material)
-        : base(bottom, top, radius, material) { }
 
     public Cone(
         [Proposed("[0,0,0]")] Vector bottom,
@@ -250,7 +247,7 @@ public sealed class Cone : LinearSoR, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape c = new Cone(bottom, top, radius, m);
+            Cone c = new(bottom, top, radius, m);
             if (negated)
                 c.Negate();
             return c;
