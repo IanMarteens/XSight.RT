@@ -369,7 +369,7 @@ public partial class MainForm : Form
         }
     }
 
-    private static Image CreateImg(Color color)
+    private static Bitmap CreateImg(Color color)
     {
         Bitmap bmp = new(16, 16);
         using (var g = Graphics.FromImage(bmp))
@@ -619,7 +619,7 @@ public partial class MainForm : Form
         statusLabel.Text = Rsc.RenderCompiling;
         statusStrip.Update();
         int parsingTime = Environment.TickCount;
-        IDocument document = new CodeEditorDocument(codeEditor);
+        CodeEditorDocument document = new(codeEditor);
         AstScene scene = AstBuilder.Parse(
             document.Open(), paramsPanel.Clock, out parseErrors);
         parsingTime = Environment.TickCount - parsingTime;
