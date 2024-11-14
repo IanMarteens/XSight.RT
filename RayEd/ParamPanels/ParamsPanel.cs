@@ -20,14 +20,17 @@ public partial class ParamsPanel : UserControl
         ShowRotationAngle();
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     [Browsable(false)]
     public RenderProcessor RenderProcessor { get; set; }
 
     /// <summary>Number of samples taken for motion blur.</summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     [Browsable(false)]
     public int Samples => Convert.ToInt32(udSamples.Value);
 
     /// <summary>Size of the sampled area, in time units.</summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     [Browsable(false)]
     public double SamplingWidth => Convert.ToDouble(udWidth.Value);
 

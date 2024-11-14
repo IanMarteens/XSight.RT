@@ -21,6 +21,7 @@ public class EditorDocument : PrintDocument
         LineNumbers = true;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     [Browsable(true)]
     [Description("The code editor providing the content to be printed.")]
     public CodeEditor Editor { get; set; }

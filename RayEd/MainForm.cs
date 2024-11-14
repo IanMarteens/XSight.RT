@@ -59,8 +59,10 @@ public partial class MainForm : Form
     }
 
     /// <summary>Gets the singleton instance of this window.</summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public static MainForm Instance { get; private set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int VisualStyle
     {
         get => visualStyle;

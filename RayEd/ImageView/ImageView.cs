@@ -2,7 +2,9 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace RayEd;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>Displays an image, with zoom and scrolling support.</summary>
 public class ImageView : Control
@@ -236,6 +238,7 @@ public class ImageView : Control
     }
 
     /// <summary>Gets or sets the current zoom factor.</summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     [Browsable(false)]
     [Category("Behavior")]
     [Description("The current zoom factor.")]
@@ -315,6 +318,7 @@ public class ImageView : Control
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     [Browsable(false)]
     public override Image BackgroundImage
     {
@@ -323,6 +327,7 @@ public class ImageView : Control
     }
 
     /// <summary>Gets or sets the background image layout.</summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     [Browsable(false)]
     public override ImageLayout BackgroundImageLayout
     {

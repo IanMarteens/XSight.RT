@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <Version>2.6.0</Version>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <Version>2.9.0</Version>
     <Configurations>Debug;Release;ReleaseSSE</Configurations>
   </PropertyGroup>
 
@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="8.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

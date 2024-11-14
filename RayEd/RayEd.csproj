@@ -2,15 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <TieredCompilation>true</TieredCompilation>
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRun>false</PublishReadyToRun>
 	<PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
-	<!--<TieredCompilation>true</TieredCompilation>
-	<TieredCompilationQuickJit>true</TieredCompilationQuickJit>
-	<TieredCompilationQuickJitForLoops>true</TieredCompilationQuickJitForLoops>-->
-	<Version>2.7.0</Version>
+	<Version>2.9.0</Version>
     <Authors>Ian Marteens</Authors>
     <Company>Intuitive Sight</Company>
     <Product>XSight Ray Tracer</Product>

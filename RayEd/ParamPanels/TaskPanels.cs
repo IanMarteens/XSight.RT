@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms.VisualStyles;
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace RayEd;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>Collapsible panels for task panels.</summary>
 public class TaskPanel : Panel
@@ -49,6 +51,7 @@ public class TaskPanel : Panel
     }
 
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public override string Text
     {
         get => button.Text;
@@ -135,6 +138,7 @@ public class TaskPanel : Panel
 
         void IButtonControl.PerformClick() => OnClick(EventArgs.Empty);
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Collapsed
         {
             get => collapsed;

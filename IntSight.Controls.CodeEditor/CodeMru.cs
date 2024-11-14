@@ -9,7 +9,7 @@ public class MruFileList : Component, ISupportInitialize
 {
     private const int DefaultCapacity = 8;
 
-    private readonly List<string> fileList = new();
+    private readonly List<string> fileList = [];
     private string keyName = string.Empty;
     private string valueName = string.Empty;
     private int capacity = DefaultCapacity;
@@ -48,6 +48,7 @@ public class MruFileList : Component, ISupportInitialize
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     [Browsable(true)]
     public string KeyName
     {
@@ -59,6 +60,7 @@ public class MruFileList : Component, ISupportInitialize
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     [Browsable(true)]
     public ToolStripMenuItem MenuItem
     {
@@ -76,6 +78,7 @@ public class MruFileList : Component, ISupportInitialize
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     [Browsable(true)]
     public string ValueName
     {
@@ -227,14 +230,8 @@ public class MruFileList : Component, ISupportInitialize
 
 public delegate void MruFileListEventHandler(object sender, MruFileListEventArgs e);
 
-public class MruFileListEventArgs : EventArgs
+public class MruFileListEventArgs(string fileName, object data) : EventArgs
 {
-    public MruFileListEventArgs(string fileName, object data)
-    {
-        FileName = fileName;
-        Data = data;
-    }
-
-    public string FileName { get; }
-    public object Data { get; }
+    public string FileName { get; } = fileName;
+    public object Data { get; } = data;
 }
