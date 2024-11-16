@@ -14,8 +14,7 @@ public static class Benchmark
     }
 
     public static List<BenchmarkId> GetBenchmarks() =>
-        new()
-        {
+        [
             new BenchmarkId
             {
                 Id = -1, Description = "All",
@@ -41,7 +40,7 @@ public static class Benchmark
                 Id = 3, Description = "Blobs",
                 Remarks = "Adaptive sampling, perspective camera, blobs"
             },
-        };
+        ];
 
     public static IScene GetScene(int benchmarkId, int downScale) =>
         benchmarkId switch
@@ -80,13 +79,13 @@ public static class Benchmark
         GetScene(benchmarkId, downScale)?.Render(
             RenderMode.Normal, true, null).ToBitmap() ?? null;
 
-    private static IShape Spin(this IShape shape, double x, double y, double z) =>
-        new Rotate(shape, x, y, z);
+    private static Rotate Spin(this IShape shape, double x, double y, double z) =>
+        new(shape, x, y, z);
 
-    private static IShape Move(this IShape shape, double x, double y, double z) =>
-        new Translate(shape, x, y, z);
+    private static Translate Move(this IShape shape, double x, double y, double z) =>
+        new(shape, x, y, z);
 
-    private static IScene CreateSphlakes(int downScale)
+    private static Scene CreateSphlakes(int downScale)
     {
         IShape shapes =
             SphlakePiece(25.00, 34.22, Color.MidnightBlue,
@@ -95,7 +94,7 @@ public static class Benchmark
             SphlakePiece(1.27, 1.74, Color.SlateGray,
             SphlakePiece(0.40, 0.55, Color.SeaShell,
             new Sphere(Vector.Null, 0.15, new Metal(Color.Lavender, 0.75, 0.90)))))));
-        return new Scene(Properties.Resources.BenchmarkSphlakes,
+        return new(Properties.Resources.BenchmarkSphlakes,
             new AdaptiveSampler(25, 0.0001, 3, 6),
             new PerspectiveCamera(
                 location: new(100, 120, 20), 
@@ -104,19 +103,18 @@ public static class Benchmark
                 angle: 85,
                 width: 640 / downScale,
                 height: 480 / downScale),
-            new ILight[]
-            {
+            [
                 new PointLight(new(0, 200, -100), new(0.05F)),
                 new SphericLight(new(110, -50, 80), 4, new(0.4F), 9),
-            },
+            ],
             new ConstantAmbient(0.1),
             new FlatBackground(Color.Black, new(0, 0, 0.2), new(0, 1, 0.5)),
             null,
             shapes.Spin(10, 20, -10).Move(110, 125, 100));
     }
 
-    private static IScene CreateMeridians(int downScale) =>
-        new Scene(Properties.Resources.BenchmarkMeridians,
+    private static Scene CreateMeridians(int downScale) =>
+        new(Properties.Resources.BenchmarkMeridians,
             new FocalSampler(12, 0.0001, 0.05, 6),
             new PerspectiveCamera(
                 location: new(1.2, 1.2, -10),
@@ -125,19 +123,19 @@ public static class Benchmark
                 angle: 65,
                 width: 640 / downScale,
                 height: 480 / downScale),
-            new ILight[] { new PointLight() },
+            [new PointLight()],
             new ConstantAmbient(0.1),
             new FlatBackground(Color.White),
             null,
             MeridianRoot());
 
-    private static IScene CreateWater(int downScale) =>
-        new Scene(Properties.Resources.BenchmarkWater,
+    private static Scene CreateWater(int downScale) =>
+        new(Properties.Resources.BenchmarkWater,
             new FocalSampler(90, 0.0001, 0.10, 4),
             new CylindricalCamera(
                 new(0, 0, -8), Vector.Null, Vector.YRay, 60, 
                 640 / downScale, 480 / downScale),
-            new ILight[] { new PointLight() },
+            [new PointLight()],
             new ConstantAmbient(0.1),
             new SkyBackground(Color.RoyalBlue, Color.White),
             null,
@@ -154,34 +152,32 @@ public static class Benchmark
                 new Cylinder(new(-1, -1.7, 0), new Vector(1.95, 2.45, 0), 0.1,
                     new Plastic(Color.White))));
 
-    private static IScene CreateBlobs(int downScale) =>
-        new Scene("Blobs",
+    private static Scene CreateBlobs(int downScale) =>
+        new("Blobs",
             new AdaptiveSampler(6, 0.001, 2, 6),
             new PerspectiveCamera(
                 new(0, 0, -5), Vector.Null, Vector.YRay, 40,
                 640 / downScale, 480 / downScale),
-            new ILight[]
-            {
+            [
                 new PointLight(-15, 30, -25),
                 new PointLight(+15, 30, -25)
-            },
+            ],
             new ComboAmbient(
                 new ConstantAmbient(0.1),
                 new LocalAmbient(Vector.Null, new(0.7F), 0.4)),
             new FlatBackground(new Pixel(0, 0, 0.2)),
             null,
             new Blob(
-                new IBlobItem[]
-                {
+                [
                     new Ball(new(0.75, 0, 0), 1),
                     new Ball(new(-0.375, +0.64952, 0), 1),
                     new Ball(new(-0.375, -0.64952, 0), 1)
-                },
+                ],
                 0.6,
                 new Metal(Color.Gold, 0, 0.1, 0.1, 1, 12)).Spin(-15, 0, 0).Spin(0, 45, 0));
 
-    private static IShape SphlakePiece(double rad, double radp, Color color, IShape sat) =>
-        new Union(
+    private static Union SphlakePiece(double rad, double radp, Color color, IShape sat) =>
+        new(
             new Sphere(Vector.Null, rad, new Metal(color, 0.75, 0.90)),
             sat.Clone(true).Spin(0, 0, +90).Move(-radp, 0, 0),
             sat.Clone(true).Spin(0, 0, -90).Move(+radp, 0, 0),
@@ -190,14 +186,14 @@ public static class Benchmark
             sat.Clone(true).Spin(-90, 0, 0).Move(0, 0, -radp),
             sat.Clone(true).Spin(+90, 0, 0).Move(0, 0, +radp));
 
-    private static IShape MeridianBase(double r0, double r1, IMaterial m) =>
-        new Union(
+    private static Union MeridianBase(double r0, double r1, Metal m) =>
+        new(
             new Torus(Vector.Null, r0, r1, m.Clone(true)),
             new Torus(Vector.Null, r0, r1, m.Clone(true)).Spin(90, 0, 0),
             new Torus(Vector.Null, r0, r1, m.Clone(true)).Spin(0, 0, 90));
 
-    private static IShape MeridianEnsemble(double amt, IShape shape) =>
-        new Union(
+    private static Union MeridianEnsemble(double amt, IShape shape) =>
+        new(
             shape.Clone(true).Move(+amt, 0, 0),
             shape.Clone(true).Move(-amt, 0, 0),
             shape.Clone(true).Move(0, +amt, 0),
@@ -205,8 +201,8 @@ public static class Benchmark
             shape.Clone(true).Move(0, 0, +amt),
             shape.Clone(true).Move(0, 0, -amt));
 
-    private static IShape MeridianRoot() =>
-        new Union(
+    private static Union MeridianRoot() =>
+        new(
             MeridianBase(4.1, 0.1,
                 new Metal(Color.Silver, 0.06, 0.08, 0.9, 0.6, 10)),
             MeridianEnsemble(2,

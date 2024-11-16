@@ -122,7 +122,7 @@ internal sealed class Union2F : UnionBase, IShape
     /// <param name="force">True when a new copy is needed.</param>
     /// <returns>The new shape.</returns>
     IShape ITransformable.Clone(bool force) =>
-        new Union2F(new[] { shape0.Clone(force), shape1.Clone(force) });
+        new Union2F([shape0.Clone(force), shape1.Clone(force)]);
 
     #endregion
 }
@@ -241,10 +241,10 @@ internal sealed class Union4F : UnionBase, IShape
     /// <param name="force">True when a new copy is needed.</param>
     /// <returns>The new shape.</returns>
     IShape ITransformable.Clone(bool force) =>
-        new Union4F(new[] { 
+        new Union4F([ 
             shape0.Clone(force), shape1.Clone(force),
             shape2.Clone(force), shape3.Clone(force)
-        });
+        ]);
 
     #endregion
 }

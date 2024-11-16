@@ -32,7 +32,7 @@ namespace IntSight.RayTracing.Engine
         public static FastBounds Create(
             double x0, double y0, double z0,
             double x1, double y1, double z1) =>
-            new FastBounds(Vector256.Create(x0, y0, z0, 0), Vector256.Create(x1, y1, z1, 0));
+            new(Vector256.Create(x0, y0, z0, 0), Vector256.Create(x1, y1, z1, 0));
 
         /// <summary>Initializes a bounding box from a sphere.</summary>
         /// <param name="center">Sphere's center.</param>

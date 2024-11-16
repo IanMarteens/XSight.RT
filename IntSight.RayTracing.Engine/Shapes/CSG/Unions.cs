@@ -804,7 +804,7 @@ internal sealed class Union2(IShape[] shapes) : UnionBase(shapes, true, true), I
 [Properties(nameof(checkBounds))]
 [Children(nameof(shape0), nameof(shape1), nameof(shape2))]
 internal sealed class Union3(IShape shape0, IShape shape1, IShape shape2) :
-    UnionBase(new[] { shape0, shape1, shape2 }, true, true), IShape
+    UnionBase([shape0, shape1, shape2], true, true), IShape
 {
     private IShape shape0, shape1, shape2;
     private Hit[] hits0, hits1;

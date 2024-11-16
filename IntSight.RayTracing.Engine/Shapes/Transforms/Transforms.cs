@@ -3,16 +3,14 @@ using System.Diagnostics.CodeAnalysis;
 namespace IntSight.RayTracing.Engine;
 
 /// <summary>Common base class for all transformations.</summary>
-public abstract class TransformBase : Shape, ITransform
+/// <remarks>Initializes the transformation.</remarks>
+/// <param name="original">Original shape.</param>
+public abstract class TransformBase(IShape original) : Shape, ITransform
 {
     /// <summary>The transformed ray.</summary>
     protected readonly Ray testRay = new();
     /// <summary>Shape to be transformed.</summary>
-    protected IShape original;
-
-    /// <summary>Initializes the transformation.</summary>
-    /// <param name="original">Original shape.</param>
-    protected TransformBase(IShape original) => this.original = original;
+    protected IShape original = original;
 
     /// <summary>Gets the original shape.</summary>
     public IShape Original => original;

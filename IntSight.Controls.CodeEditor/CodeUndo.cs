@@ -38,12 +38,10 @@ public partial class CodeEditor
         public abstract int ByteCost { get; }
     }
 
-    private sealed class DeleteAction : UndoAction
+    private sealed class DeleteAction(CodeEditor.Position start, CodeEditor.Position end, string text)
+        : UndoAction(start, end)
     {
-        private string text;
-
-        public DeleteAction(Position start, Position end, string text)
-            : base(start, end) => this.text = text;
+        private string text = text;
 
         public bool MatchesInsertion(Position iEnd) =>
             iEnd.Equals(end) && start.line == end.line && start.column == end.column - 1;
@@ -80,20 +78,9 @@ public partial class CodeEditor
         public override int ByteCost => 20 + text.Length;
     }
 
-    private sealed class DragMoveAction : UndoAction
+    private sealed class DragMoveAction(CodeEditor.Position start, CodeEditor.Position end,
+        CodeEditor.Position startText, CodeEditor.Position endText, string text) : UndoAction(start, end)
     {
-        private readonly string text;
-        private Position startText, endText;
-
-        public DragMoveAction(Position start, Position end,
-            Position startText, Position endText, string text)
-            : base(start, end)
-        {
-            this.startText = startText;
-            this.endText = endText;
-            this.text = text;
-        }
-
         public override int FirstLine => Math.Min(Math.Min(base.FirstLine, startText.line), endText.line);
 
         public override void Undo(ICodeModel model)
@@ -130,14 +117,11 @@ public partial class CodeEditor
         public override int ByteCost => 36 + text.Length;
     }
 
-    private abstract class BaseCommentAction : UndoAction
+    private abstract class BaseCommentAction(string lineComment)
+        : UndoAction(Position.Infinite, Position.Infinite)
     {
-        protected List<Position> insertPoints = new();
-        protected string lineComment;
-
-        public BaseCommentAction(string lineComment)
-            : base(Position.Infinite, Position.Infinite) =>
-            this.lineComment = lineComment;
+        protected List<Position> insertPoints = [];
+        protected string lineComment = lineComment;
 
         public void Add(Position position)
         {
@@ -149,10 +133,9 @@ public partial class CodeEditor
         public sealed override int ByteCost => 20 + 8 * insertPoints.Count;
     }
 
-    private sealed class UncommentAction : BaseCommentAction
+    private sealed class UncommentAction(string lineComment)
+        : BaseCommentAction(lineComment)
     {
-        public UncommentAction(string lineComment) : base(lineComment) { }
-
         public override void Undo(ICodeModel model)
         {
             foreach (Position p in insertPoints)
@@ -168,10 +151,9 @@ public partial class CodeEditor
         public override string Description => Rsc.UndoCmdUncomment;
     }
 
-    private sealed class CommentAction : BaseCommentAction
+    private sealed class CommentAction(string lineComment)
+        : BaseCommentAction(lineComment)
     {
-        public CommentAction(string lineComment) : base(lineComment) { }
-
         public override void Undo(ICodeModel model)
         {
             for (int i = insertPoints.Count - 1; i >= 0; i--)
@@ -190,12 +172,10 @@ public partial class CodeEditor
         public override string Description => Rsc.UndoCmdComment;
     }
 
-    private abstract class InsertAction : UndoAction
+    private abstract class InsertAction(Position start, Position end)
+        : UndoAction(start, end)
     {
         private string text = string.Empty;
-
-        protected InsertAction(Position start, Position end)
-            : base(start, end) { }
 
         public override void Redo(ICodeModel model)
         {
@@ -212,11 +192,8 @@ public partial class CodeEditor
         public sealed override int ByteCost => 20 + text.Length;
     }
 
-    private sealed class TypeAction : InsertAction
+    private sealed class TypeAction(Position start, Position end) : InsertAction(start, end)
     {
-        public TypeAction(Position start, Position end)
-            : base(start, end) { }
-
         public override bool TryMerge(UndoAction another)
         {
             if (another is not TypeAction other)
@@ -256,34 +233,19 @@ public partial class CodeEditor
         public override string Description => Rsc.UndoCmdTyping;
     }
 
-    private sealed class DragCopyAction : InsertAction
+    private sealed class DragCopyAction(Position start, Position end) : InsertAction(start, end)
     {
-        public DragCopyAction(Position start, Position end)
-            : base(start, end) { }
-
         public override string Description => Rsc.UndoCmdDragCopy;
     }
 
-    private sealed class PasteAction : InsertAction
+    private sealed class PasteAction(Position start, Position end) : InsertAction(start, end)
     {
-        public PasteAction(Position start, Position end)
-            : base(start, end) { }
-
         public override string Description => Rsc.UndoCmdPaste;
     }
 
-    private sealed class CaseChangeAction : UndoAction
+    private sealed class CaseChangeAction(Position start, Position end, string text, bool toUpper)
+        : UndoAction(start, end)
     {
-        private string text;
-        private readonly bool toUpper;
-
-        public CaseChangeAction(Position start, Position end, string text, bool toUpper)
-            : base(start, end)
-        {
-            this.text = text;
-            this.toUpper = toUpper;
-        }
-
         public override void Undo(ICodeModel model)
         {
             model.DeleteRange(start, end);
@@ -303,14 +265,9 @@ public partial class CodeEditor
         public override int ByteCost => 21 + text.Length;
     }
 
-    private class ReplaceAction : UndoAction
+    private class ReplaceAction(Position start, Position end, string text)
+        : UndoAction(start, end)
     {
-        private string text;
-
-        public ReplaceAction(Position start, Position end, string text)
-            : base(start, end) =>
-            this.text = text;
-
         public override void Undo(ICodeModel model)
         {
             string s = model.TextRange(start, end);
@@ -326,21 +283,15 @@ public partial class CodeEditor
         public override int ByteCost => 20 + text.Length;
     }
 
-    private sealed class SnippetAction : ReplaceAction
+    private sealed class SnippetAction(Position start, Position end, string text)
+        : ReplaceAction(start, end, text)
     {
-        public SnippetAction(Position start, Position end, string text)
-            : base(start, end, text) { }
-
         public override string Description => Rsc.UndoCmdSnippet;
     }
 
-    private sealed class IndentAction : UndoAction
+    private sealed class IndentAction(Position start, Position end, int amount)
+        : UndoAction(start, end)
     {
-        private readonly int amount;
-
-        public IndentAction(Position start, Position end, int amount)
-            : base(start, end) => this.amount = amount;
-
         public override void Redo(ICodeModel model) => model.IndentRange(start, end, amount, null);
 
         public override void Undo(ICodeModel model) => model.UnindentRange(start, end, amount);
@@ -349,18 +300,10 @@ public partial class CodeEditor
         public override int ByteCost => 20;
     }
 
-    private sealed class UnindentAction : UndoAction
+    private sealed class UnindentAction(Position start, Position end, int amount,
+        params int[] exceptions) : UndoAction(start, end)
     {
-        private readonly int amount;
-        private readonly int[] exceptions;
-
-        public UnindentAction(Position start, Position end, int amount,
-            params int[] exceptions)
-            : base(start, end)
-        {
-            this.amount = amount;
-            this.exceptions = exceptions ?? Array.Empty<int>();
-        }
+        private readonly int[] exceptions = exceptions ?? [];
 
         public override void Redo(ICodeModel model) => model.UnindentRange(start, end, amount);
 

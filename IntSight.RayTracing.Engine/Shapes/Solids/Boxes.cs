@@ -640,7 +640,7 @@ internal sealed class OrthoBox : BoxBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape b = new OrthoBox(From, To, transform, m);
+            OrthoBox b = new(From, To, transform, m);
             if (negated)
                 b.Negate();
             return b;
@@ -655,16 +655,14 @@ internal sealed class OrthoBox : BoxBase, IShape
 /// <summary>
 /// Axis aligned box: it can't be rotated, but can be arbitrarily scaled.
 /// </summary>
+/// <remarks>Creates an axis-aligned box.</remarks>
+/// <param name="from">First corner in a diagonal.</param>
+/// <param name="to">Second corner in a diagonal.</param>
+/// <param name="material">Box's material.</param>
 [Properties(nameof(negated), nameof(From), nameof(To), nameof(material))]
-internal sealed class AlignedBox : BoxBase, IShape
+internal sealed class AlignedBox(Vector from, Vector to, IMaterial material)
+    : BoxBase(from, to, material), IShape
 {
-    /// <summary>Creates an axis-aligned box.</summary>
-    /// <param name="from">First corner in a diagonal.</param>
-    /// <param name="to">Second corner in a diagonal.</param>
-    /// <param name="material">Box's material.</param>
-    public AlignedBox(Vector from, Vector to, IMaterial material)
-        : base(from, to, material) { }
-
     #region IShape members.
 
     /// <summary>Intersection test with a light or shadow ray.</summary>
@@ -854,7 +852,7 @@ internal sealed class AlignedBox : BoxBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape b = new AlignedBox(From, To, m);
+            AlignedBox b = new(From, To, m);
             if (negated)
                 b.Negate();
             return b;

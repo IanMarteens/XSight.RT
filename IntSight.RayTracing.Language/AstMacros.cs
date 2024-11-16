@@ -27,7 +27,7 @@ public static class XrtRegistry
         }
     }
 
-    private static readonly List<Type> types = new();
+    private static readonly List<Type> types = [];
     private static readonly Dictionary<string, Type> alias;
     private static readonly Dictionary<string, Macro> macros;
     private static readonly Dictionary<string, Color> colors;
@@ -41,14 +41,14 @@ public static class XrtRegistry
         colors = new(comparer);
         functions = new(comparer);
         // Initialize the color table.
-        foreach (KnownColor kc in Enum.GetValues(typeof(KnownColor)))
+        foreach (KnownColor kc in Enum.GetValues<KnownColor>())
         {
             string knownName = kc.ToString();
             if (typeof(Color).GetProperty(knownName) != null)
                 colors.Add(knownName, Color.FromKnownColor(kc));
         }
         // Initialize the function table.
-        foreach (AstUnary.Operation value in Enum.GetValues(typeof(AstUnary.Operation)))
+        foreach (AstUnary.Operation value in Enum.GetValues<AstUnary.Operation>())
             if (value != AstUnary.Operation.Plus &&
                 value != AstUnary.Operation.Minus)
                 functions.Add(value.ToString(), value);

@@ -185,7 +185,7 @@ public sealed class Intersection : IntersectionBase, IShape
     /// <param name="shape1">Second shape to intersect.</param>
     /// <param name="material">Material this intersection is made of.</param>
     public Intersection(IShape shape0, IShape shape1, IMaterial material)
-        : base(shape0, new IShape[] { shape1 }, material)
+        : base(shape0, [shape1], material)
     {
         int maxHits = MaxHits;
         hits0 = new Hit[maxHits];
@@ -409,12 +409,10 @@ public sealed class Intersection : IntersectionBase, IShape
 /// <summary>Specialized intersection for arbitrary convex operands.</summary>
 [Properties(nameof(squaredRadius))]
 [Children(nameof(shape0), nameof(shapes))]
-internal sealed class InterConvex : IntersectionBase, IShape
+internal sealed class InterConvex(IShape shape0, IShape[] shapes, IMaterial material)
+    : IntersectionBase(shape0, shapes, material), IShape
 {
-    private readonly Hit[] hits0;
-
-    public InterConvex(IShape shape0, IShape[] shapes, IMaterial material)
-        : base(shape0, shapes, material) => hits0 = new Hit[2];
+    private readonly Hit[] hits0 = new Hit[2];
 
     #region IShape members.
 
@@ -720,26 +718,24 @@ internal sealed class Inter2 : IntersectionBase, IShape
     IShape ITransformable.Clone(bool force) =>
         new Inter2(
             shape0.Clone(force),
-            new IShape[] { shape1.Clone(force) },
+            [shape1.Clone(force)],
             material.Clone(force));
 
     #endregion
 }
 
 /// <summary>Specialized intersection for two convex operands.</summary>
+/// <remarks>Creates a binary intersection with two convex operands.</remarks>
+/// <param name="shape0">First convex shape.</param>
+/// <param name="shapes">A single-item array with the second convex shape.</param>
+/// <param name="material">The material this shape is made of.</param>
 [Properties(nameof(squaredRadius))]
 [Children(nameof(shape0), nameof(shape1))]
-internal sealed class Inter2Convex : IntersectionBase, IShape
+internal sealed class Inter2Convex(IShape shape0, IShape[] shapes, IMaterial material)
+    : IntersectionBase(shape0, shapes, material), IShape
 {
     private IShape shape1;
-    private readonly Hit[] hits;
-
-    /// <summary>Creates a binary intersection with two convex operands.</summary>
-    /// <param name="shape0">First convex shape.</param>
-    /// <param name="shapes">A single-item array with the second convex shape.</param>
-    /// <param name="material">The material this shape is made of.</param>
-    public Inter2Convex(IShape shape0, IShape[] shapes, IMaterial material)
-        : base(shape0, shapes, material) => hits = new Hit[2];
+    private readonly Hit[] hits = new Hit[2];
 
     /// <summary>Resets direct references to shapes after changes.</summary>
     protected override void Rebind() => shape1 = shapes[0];
@@ -843,7 +839,7 @@ internal sealed class Inter2Convex : IntersectionBase, IShape
     IShape ITransformable.Clone(bool force) =>
         new Inter2Convex(
             shape0.Clone(force),
-            new IShape[] { shape1.Clone(force) },
+            [shape1.Clone(force)],
             material.Clone(force));
 
     #endregion

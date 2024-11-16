@@ -52,17 +52,14 @@ public abstract class BaseCylindricalCamera : BasicCamera
 }
 
 [XSight(Alias = "Cylindrical")]
-public sealed class CylindricalCamera : BaseCylindricalCamera, ICamera
+public sealed class CylindricalCamera(
+    [Proposed("[0,0,-10]")] Vector location,
+    [Proposed("^0")] Vector target,
+    [Proposed("^Y")] Vector up,
+    [Proposed("60")] double angle,
+    [Proposed("320")] int width,
+    [Proposed("240")] int height) : BaseCylindricalCamera(location, target, up, angle, width, height), ICamera
 {
-    public CylindricalCamera(
-        [Proposed("[0,0,-10]")] Vector location,
-        [Proposed("^0")] Vector target,
-        [Proposed("^Y")] Vector up,
-        [Proposed("60")] double angle,
-        [Proposed("320")] int width,
-        [Proposed("240")] int height)
-        : base(location, target, up, angle, width, height) { }
-
     public CylindricalCamera(
         [Proposed("[0,0,-10]")] Vector location,
         [Proposed("[0,0,0]")] Vector target,
@@ -156,11 +153,9 @@ public sealed class CylindricalCamera : BaseCylindricalCamera, ICamera
 }
 
 /// <summary>Vertical-aligned cylindrical cameras.</summary>
-internal sealed class VerticalCylindricalCamera : BaseCylindricalCamera, ICamera
+internal sealed class VerticalCylindricalCamera(
+    Vector location, Vector target, double angle, int width, int height) : BaseCylindricalCamera(location, target, Vector.YRay, angle, width, height), ICamera
 {
-    public VerticalCylindricalCamera(
-        Vector location, Vector target, double angle, int width, int height)
-        : base(location, target, Vector.YRay, angle, width, height) { }
 
     #region ICamera members.
 
@@ -228,12 +223,10 @@ internal sealed class VerticalCylindricalCamera : BaseCylindricalCamera, ICamera
 }
 
 /// <summary>Cylindrical cameras with angle greater than 90 degrees.</summary>
-internal sealed class WideCylindricalCamera : BaseCylindricalCamera, ICamera
+internal sealed class WideCylindricalCamera(
+    Vector location, Vector target, Vector up,
+    double angle, int width, int height) : BaseCylindricalCamera(location, target, up, angle, width, height), ICamera
 {
-    public WideCylindricalCamera(
-        Vector location, Vector target, Vector up,
-        double angle, int width, int height)
-        : base(location, target, up, angle, width, height) { }
 
     #region ICamera members.
 

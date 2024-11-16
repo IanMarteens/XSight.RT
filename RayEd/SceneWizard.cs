@@ -123,7 +123,7 @@ public partial class SceneWizard : Form
             {
                 Pixel p = (Pixel)property.GetValue(instance, null);
                 Color c = p;
-                foreach (KnownColor kc in Enum.GetValues(typeof(KnownColor)))
+                foreach (KnownColor kc in Enum.GetValues<KnownColor>())
                     if (typeof(Color).GetProperty(kc.ToString()) != null)
                         if (Color.FromKnownColor(kc) == c)
                         {

@@ -324,10 +324,10 @@ public sealed class UnionMerge : MaterialShape, IShape
     }
 
     public UnionMerge(IShape s1, IShape s2, IShape s3, IMaterial material)
-        : this(new[] { s1, s2, s3 }, material) { }
+        : this([s1, s2, s3], material) { }
 
     public UnionMerge(IShape s1, IShape s2, IShape s3, IShape s4, IMaterial material)
-        : this(new[] { s1, s2, s3, s4 }, material) { }
+        : this([s1, s2, s3, s4], material) { }
 
     /// <summary>Updates the bounding box and the bounding sphere around the union.</summary>
     private void RecomputeBounds()

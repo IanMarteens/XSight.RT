@@ -76,7 +76,7 @@ internal class AstObject : AstValue, IAstValue
     IAstValue IAstValue.Clone()
     {
         AstObject other = (AstObject)MemberwiseClone();
-        other.parameters = new List<IAstValue>();
+        other.parameters = [];
         foreach (IAstValue p in parameters)
             other.parameters.Add(p.Clone());
         return other;
@@ -204,11 +204,9 @@ internal class AstObject : AstValue, IAstValue
     #endregion
 }
 
-internal sealed class AstUnion : AstObject, IAstValue
+internal sealed class AstUnion(Errors errors, SourceRange position, object parameters)
+    : AstObject(errors, position, typeof(Union), parameters), IAstValue
 {
-    public AstUnion(Errors errors, SourceRange position, object parameters)
-        : base(errors, position, typeof(Union), parameters) { }
-
     #region IAstValue members
 
     public override object Value
@@ -243,11 +241,9 @@ internal sealed class AstUnion : AstObject, IAstValue
     #endregion
 }
 
-internal sealed class AstBlob : AstObject, IAstValue
+internal sealed class AstBlob(Errors errors, SourceRange position, object parameters)
+    : AstObject(errors, position, typeof(Blob), parameters), IAstValue
 {
-    public AstBlob(Errors errors, SourceRange position, object parameters)
-        : base(errors, position, typeof(Blob), parameters) { }
-
     #region IAstValue members.
 
     public override object Value
@@ -298,12 +294,9 @@ internal sealed class AstBlob : AstObject, IAstValue
     #endregion
 }
 
-internal abstract class AstCsg : AstObject
+internal abstract class AstCsg(Errors errors, SourceRange position,
+    Type classtype, object parameters) : AstObject(errors, position, classtype, parameters)
 {
-    protected AstCsg(Errors errors, SourceRange position,
-        Type classtype, object parameters)
-        : base(errors, position, classtype, parameters) { }
-
     protected bool CheckParameters(Errors errors)
     {
         int start, end;
@@ -370,17 +363,15 @@ internal abstract class AstCsg : AstObject
                 arguments[i] = (IShape)parameters[i + start].Value;
             material ??= ((MaterialShape)arguments[0]).Material;
             return classtype
-                .GetConstructor(new[] { typeof(IShape[]), typeof(IMaterial) })
-                .Invoke(new object[] { arguments, material });
+                .GetConstructor([typeof(IShape[]), typeof(IMaterial)])
+                .Invoke([arguments, material]);
         }
     }
 }
 
-internal sealed class AstIntersection : AstCsg, IAstValue
+internal sealed class AstIntersection(Errors errors, SourceRange position, object parameters)
+    : AstCsg(errors, position, typeof(Intersection), parameters), IAstValue
 {
-    public AstIntersection(Errors errors, SourceRange position, object parameters)
-        : base(errors, position, typeof(Intersection), parameters) { }
-
     #region IAstValue members
 
     public override bool Verify(Type type, Errors errors)
@@ -396,11 +387,9 @@ internal sealed class AstIntersection : AstCsg, IAstValue
     #endregion
 }
 
-internal sealed class AstDifference : AstCsg, IAstValue
+internal sealed class AstDifference(Errors errors, SourceRange position, object parameters)
+    : AstCsg(errors, position, typeof(Difference), parameters), IAstValue
 {
-    public AstDifference(Errors errors, SourceRange position, object parameters)
-        : base(errors, position, typeof(Difference), parameters) { }
-
     #region IAstValue members
 
     public override bool Verify(Type type, Errors errors)

@@ -6,8 +6,8 @@ namespace IntSight.RayTracing.Language;
 
 public sealed class AstScene : IAstNode
 {
-    private readonly List<IAstValue> lights = new();
-    private readonly List<IAstValue> objects = new();
+    private readonly List<IAstValue> lights = [];
+    private readonly List<IAstValue> objects = [];
     private IScene scene;
     private bool rotateCamera;
     private bool keepCameraHeight;
@@ -15,7 +15,7 @@ public sealed class AstScene : IAstNode
 
     public IAstValue Sampler { get; private set; }
     public IAstValue Camera { get; private set; }
-    public List<IAstValue> Ambients { get; } = new();
+    public List<IAstValue> Ambients { get; } = [];
     public IAstValue Background { get; private set; }
     public IAstValue Media { get; private set; }
     public string Title { get; private set; }
@@ -163,12 +163,12 @@ public sealed class AstScene : IAstNode
             title: Title,
             sampler: (ISampler)Sampler.Value,
             camera: cam,
-            lights: lights.ConvertAll(v => (ILight)v.Value).ToArray(),
+            lights: [.. lights.ConvertAll(v => (ILight)v.Value)],
             ambient: Ambients.Count == 1 ?
                 (IAmbient)Ambients[0].Value :
-                new ComboAmbient(Ambients.ConvertAll(v => (IAmbient)v.Value).ToArray()),
+                new ComboAmbient([.. Ambients.ConvertAll(v => (IAmbient)v.Value)]),
             background: (IBackground)Background.Value,
             media: (IMedia)Media?.Value,
-            root: new Union(objects.ConvertAll(v => (IShape)v.Value).ToArray()));
+            root: new Union([.. objects.ConvertAll(v => (IShape)v.Value)]));
     }
 }

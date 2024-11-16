@@ -114,7 +114,7 @@ internal sealed class SUnion : UnionBase, IShape
         {
             var l = shapes.Select(s => s.Clone(force)).ToList();
             l.Add(((ITransformable)tail).Clone(force));
-            return new SUnion(l.ToArray()) { checkBounds = checkBounds };
+            return new SUnion([.. l]) { checkBounds = checkBounds };
         }
         for (int i = 0; i < shapes.Length; i++)
         {
@@ -313,7 +313,7 @@ internal sealed class SUnion2 : UnionBase, IShape
     {
         IShape s0 = shape0.Clone(force), s1 = shape1.Clone(force);
         return force || s0 != shape0 || s1 != shape1 || hits0 != null
-            ? new SUnion2(new[] { s0, s1 }) { checkBounds = checkBounds }
+            ? new SUnion2([s0, s1]) { checkBounds = checkBounds }
             : this;
     }
 

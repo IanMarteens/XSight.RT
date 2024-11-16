@@ -24,7 +24,7 @@ public static class Solver
         public int Count;
         public double R0, R1, R2, R3;
 
-        public double HitTest(double maxt)
+        public readonly double HitTest(double maxt)
         {
             if (Count == 4)
             {
@@ -74,7 +74,7 @@ public static class Solver
                 return -1.0;
         }
 
-        public double HitTest(double lo, double hi, double maxt)
+        public readonly double HitTest(double lo, double hi, double maxt)
         {
             double rslt = -1.0;
             if (Count > 0)
@@ -102,7 +102,7 @@ public static class Solver
             return rslt;
         }
 
-        public void GetHits4Roots(Hit[] hits)
+        public readonly void GetHits4Roots(Hit[] hits)
         {
             if (R0 <= R2)
             {
@@ -154,7 +154,7 @@ public static class Solver
             }
         }
 
-        public override string ToString() => Count switch
+        public override readonly string ToString() => Count switch
         {
             0 => "RTS[]",
             1 => $"RTS[{R0}]",

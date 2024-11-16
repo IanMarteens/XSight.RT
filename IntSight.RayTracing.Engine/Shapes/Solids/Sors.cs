@@ -116,15 +116,12 @@ public abstract class LinearSoR : MaterialShape
 
 [XSight]
 [Properties(nameof(radius), nameof(negated), nameof(bottom), nameof(top), nameof(material))]
-public sealed class Cylinder : LinearSoR, IShape
+public sealed class Cylinder(
+    [Proposed("[0,0,0]")] Vector bottom,
+    [Proposed("[0,1,0]")] Vector top,
+    [Proposed("1")] double radius,
+    IMaterial material) : LinearSoR(bottom, top, radius, material), IShape
 {
-    public Cylinder(
-        [Proposed("[0,0,0]")] Vector bottom,
-        [Proposed("[0,1,0]")] Vector top,
-        [Proposed("1")] double radius,
-        IMaterial material)
-        : base(bottom, top, radius, material) { }
-
     public Cylinder(
         [Proposed("[0,0,0]")] Vector bottom,
         [Proposed("1")] double height,
@@ -310,7 +307,7 @@ public sealed class Cylinder : LinearSoR, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape c = new Cylinder(bottom, top, radius, m);
+            Cylinder c = new(bottom, top, radius, m);
             if (negated)
                 c.Negate();
             return c;
@@ -367,28 +364,18 @@ public sealed class Cylinder : LinearSoR, IShape
 }
 
 /// <summary>Common base for axis-aligned cylinders.</summary>
-internal abstract class CylinderBase : MaterialShape
+/// <remarks>Initializes a cylinder.</remarks>
+/// <param name="bottom">Point at the center of the bottom face.</param>
+/// <param name="top">Poit at the center of the upper face.</param>
+/// <param name="radius">Radius of the cylinder.</param>
+/// <param name="material">Material the cylinder is made of.</param>
+internal abstract class CylinderBase(Vector bottom, Vector top, double radius, IMaterial material)
+    : MaterialShape(material)
 {
-    protected Vector bottom, top;
-    protected double radius, height, r2, rinv, rInvNg;
+    protected Vector bottom = bottom, top = top;
+    protected double radius = radius, height = top.Distance(bottom);
+    protected double r2 = radius * radius, rinv = 1.0 / radius, rInvNg = 1.0 / radius;
     protected bool negated;
-
-    /// <summary>Initializes a cylinder.</summary>
-    /// <param name="bottom">Point at the center of the bottom face.</param>
-    /// <param name="top">Poit at the center of the upper face.</param>
-    /// <param name="radius">Radius of the cylinder.</param>
-    /// <param name="material">Material the cylinder is made of.</param>
-    protected CylinderBase(Vector bottom, Vector top, double radius, IMaterial material)
-        : base(material)
-    {
-        this.bottom = bottom;
-        this.top = top;
-        this.radius = radius;
-        r2 = radius * radius;
-        rinv = 1.0 / radius;
-        rInvNg = 1.0 / radius;
-        height = top.Distance(bottom);
-    }
 
     /// <summary>The center of the bounding sphere.</summary>
     public override Vector Centroid => 0.5 * (bottom + top);
@@ -574,7 +561,7 @@ internal sealed class XCylinder : CylinderBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape c = new XCylinder(bottom, top, radius, m);
+            XCylinder c = new(bottom, top, radius, m);
             if (negated)
                 c.Negate();
             return c;
@@ -750,7 +737,7 @@ internal sealed class YCylinder : CylinderBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape c = new YCylinder(bottom, top, radius, m);
+            YCylinder c = new(bottom, top, radius, m);
             if (negated)
                 c.Negate();
             return c;
@@ -924,7 +911,7 @@ internal sealed class ZCylinder : CylinderBase, IShape
         IMaterial m = material.Clone(force);
         if (force || m != material)
         {
-            IShape c = new ZCylinder(bottom, top, radius, m);
+            ZCylinder c = new(bottom, top, radius, m);
             if (negated)
                 c.Negate();
             return c;

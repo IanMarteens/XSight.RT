@@ -5,7 +5,7 @@ public sealed class CrackleNoise
 {
     private static class HashFactory
     {
-        private static readonly Dictionary<int, short[]> cache = new();
+        private static readonly Dictionary<int, short[]> cache = [];
 
         public static short[] Create(int seed)
         {

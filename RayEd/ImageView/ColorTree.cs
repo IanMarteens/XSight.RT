@@ -35,7 +35,7 @@ public class ColorTree
     /// <summary>Creates a color tree and initializes it with all known colors.</summary>
     public ColorTree()
     {
-        foreach (var color in from KnownColor kc in Enum.GetValues(typeof(KnownColor))
+        foreach (var color in from KnownColor kc in Enum.GetValues<KnownColor>()
                               where typeof(Color).GetProperty(kc.ToString()) != null
                               let c = Color.FromKnownColor(kc)
                               where c.A == 255
@@ -59,7 +59,7 @@ public class ColorTree
     }
 
     public static IEnumerable<IGrouping<string, Color>> GetColorList() =>
-        from KnownColor kc in Enum.GetValues(typeof(KnownColor))
+        from KnownColor kc in Enum.GetValues<KnownColor>()
         where typeof(Color).GetProperty(kc.ToString()) != null
         let c = Color.FromKnownColor(kc)
         where c.A == 255

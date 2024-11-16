@@ -19,14 +19,14 @@ public sealed class AstBuilder : BaseParser, ITimeProvider
     private AstBuilder(double currentTime)
     {
         XrtRegistry.ClearMacros();
-        XrtRegistry.AddMacro("clock", new(),
+        XrtRegistry.AddMacro("clock", [],
             new AstSpline(new List<AstSplinePoint>
             {
                 new(new AstNumber(0.0)),
                 new(new AstNumber(1.0))
             },
             this));
-        XrtRegistry.AddMacro("pi", new(), new AstNumber(Math.PI));
+        XrtRegistry.AddMacro("pi", [], new AstNumber(Math.PI));
         Time = currentTime;
     }
 
@@ -193,7 +193,7 @@ public sealed class AstBuilder : BaseParser, ITimeProvider
                         return new AstUnary(op, e[2]);
                     else
                         return ObjectCall(errors, ResultRange, s,
-                            ((List<IAstValue>)e[2]).ToArray());
+                            [.. ((List<IAstValue>)e[2])]);
                 }
 
             case RNum.ObjectList:
@@ -323,7 +323,7 @@ public sealed class AstBuilder : BaseParser, ITimeProvider
     {
         if (item is not List<X> list)
         {
-            list = new();
+            list = [];
             if (item is X value)
                 list.Add(value);
         }

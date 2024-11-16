@@ -46,10 +46,10 @@ public sealed class Difference : MaterialShape, IShape
         this(shapes, material, true) { }
 
     public Difference(IShape shape0, IShape shape1, IMaterial material)
-        : this(new IShape[] { shape0, shape1 }, material) { }
+        : this([shape0, shape1], material) { }
 
     public Difference(IShape shape0, IShape shape1)
-        : this(new IShape[] { shape0, shape1 }, ((MaterialShape)shape0).Material) { }
+        : this([shape0, shape1], ((MaterialShape)shape0).Material) { }
 
     /// <summary>Finds the first positive intersection with a ray.</summary>
     /// <param name="ray">Ray to check.</param>
@@ -89,7 +89,7 @@ public sealed class Difference : MaterialShape, IShape
                 while (++i0 < total0);
             }
             total0 = accTotal;
-            Hit[] temp = acc; acc = h0; h0 = temp;
+            (h0, acc) = (acc, h0);
         }
         for (int i = 0; i < total0; i++)
         {
@@ -173,7 +173,7 @@ public sealed class Difference : MaterialShape, IShape
                 while (++i0 < total0);
             }
             total0 = accTotal;
-            Hit[] temp = accum; accum = hits0; hits0 = temp;
+            (hits0, accum) = (accum, hits0);
         }
         Array.Copy(hits0, hits, total0);
         return total0;
@@ -448,17 +448,11 @@ internal abstract class BinaryDiff : MaterialShape
 
 /// <summary>Specialized difference between two arbitrary shapes.</summary>
 [Children(nameof(shape0), nameof(shape1))]
-internal sealed class Diff2 : BinaryDiff, IShape
+internal sealed class Diff2(IShape shape0, IShape shape1, IMaterial material)
+    : BinaryDiff(shape0, shape1, material), IShape
 {
-    private readonly Hit[] hits0;
-    private readonly Hit[] hits1;
-
-    public Diff2(IShape shape0, IShape shape1, IMaterial material)
-        : base(shape0, shape1, material)
-    {
-        hits0 = new Hit[shape0.MaxHits];
-        hits1 = new Hit[shape1.MaxHits];
-    }
+    private readonly Hit[] hits0 = new Hit[shape0.MaxHits];
+    private readonly Hit[] hits1 = new Hit[shape1.MaxHits];
 
     public Diff2(IShape shape0, IShape shape1)
         : this(shape0, shape1, ((MaterialShape)shape0).Material) { }
@@ -609,12 +603,10 @@ internal sealed class Diff2 : BinaryDiff, IShape
 
 /// <summary>Specialized difference between two convex shapes.</summary>
 [Children(nameof(shape0), nameof(shape1))]
-internal sealed class Diff2Convex : BinaryDiff, IShape
+internal sealed class Diff2Convex(IShape shape0, IShape shape1, IMaterial material)
+    : BinaryDiff(shape0, shape1, material), IShape
 {
-    private readonly Hit[] hits;
-
-    public Diff2Convex(IShape shape0, IShape shape1, IMaterial material)
-        : base(shape0, shape1, material) => hits = new Hit[2];
+    private readonly Hit[] hits = new Hit[2];
 
     public Diff2Convex(IShape shape0, IShape shape1)
         : this(shape0, shape1, ((MaterialShape)shape0).Material) { }

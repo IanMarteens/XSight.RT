@@ -7,7 +7,6 @@ namespace IntSight.RayTracing.Engine;
 /// <param name="value">Alpha, red, green and blue channels.</param>
 public readonly struct TransPixel(uint value)
 {
-
     /// <summary>Gets the blue channel of the color.</summary>
     public byte B => unchecked((byte)value);
     /// <summary>Gets the green channel of the color.</summary>
